@@ -4,6 +4,7 @@ public class PlayerMovement : MonoBehaviour
 {
     private PlayerControls controls;
     private CharacterController characterController;
+    private Animator animator;
     [Header("Movement Info")]
     [SerializeField] private float walkSpeed;
     private Vector3 movementDirection;
@@ -33,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         characterController = GetComponent<CharacterController>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     private void Update()
@@ -40,6 +42,17 @@ public class PlayerMovement : MonoBehaviour
         ApplyMovement();
 
         AimTowardMouse();
+        
+        AnimatorController();
+    }
+
+    private void AnimatorController()
+    {
+        float xVelocity = Vector3.Dot(movementDirection.normalized, transform.right);
+        float zVelocity = Vector3.Dot(movementDirection.normalized, transform.forward);
+        
+        animator.SetFloat("xVelocity", xVelocity, 0.1f, Time.deltaTime);
+        animator.SetFloat("zVelocity", zVelocity, 0.1f, Time.deltaTime);
     }
 
     private void AimTowardMouse()
