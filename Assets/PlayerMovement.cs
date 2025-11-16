@@ -1,11 +1,16 @@
-using System;
+
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     private PlayerControls controls;
-    public Vector2 moveInput;
-    public Vector2 aimInput;
+    private CharacterController characterController;
+    [Header("Movement Info")]
+    [SerializeField] private float walkSpeed;
+    public Vector3 movementDirection;
+    
+    private Vector2 moveInput;
+    private Vector2 aimInput;
 
     private void Awake()
     {
@@ -17,6 +22,21 @@ public class PlayerMovement : MonoBehaviour
         
         controls.Character.Aim.performed += context => aimInput = context.ReadValue<Vector2>();
         controls.Character.Aim.canceled += context => aimInput = Vector2.zero;
+    }
+
+    private void Start()
+    {
+        characterController = GetComponent<CharacterController>();
+    }
+
+    private void Update()
+    {
+        movementDirection =  new Vector3(moveInput.x, 0, moveInput.y);
+
+        if (movementDirection.magnitude > 0)
+        {
+            characterController.Move(movementDirection * (Time.deltaTime * walkSpeed));
+        }
     }
 
     private void Shoot()
