@@ -1126,8 +1126,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88100032656c21a4b9a1b06e615f3be0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 5
-  gravityScale: 9.81
+  walkSpeed: 1.5
+  runSpeed: 3
   aim: {fileID: 1285950876}
   aimLayerMask:
     serializedVersion: 2
