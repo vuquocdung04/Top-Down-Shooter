@@ -1,4 +1,4 @@
-using System;
+
 using UnityEngine;
 
 public class WeaponVisualController : MonoBehaviour
@@ -10,6 +10,10 @@ public class WeaponVisualController : MonoBehaviour
     [SerializeField] private Transform autoRife;
     [SerializeField] private Transform shotgun;
     [SerializeField] private Transform sniper;
+
+    private Transform currentGun;
+    [Header("Left hand IK")]
+    [SerializeField] private Transform leftHand;
 
     private void Update()
     {
@@ -30,6 +34,8 @@ public class WeaponVisualController : MonoBehaviour
     {
         SwitchOffGun();
         gunTransform.gameObject.SetActive(true);
+        currentGun = gunTransform;
+        AttachLeftHand();
     }
 
     private void SwitchOffGun()
@@ -38,5 +44,13 @@ public class WeaponVisualController : MonoBehaviour
         {
             gunsTransform[i].gameObject.SetActive(false);
         }
+    }
+
+    private void AttachLeftHand()
+    {
+        Transform targetTransform = currentGun.GetComponentInChildren<LeftHandTargetTransform>().transform;
+        
+        leftHand.localPosition = targetTransform.localPosition;
+        leftHand.localRotation = targetTransform.localRotation;
     }
 }
