@@ -2015,10 +2015,10 @@ MonoBehaviour:
   autoRife: {fileID: 934726233}
   shotgun: {fileID: 162485977}
   sniper: {fileID: 843007047}
-  rigIncreaseStep: 3
+  rigWeightIncreaseRate: 2.5
+  leftHandIKIncreaseRate: 2.5
   leftHandIK: {fileID: 65783081}
   leftHand_Target: {fileID: 65783080}
-  leftHandIncreaseStep: 2.5
 --- !u!1 &2118607399
 GameObject:
   m_ObjectHideFlags: 0
