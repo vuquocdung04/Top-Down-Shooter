@@ -25,6 +25,28 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!1101 &-8395485255642266244
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions: []
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: 225975210329053347}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0.25
+  m_TransitionOffset: 0
+  m_ExitTime: 1
+  m_HasExitTime: 1
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1107 &-7870977145734042992
 AnimatorStateMachine:
   serializedVersion: 6
@@ -36,21 +58,52 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 225975210329053347}
-    m_Position: {x: 339.95285, y: 165.2235, z: 0}
+    m_Position: {x: 350, y: 260, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6709988841314383863}
-    m_Position: {x: 340, y: 30, z: 0}
+    m_Position: {x: 350, y: -30, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -7312627802270737929}
+    m_Position: {x: -10, y: 120, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: -4289000165278817785}
+  - {fileID: 3359035206889631967}
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 50, y: 20, z: 0}
-  m_EntryPosition: {x: 30, y: 170, z: 0}
+  m_AnyStatePosition: {x: 20, y: -30, z: 0}
+  m_EntryPosition: {x: 30, y: 280, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 225975210329053347}
+--- !u!1102 &-7312627802270737929
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Weapon Reload
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions:
+  - {fileID: -8395485255642266244}
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 927f2b53c8b710d48b2645dc0099d005, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!206 &-5270969907508692558
 BlendTree:
   m_ObjectHideFlags: 1
@@ -294,6 +347,12 @@ AnimatorController:
   m_Name: Player_AC
   serializedVersion: 5
   m_AnimatorParameters:
+  - m_Name: Reload
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
   - m_Name: Fire
     m_Type: 9
     m_DefaultFloat: 0
@@ -347,10 +406,19 @@ AnimatorController:
     m_Name: Shotgun Weapon Layer
     m_StateMachine: {fileID: -4971754971406256931}
     m_Mask: {fileID: 31900000, guid: 7ded0943342b5f447b859cde2d69423b, type: 2}
-    m_Motions: []
+    m_Motions:
+    - serializedVersion: 2
+      m_State: {fileID: 6709988841314383863}
+      m_Motion: {fileID: -203655887218126122, guid: d34462eb2130fb1439ada57a7348bbcf, type: 3}
+    - serializedVersion: 2
+      m_State: {fileID: 225975210329053347}
+      m_Motion: {fileID: -203655887218126122, guid: 5fbdbc188b603ea45a7e058c2f62a067, type: 3}
+    - serializedVersion: 2
+      m_State: {fileID: -7312627802270737929}
+      m_Motion: {fileID: 7400000, guid: 6a4114ee9193859428299abbc7cc2c70, type: 2}
     m_Behaviours: []
     m_BlendingMode: 0
-    m_SyncedLayerIndex: -1
+    m_SyncedLayerIndex: 1
     m_DefaultWeight: 0
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
@@ -359,10 +427,19 @@ AnimatorController:
     m_Name: Sniper Weapon Layer
     m_StateMachine: {fileID: -3723272099399168410}
     m_Mask: {fileID: 31900000, guid: 7ded0943342b5f447b859cde2d69423b, type: 2}
-    m_Motions: []
+    m_Motions:
+    - serializedVersion: 2
+      m_State: {fileID: 6709988841314383863}
+      m_Motion: {fileID: -203655887218126122, guid: f33509c368514bd4db726fe348ef7423, type: 3}
+    - serializedVersion: 2
+      m_State: {fileID: 225975210329053347}
+      m_Motion: {fileID: -203655887218126122, guid: 6fedcce9221e62a4c86bec66e5a30002, type: 3}
+    - serializedVersion: 2
+      m_State: {fileID: -7312627802270737929}
+      m_Motion: {fileID: 7400000, guid: 5783ee0652146834badf78c8ba2f0a40, type: 2}
     m_Behaviours: []
     m_BlendingMode: 0
-    m_SyncedLayerIndex: -1
+    m_SyncedLayerIndex: 1
     m_DefaultWeight: 0
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
@@ -401,7 +478,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Auto Fire Idle
+  m_Name: Gun Idle
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -467,6 +544,31 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!1101 &3359035206889631967
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Reload
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: -7312627802270737929}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0
+  m_TransitionOffset: 0
+  m_ExitTime: 0.75
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 0
 --- !u!1102 &3734244837049835622
 AnimatorState:
   serializedVersion: 6
@@ -649,7 +751,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Auto Fire
+  m_Name: Weapon Fire
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
