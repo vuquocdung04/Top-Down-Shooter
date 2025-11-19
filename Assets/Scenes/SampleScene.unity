@@ -2131,6 +2131,8 @@ MonoBehaviour:
   bulletPrefab: {fileID: 9104223003364152627, guid: 16917888082ae384d9c7b8a79c542f98, type: 3}
   bulletSpeed: 20
   gunPoint: {fileID: 655750475}
+  weaponHolder: {fileID: 8429653311762062427}
+  aim: {fileID: 1103645544}
 --- !u!114 &2000135662
 MonoBehaviour:
   m_ObjectHideFlags: 0
