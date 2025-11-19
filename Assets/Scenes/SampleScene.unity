@@ -1082,7 +1082,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
-  m_LocalPosition: {x: 0, y: 0.49000025, z: -0.00000023841858}
+  m_LocalPosition: {x: 0, y: -2.9741015, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1134,7 +1134,7 @@ GameObject:
   - component: {fileID: 1103645543}
   - component: {fileID: 1103645542}
   m_Layer: 10
-  m_Name: Aim
+  m_Name: Aim_Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2368,7 +2368,6 @@ MonoBehaviour:
   bulletSpeed: 20
   gunPoint: {fileID: 655750475}
   weaponHolder: {fileID: 8429653311762062427}
-  aim: {fileID: 1103645544}
 --- !u!114 &2000135662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2637,7 +2636,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
-  m_CameraDistance: 6
+  m_CameraDistance: 2
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
   m_DeadZoneDepth: 0
@@ -2735,7 +2734,7 @@ Transform:
   m_GameObject: {fileID: 2098766563}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
-  m_LocalPosition: {x: 0, y: 0.49000025, z: -0.00000023841858}
+  m_LocalPosition: {x: 0, y: -2.9741015, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5777,8 +5776,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9203094477302236897}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.24703684, y: 0.5849294, z: 0.38913155, w: 0.66738826}
-  m_LocalPosition: {x: -0.0229, y: 0.2279, z: 0.0257}
+  m_LocalRotation: {x: -0.44148913, y: 0.59661716, z: 0.49543604, w: 0.45130742}
+  m_LocalPosition: {x: -0.021, y: 0.229, z: 0.034}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5789,7 +5788,7 @@ Transform:
   - {fileID: 843007047}
   - {fileID: 1245399737}
   m_Father: {fileID: 4471166461630768290}
-  m_LocalEulerAnglesHint: {x: -88.649, y: 100, z: 0}
+  m_LocalEulerAnglesHint: {x: -81.756, y: 135.19, z: -33.725}
 --- !u!4 &8429841510567920751
 Transform:
   m_ObjectHideFlags: 0
@@ -6061,6 +6060,7 @@ LineRenderer:
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 1}
+  - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.1
@@ -6107,17 +6107,17 @@ LineRenderer:
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 65535
-      atime2: 0
+      atime1: 61295
+      atime2: 65535
       atime3: 0
       atime4: 0
       atime5: 0
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_ColorSpace: -1
+      m_ColorSpace: 0
       m_NumColorKeys: 2
-      m_NumAlphaKeys: 2
+      m_NumAlphaKeys: 3
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
