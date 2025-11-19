@@ -28,7 +28,7 @@ public class PlayerWeaponController : MonoBehaviour
         GetComponentInChildren<Animator>().SetTrigger("Fire");
     }
 
-    private Vector3 BulletDirection()
+    public Vector3 BulletDirection()
     {
         Vector3 direction = (aim.position - gunPoint.position).normalized;
 
@@ -40,10 +40,5 @@ public class PlayerWeaponController : MonoBehaviour
         return direction;
     }
 
-    // private void OnDrawGizmos()
-    // {
-    //     Gizmos.DrawLine(weaponHolder.position, weaponHolder.position + weaponHolder.forward * 25f);
-    //     Gizmos.color = Color.yellow;
-    //     Gizmos.DrawLine(gunPoint.position, gunPoint.position + BulletDirection() * 25f);
-    // }
+    public Transform GunPoint() => gunPoint;
 }
