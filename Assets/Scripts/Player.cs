@@ -8,14 +8,14 @@ public class Player : MonoBehaviour
     
     public PlayerMovement movement { get; private set; }
     
-    public PlayerWeaponController Weapon { get; private set; }
+    public PlayerWeaponController weapon { get; private set; }
 
     private void Awake()
     {
         controls = new PlayerControls();
         aim = GetComponent<PlayerAim>();
         movement = GetComponent<PlayerMovement>();
-        Weapon = GetComponent<PlayerWeaponController>();
+        weapon = GetComponent<PlayerWeaponController>();
     }
     
     private void OnEnable()

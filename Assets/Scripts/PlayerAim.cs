@@ -54,8 +54,8 @@ public class PlayerAim : MonoBehaviour
 
     private void UpdateAimVisuals()
     {
-        Transform gunPoint = player.Weapon.GunPoint();
-        Vector3 laserDirection = player.Weapon.BulletDirection();
+        Transform gunPoint = player.weapon.GunPoint();
+        Vector3 laserDirection = player.weapon.BulletDirection();
         
         float laserTipLenght = 0.5f;
         float gunDistance = 4f;
@@ -79,7 +79,11 @@ public class PlayerAim : MonoBehaviour
 
         if (target != null && isLockingToTarget)
         {
-            aim.position = target.position;
+            if (target.GetComponent<Renderer>() != null)
+                aim.position = target.GetComponent<Renderer>().bounds.center;
+            else
+                aim.position = target.position;
+            
             return;
         }
         
