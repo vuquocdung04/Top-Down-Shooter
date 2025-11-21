@@ -147,6 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abe3ae32638545a2b155f54a5534c7a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletImpactFX: {fileID: 4190109442659438722, guid: 47486ce385378b445b57e4636be1dfcb, type: 3}
 --- !u!96 &772672204357610860
 TrailRenderer:
   serializedVersion: 3
@@ -189,7 +190,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.5
+  m_Time: 0.3
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -199,7 +200,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.0925407
+        value: 0.032833062
         inSlope: 0
         outSlope: 0
         tangentMode: 0
