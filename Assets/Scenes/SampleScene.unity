@@ -289,7 +289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 4
-  grabType: 1
+  equipAnimationType: 1
   holdType: 2
   gunPoint: {fileID: 1075894185}
   holdPoint: {fileID: 2118607400}
@@ -554,6 +554,8 @@ MonoBehaviour:
     bulletsInMagazine: 0
     magazineCapacity: 10
     totalReserveAmmo: 500
+    reloadSpeed: 1
+    equipmentSpeed: 1
 --- !u!4 &363953396
 Transform:
   m_ObjectHideFlags: 0
@@ -1175,7 +1177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 2
-  grabType: 0
+  equipAnimationType: 0
   holdType: 1
   gunPoint: {fileID: 100006925}
   holdPoint: {fileID: 1538211299}
@@ -1294,7 +1296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 5
-  grabType: 1
+  equipAnimationType: 1
   holdType: 3
   gunPoint: {fileID: 655750475}
   holdPoint: {fileID: 1329723257}
@@ -1396,7 +1398,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 3
-  grabType: 1
+  equipAnimationType: 1
   holdType: 1
   gunPoint: {fileID: 104322425}
   holdPoint: {fileID: 1236599003}
@@ -2764,7 +2766,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 1
-  grabType: 0
+  equipAnimationType: 0
   holdType: 1
   gunPoint: {fileID: 1043198562}
   holdPoint: {fileID: 454425561}
@@ -3209,19 +3211,25 @@ MonoBehaviour:
     bulletsInMagazine: 0
     magazineCapacity: 0
     totalReserveAmmo: 0
+    reloadSpeed: 1
+    equipmentSpeed: 1
   bulletPrefab: {fileID: 9104223003364152627, guid: 16917888082ae384d9c7b8a79c542f98, type: 3}
   bulletSpeed: 30
   gunPoint: {fileID: 655750475}
   weaponHolder: {fileID: 8429653311762062427}
   weaponSlots:
-  - weaponType: 1
+  - weaponType: 4
     bulletsInMagazine: 0
     magazineCapacity: 5
     totalReserveAmmo: 5455
-  - weaponType: 3
+    reloadSpeed: 1
+    equipmentSpeed: 1
+  - weaponType: 5
     bulletsInMagazine: 0
     magazineCapacity: 10
     totalReserveAmmo: 555
+    reloadSpeed: 1
+    equipmentSpeed: 1
   maxSlots: 2
 --- !u!114 &2000135662
 MonoBehaviour:

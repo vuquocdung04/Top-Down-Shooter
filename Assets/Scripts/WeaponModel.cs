@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public enum GrabType
+public enum EquipType
 {
-    SideGrab,
-    BackGrab
+    SideEquipAnimation = 0,
+    BackEquipAnimation = 1,
 }
 
 public enum HoldType
@@ -15,7 +15,7 @@ public enum HoldType
 public class WeaponModel : MonoBehaviour
 {
     public WeaponType weaponType;
-    public GrabType grabType; // lay
+    public EquipType equipAnimationType; // lay
     public HoldType holdType;
     
     public Transform gunPoint;

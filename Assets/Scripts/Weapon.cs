@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public enum WeaponType
 {
     None = 0,
@@ -9,7 +11,6 @@ public enum WeaponType
 }
 
 
-
 [System.Serializable]
 public class Weapon
 {
@@ -18,6 +19,9 @@ public class Weapon
     public int magazineCapacity; // suc chua
     public int totalReserveAmmo; // du tru
 
+    [Range(1, 3)] public float reloadSpeed = 1;
+
+    [Range(1, 3)] public float equipmentSpeed = 1;
     public bool CanShoot() => HaveEnoughBullets();
 
     private bool HaveEnoughBullets()
@@ -29,22 +33,22 @@ public class Weapon
 
     public bool CanReload()
     {
-        if(bulletsInMagazine == magazineCapacity) return false;
+        if (bulletsInMagazine == magazineCapacity) return false;
         return totalReserveAmmo > 0;
     }
 
     public void RefillBullets()
     {
         //totalReserveAmmo += bulletsInMagazine; 
-        
+
         int bulletsToReload = magazineCapacity;
-        if(bulletsToReload > totalReserveAmmo)
+        if (bulletsToReload > totalReserveAmmo)
             bulletsToReload = totalReserveAmmo;
-        
+
         totalReserveAmmo -= bulletsToReload;
         bulletsInMagazine = bulletsToReload;
-        
-        if(totalReserveAmmo < 0)
+
+        if (totalReserveAmmo < 0)
             totalReserveAmmo = 0;
     }
 }
