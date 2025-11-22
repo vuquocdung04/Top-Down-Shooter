@@ -6,17 +6,18 @@ public class PlayerWeaponVisuals : MonoBehaviour
     private Player player;
     private Animator anim;
     private bool isGrabbingWeapon;
-    
+
 
     [SerializeField] private WeaponModel[] weaponModels;
-    
-    [Header("Rig")]
-    [SerializeField] private float rigWeightIncreaseRate;
+    [SerializeField] private BackupWeaponModel[] backupWeaponModels;
+
+    [Header("Rig")] [SerializeField] private float rigWeightIncreaseRate;
     private bool shouldIncrease_RigWeight;
     private Rig rig;
 
-    [Header("Left hand IK")]
-    [SerializeField] private float leftHandIKIncreaseRate;
+    [Header("Left hand IK")] [SerializeField]
+    private float leftHandIKIncreaseRate;
+
     [SerializeField] private TwoBoneIKConstraint leftHandIK;
     [SerializeField] private Transform leftHand_Target;
     private bool shouldIncrease_LeftHandIKWeight;
@@ -27,7 +28,7 @@ public class PlayerWeaponVisuals : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         rig = GetComponentInChildren<Rig>();
         weaponModels = GetComponentsInChildren<WeaponModel>(true);
-        
+        backupWeaponModels = GetComponentsInChildren<BackupWeaponModel>(true);
     }
 
     private void Update()
@@ -50,21 +51,21 @@ public class PlayerWeaponVisuals : MonoBehaviour
 
         return weaponModel;
     }
-    
+
     public void PlayReloadAnimation()
     {
-        if(isGrabbingWeapon) return;
+        if (isGrabbingWeapon) return;
         anim.SetTrigger("Reload");
         ReduceRigWeight();
     }
-    
+
     public void PlayWeaponEquipAnimation()
     {
         GrabType grabType = CurrentWeaponModel().grabType;
-        
+
         leftHandIK.weight = 0;
         ReduceRigWeight();
-        anim.SetFloat("WeaponGrabType",(float)grabType);
+        anim.SetFloat("WeaponGrabType", (float)grabType);
         anim.SetTrigger("Weapon Grab");
         SetBusyGrabbingWeaponTo(true);
     }
@@ -74,10 +75,17 @@ public class PlayerWeaponVisuals : MonoBehaviour
         isGrabbingWeapon = busy;
         anim.SetBool("BusyGrabbingWeapon", isGrabbingWeapon);
     }
+
     public void SwitchOnCurrentWeaponModel()
     {
         int animationIndex = (int)(CurrentWeaponModel().holdType);
-        
+
+        SwitchOffWeaponModels();
+        SwitchOffBackupWeaponModel();
+
+        if (!player.weapon.HasOnlyOneWeapon())
+            SwitchOnBackupWeaponModel();
+
         SwitchAnimationLayer(animationIndex);
         CurrentWeaponModel().gameObject.SetActive(true);
         AttachLeftHand();
@@ -91,21 +99,41 @@ public class PlayerWeaponVisuals : MonoBehaviour
         }
     }
 
+    private void SwitchOffBackupWeaponModel()
+    {
+        foreach (var backupModel in backupWeaponModels)
+        {
+            backupModel.gameObject.SetActive(false);
+        }
+    }
+
+    public void SwitchOnBackupWeaponModel()
+    {
+        WeaponType weaponType = player.weapon.BackupWeapon().weaponType;
+        foreach (var backupModel in backupWeaponModels)
+        {
+            if (backupModel.weaponType == weaponType)
+                backupModel.gameObject.SetActive(true);
+        }
+    }
+
     private void SwitchAnimationLayer(int layerIndex)
     {
         for (int i = 1; i < anim.layerCount; i++)
         {
             anim.SetLayerWeight(i, 0);
         }
+
         anim.SetLayerWeight(layerIndex, 1);
     }
-    
-    
+
+
     #region Animation Rigging Methods
+
     private void AttachLeftHand()
     {
         Transform targetTransform = CurrentWeaponModel().holdPoint;
-        
+
         leftHand_Target.localPosition = targetTransform.localPosition;
         leftHand_Target.localRotation = targetTransform.localRotation;
     }
@@ -126,17 +154,18 @@ public class PlayerWeaponVisuals : MonoBehaviour
         if (shouldIncrease_RigWeight)
         {
             rig.weight += rigWeightIncreaseRate * Time.deltaTime;
-            if(rig.weight >= 1)
+            if (rig.weight >= 1)
                 shouldIncrease_RigWeight = false;
         }
     }
+
     private void ReduceRigWeight()
     {
         rig.weight = 0.15f;
     }
-    
+
     public void MaximizeRigWeight() => shouldIncrease_RigWeight = true;
     public void MaximizeLeftHandWeight() => shouldIncrease_LeftHandIKWeight = true;
+
     #endregion
 }
-
