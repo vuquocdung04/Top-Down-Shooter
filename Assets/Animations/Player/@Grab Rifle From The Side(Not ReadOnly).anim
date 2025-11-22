@@ -38541,6 +38541,13 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+  - time: 0.7
+    functionName: SwitchOnWeaponModel
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 1
     functionName: ReturnRig
     data: 
@@ -38549,7 +38556,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 1.5333333
-    functionName: WeaponGrabOver
+    functionName: WeaponGrabIsOver
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
