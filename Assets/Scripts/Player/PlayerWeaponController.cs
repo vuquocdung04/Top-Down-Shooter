@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -33,8 +34,11 @@ public class PlayerWeaponController : MonoBehaviour
 
     private void Update()
     {
-        if(isShooting)
+        if (isShooting)
             Shoot();
+
+        if (Input.GetKeyDown(KeyCode.T))
+            currentWeapon.ToggleBurst();
     }
 
 
@@ -75,13 +79,42 @@ public class PlayerWeaponController : MonoBehaviour
 
     #endregion
 
+    private IEnumerator BurstFire()
+    {
+        SetWeaponReady(false);
+        for (int i = 1; i <= currentWeapon.bulletsPerShot; i++)
+        {
+            FireSingleBullet();
+            
+            yield return new WaitForSeconds(currentWeapon.burstFireDelay);
+            
+            if (i >= currentWeapon.bulletsPerShot)
+                SetWeaponReady(true);
+        }
+    }
+
     private void Shoot()
     {
-        if(!WeaponReady()) return;
-        if (!currentWeapon.CanShoot()) return;
+        if (!WeaponReady()) return;
+        if (!CurrentWeapon().CanShoot()) return;
+        
+        player.weaponVisuals.PlayFireAnimation();
 
-        if (currentWeapon.shootType == ShootType.Single)
+        if (CurrentWeapon().shootType == ShootType.Single)
             isShooting = false;
+
+        if (CurrentWeapon().BurstActivated())
+        {
+            StartCoroutine(BurstFire());
+            return;
+        }
+        FireSingleBullet();
+        
+    }
+
+    private void FireSingleBullet()
+    {
+        currentWeapon.bulletsInMagazine--;
         
         GameObject newBullet = ObjectPool.instance.GetBullet();
 
@@ -91,12 +124,9 @@ public class PlayerWeaponController : MonoBehaviour
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
 
         Vector3 bulletsDirection = currentWeapon.ApplySpread(BulletDirection());
-        
+
         rbNewBullet.mass = REFERENCE_BULLET_SPEED / bulletSpeed;
         rbNewBullet.velocity = bulletsDirection * bulletSpeed;
-        
-        
-        player.weaponVisuals.PlayFireAnimation();
     }
 
     private void Reload()
@@ -138,9 +168,9 @@ public class PlayerWeaponController : MonoBehaviour
 
     private void AssignInputEvents()
     {
-        player.controls.Character.Fire.performed += context =>  isShooting = true;
+        player.controls.Character.Fire.performed += context => isShooting = true;
         player.controls.Character.Fire.canceled += context => isShooting = false;
-        
+
         player.controls.Character.EquipSlot1.performed += context => EquipWeapon(0);
         player.controls.Character.EquipSlot2.performed += context => EquipWeapon(1);
 

@@ -22,11 +22,25 @@ public class Weapon
 {
     public WeaponType weaponType;
     [Header("Shooting specifics")] public ShootType shootType;
-    [Space] public float fireRate = 1; // bullets per second
+    [Tooltip("Số lượng đạn bay ra trong 1 lần bóp cò (Shotgun thì để > 1, súng thường là 1)")]
+    public int bulletsPerShot;
+    [Tooltip("Tốc độ bắn mặc định (dùng để reset khi tắt chế độ Burst)")]
+    public float defaultFireRate;
+    public float fireRate = 1; // bullets per second
     private float lastShootTime;
 
-    [Header("Magazine Details")]
-    public int bulletsInMagazine; // hien tai
+    [Header("Burst fire")]
+    [Tooltip("Súng này có hỗ trợ chế độ Burst không?")]
+    public bool burstAvailable;
+    [Tooltip("Có đang bật chế độ Burst hay không?")]
+    public bool burstActive;
+    [Tooltip("Số viên đạn bắn ra trong 1 loạt Burst (thường là 3 viên)")]
+    public int burstBulletsPerShot;
+    [Tooltip("Tốc độ bắn khi ở chế độ Burst (thường nhanh hơn bắn thường)")]
+    public float burstFireRate;
+    public float burstFireDelay = 0.1f;
+
+    [Header("Magazine Details")] public int bulletsInMagazine; // hien tai
     public int magazineCapacity; // suc chua
     public int totalReserveAmmo; // du tru
 
@@ -43,18 +57,19 @@ public class Weapon
     private float spreadCooldown = 1;
 
     #region Spread methods
+
     public Vector3 ApplySpread(Vector3 originalDirection)
     {
         UpdateSpread();
-        
+
         float randomizedValue = Random.Range(-currentSpread, currentSpread);
-        Quaternion  spreadRotation = Quaternion.Euler(randomizedValue, randomizedValue, randomizedValue);
+        Quaternion spreadRotation = Quaternion.Euler(randomizedValue, randomizedValue, randomizedValue);
         return spreadRotation * originalDirection;
     }
 
     private void UpdateSpread()
     {
-        if(Time.time > lastSpreadUpdateTime + spreadCooldown)
+        if (Time.time > lastSpreadUpdateTime + spreadCooldown)
             currentSpread = baseSpread;
         else
             IncreaseSpread();
@@ -65,14 +80,43 @@ public class Weapon
     {
         currentSpread = Mathf.Clamp(currentSpread + spreadIncreaseRate, baseSpread, maximumSpread);
     }
+
     #endregion
-    
-    public bool CanShoot()
+
+    #region Burst methods
+
+    public bool BurstActivated()
     {
-        if (!HaveEnoughBullets() || !ReadyToFire()) return false;
-        bulletsInMagazine--;
-        return true;
+        if (weaponType == WeaponType.ShotGun)
+        {
+            burstFireDelay = 0;
+            return true;
+        }
+        return burstActive;
     }
+
+    public void ToggleBurst()
+    {
+        if(!burstAvailable) return;
+        
+        burstActive = !burstActive;
+
+        if (burstActive)
+        {
+            bulletsPerShot = burstBulletsPerShot;
+            fireRate  = burstFireRate;
+        }
+        else
+        {
+            bulletsPerShot = 1;
+            fireRate = defaultFireRate;
+        }
+    }
+
+    #endregion
+
+
+    public bool CanShoot() => HaveEnoughBullets() && ReadyToFire();
 
     private bool ReadyToFire()
     {
@@ -80,7 +124,7 @@ public class Weapon
         lastShootTime = Time.time;
         return true;
     }
-    
+
 
     #region Reload methods
 
