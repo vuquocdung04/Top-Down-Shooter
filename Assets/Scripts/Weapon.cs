@@ -50,6 +50,8 @@ public class Weapon
 
     [Range(2, 12)] public float gunDistance = 4;
 
+    [Range(3, 8)] public float cameraDistance = 6;
+    
     [Header("Spread")] public float baseSpread = 1;
     public float maximumSpread = 3;
     public float spreadIncreaseRate = 0.15f;

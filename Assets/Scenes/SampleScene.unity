@@ -566,6 +566,7 @@ MonoBehaviour:
     reloadSpeed: 1
     equipmentSpeed: 1
     gunDistance: 4
+    cameraDistance: 6
     baseSpread: 0
     maximumSpread: 3
     spreadIncreaseRate: 0.15
@@ -3177,6 +3178,7 @@ MonoBehaviour:
     reloadSpeed: 1
     equipmentSpeed: 1
     gunDistance: 4
+    cameraDistance: 6
     baseSpread: 0
     maximumSpread: 3
     spreadIncreaseRate: 0.15
@@ -3200,6 +3202,7 @@ MonoBehaviour:
     reloadSpeed: 2
     equipmentSpeed: 2
     gunDistance: 6
+    cameraDistance: 7
     baseSpread: 1
     maximumSpread: 3
     spreadIncreaseRate: 0.15
@@ -3219,6 +3222,7 @@ MonoBehaviour:
     reloadSpeed: 1
     equipmentSpeed: 1
     gunDistance: 3
+    cameraDistance: 3.5
     baseSpread: 15
     maximumSpread: 15
     spreadIncreaseRate: 0.15
@@ -3285,6 +3289,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2015005454}
+  - component: {fileID: 2015005455}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -3309,6 +3314,19 @@ Transform:
   - {fileID: 963194228}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2015005455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2015005453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d72417b13f38405691432d33abba29bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distanceChangeRate: 3.5
 --- !u!1 &2063968136
 GameObject:
   m_ObjectHideFlags: 0
