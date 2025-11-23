@@ -565,6 +565,7 @@ MonoBehaviour:
     totalReserveAmmo: 500
     reloadSpeed: 1
     equipmentSpeed: 1
+    gunDistance: 4
     baseSpread: 0
     maximumSpread: 3
     spreadIncreaseRate: 0.15
@@ -3175,6 +3176,7 @@ MonoBehaviour:
     totalReserveAmmo: 0
     reloadSpeed: 1
     equipmentSpeed: 1
+    gunDistance: 4
     baseSpread: 0
     maximumSpread: 3
     spreadIncreaseRate: 0.15
@@ -3197,6 +3199,7 @@ MonoBehaviour:
     totalReserveAmmo: 5455
     reloadSpeed: 2
     equipmentSpeed: 2
+    gunDistance: 6
     baseSpread: 1
     maximumSpread: 3
     spreadIncreaseRate: 0.15
@@ -3215,6 +3218,7 @@ MonoBehaviour:
     totalReserveAmmo: 555
     reloadSpeed: 1
     equipmentSpeed: 1
+    gunDistance: 3
     baseSpread: 15
     maximumSpread: 15
     spreadIncreaseRate: 0.15

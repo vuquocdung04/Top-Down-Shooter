@@ -48,6 +48,8 @@ public class Weapon
 
     [Range(1, 3)] public float equipmentSpeed = 1;
 
+    [Range(2, 12)] public float gunDistance = 4;
+
     [Header("Spread")] public float baseSpread = 1;
     public float maximumSpread = 3;
     public float spreadIncreaseRate = 0.15f;
