@@ -91984,7 +91984,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 2.5
-    functionName: ReloadOver
+    functionName: ReloadIsOver
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

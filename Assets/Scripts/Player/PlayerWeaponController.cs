@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,13 +10,14 @@ public class PlayerWeaponController : MonoBehaviour
     private Player player;
 
     [SerializeField] private Weapon currentWeapon;
+    private bool weaponReady;
+    private bool isShooting;
+
 
     [Header("Bullet Details")] [SerializeField]
     private GameObject bulletPrefab;
 
     [SerializeField] private float bulletSpeed;
-    [SerializeField] private Transform gunPoint;
-
     [SerializeField] private Transform weaponHolder;
 
     [Header("Inventory")] [SerializeField] private List<Weapon> weaponSlots;
@@ -25,9 +27,16 @@ public class PlayerWeaponController : MonoBehaviour
     {
         player = GetComponent<Player>();
         AssignInputEvents();
-        
-        Invoke(nameof(EquipStartingWeapon),1f);
+
+        Invoke(nameof(EquipStartingWeapon), 1f);
     }
+
+    private void Update()
+    {
+        if(isShooting)
+            Shoot();
+    }
+
 
     #region Slot management - Pick/Equip/Drop weapon
 
@@ -38,6 +47,7 @@ public class PlayerWeaponController : MonoBehaviour
 
     private void EquipWeapon(int i)
     {
+        SetWeaponReady(false);
         currentWeapon = weaponSlots[i];
         player.weaponVisuals.PlayWeaponEquipAnimation();
     }
@@ -59,36 +69,50 @@ public class PlayerWeaponController : MonoBehaviour
         EquipWeapon(0);
     }
 
+    public void SetWeaponReady(bool ready) => weaponReady = ready;
+
+    public bool WeaponReady() => weaponReady;
+
     #endregion
 
     private void Shoot()
     {
+        if(!WeaponReady()) return;
         if (!currentWeapon.CanShoot()) return;
 
+        if (currentWeapon.shootType == ShootType.Single)
+            isShooting = false;
+        
         GameObject newBullet = ObjectPool.instance.GetBullet();
 
-        newBullet.transform.position = gunPoint.position;
-        newBullet.transform.rotation = Quaternion.LookRotation(gunPoint.forward);
+        newBullet.transform.position = GunPoint().position;
+        newBullet.transform.rotation = Quaternion.LookRotation(GunPoint().forward);
 
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
 
         rbNewBullet.mass = REFERENCE_BULLET_SPEED / bulletSpeed;
         rbNewBullet.velocity = BulletDirection() * bulletSpeed;
-        GetComponentInChildren<Animator>().SetTrigger("Fire");
+        
+        player.weaponVisuals.PlayFireAnimation();
+    }
+
+    private void Reload()
+    {
+        SetWeaponReady(false);
+        player.weaponVisuals.PlayReloadAnimation();
     }
 
     public Vector3 BulletDirection()
     {
         Transform aim = player.aim.Aim();
-        Vector3 direction = (aim.position - gunPoint.position).normalized;
+        Vector3 direction = (aim.position - GunPoint().position).normalized;
 
         if (!player.aim.CanAimPrecisely() && player.aim.Target() == null)
             direction.y = 0;
-        // weaponHolder.LookAt(aim);
-        // gunPoint.LookAt(aim); TODO: find a better place for it
 
         return direction;
     }
+
     public bool HasOnlyOneWeapon() => weaponSlots.Count <= 1;
 
     public Weapon CurrentWeapon() => currentWeapon;
@@ -100,17 +124,20 @@ public class PlayerWeaponController : MonoBehaviour
             if (weapon != currentWeapon)
                 return weapon;
         }
+
         Debug.Log("Null");
         return null;
     }
 
-    public Transform GunPoint() => gunPoint;
-    
+    public Transform GunPoint() => player.weaponVisuals.CurrentWeaponModel().gunPoint;
+
     #region Input Events
 
     private void AssignInputEvents()
     {
-        player.controls.Character.Fire.performed += context => Shoot();
+        player.controls.Character.Fire.performed += context =>  isShooting = true;
+        player.controls.Character.Fire.canceled += context => isShooting = false;
+        
         player.controls.Character.EquipSlot1.performed += context => EquipWeapon(0);
         player.controls.Character.EquipSlot2.performed += context => EquipWeapon(1);
 
@@ -118,8 +145,10 @@ public class PlayerWeaponController : MonoBehaviour
 
         player.controls.Character.Reload.performed += context =>
         {
-            if (currentWeapon.CanReload())
-                player.weaponVisuals.PlayReloadAnimation();
+            if (currentWeapon.CanReload() && WeaponReady())
+            {
+                Reload();
+            }
         };
     }
 
