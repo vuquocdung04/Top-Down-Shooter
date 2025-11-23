@@ -26,7 +26,7 @@ public class PlayerWeaponController : MonoBehaviour
         player = GetComponent<Player>();
         AssignInputEvents();
         
-        //Invoke(nameof(EquipStartingWeapon),1f);
+        Invoke(nameof(EquipStartingWeapon),1f);
     }
 
     #region Slot management - Pick/Equip/Drop weapon
@@ -65,14 +65,15 @@ public class PlayerWeaponController : MonoBehaviour
     {
         if (!currentWeapon.CanShoot()) return;
 
-        GameObject newBullet =
-            Instantiate(bulletPrefab, gunPoint.position, Quaternion.LookRotation(gunPoint.forward));
+        GameObject newBullet = ObjectPool.instance.GetBullet();
+
+        newBullet.transform.position = gunPoint.position;
+        newBullet.transform.rotation = Quaternion.LookRotation(gunPoint.forward);
 
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
 
         rbNewBullet.mass = REFERENCE_BULLET_SPEED / bulletSpeed;
         rbNewBullet.velocity = BulletDirection() * bulletSpeed;
-        Destroy(newBullet, 10f);
         GetComponentInChildren<Animator>().SetTrigger("Fire");
     }
 

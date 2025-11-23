@@ -22,19 +22,36 @@ public class Weapon
     [Range(1, 3)] public float reloadSpeed = 1;
 
     [Range(1, 3)] public float equipmentSpeed = 1;
-    public bool CanShoot() => HaveEnoughBullets();
 
-    private bool HaveEnoughBullets()
+    [Space] public float fireRate = 1; // bullets per second
+    private float lastShootTime;
+
+    public bool CanShoot()
     {
-        if (bulletsInMagazine <= 0) return false;
+        if (!HaveEnoughBullets() || !ReadyToFire()) return false;
         bulletsInMagazine--;
         return true;
     }
+
+    private bool ReadyToFire()
+    {
+        if (!(Time.time > lastShootTime + 1 / fireRate)) return false;
+        lastShootTime = Time.time;
+        return true;
+    }
+    
+
+    #region Reload methods
 
     public bool CanReload()
     {
         if (bulletsInMagazine == magazineCapacity) return false;
         return totalReserveAmmo > 0;
+    }
+
+    private bool HaveEnoughBullets()
+    {
+        return bulletsInMagazine > 0;
     }
 
     public void RefillBullets()
@@ -51,4 +68,6 @@ public class Weapon
         if (totalReserveAmmo < 0)
             totalReserveAmmo = 0;
     }
+
+    #endregion
 }
