@@ -289,7 +289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 4
-  equipAnimationType: 1
+  equipAnimationType: 0
   holdType: 2
   gunPoint: {fileID: 1075894185}
   holdPoint: {fileID: 2118607400}
@@ -744,15 +744,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 444830938}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.6439784, y: 0.057626784, z: 0.009297174, w: 0.7628136}
-  m_LocalPosition: {x: 0.133, y: -0.073, z: -0.085}
+  m_LocalRotation: {x: 0.0073589375, y: -0.6654421, z: 0.18133794, w: 0.72405064}
+  m_LocalPosition: {x: 0.001, y: -0.2, z: -0.019}
   m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8908501855374803048}
   - {fileID: 4074178221668819003}
   m_Father: {fileID: 2498794790286772997}
-  m_LocalEulerAnglesHint: {x: 78.932, y: 31.354, z: 27.419}
+  m_LocalEulerAnglesHint: {x: 14.596, y: -83.219, z: 15.143}
 --- !u!114 &444830940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -766,6 +766,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 4
+  hangType: 0
 --- !u!1 &454425560
 GameObject:
   m_ObjectHideFlags: 0
@@ -888,6 +889,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 1
+  hangType: 2
 --- !u!1 &627681825
 GameObject:
   m_ObjectHideFlags: 0
@@ -2415,6 +2417,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 5
+  hangType: 1
 --- !u!1 &1471927364
 GameObject:
   m_ObjectHideFlags: 0
@@ -2877,6 +2880,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 3
+  hangType: 1
 --- !u!1 &1885987040
 GameObject:
   m_ObjectHideFlags: 0
@@ -3226,7 +3230,27 @@ MonoBehaviour:
     baseSpread: 15
     maximumSpread: 15
     spreadIncreaseRate: 0.15
-  maxSlots: 2
+  - weaponType: 1
+    shootType: 0
+    bulletsPerShot: 1
+    defaultFireRate: 0.5
+    fireRate: 0.5
+    burstAvailable: 0
+    burstActive: 0
+    burstBulletsPerShot: 0
+    burstFireRate: 0
+    burstFireDelay: 0.1
+    bulletsInMagazine: 100
+    magazineCapacity: 100
+    totalReserveAmmo: 555
+    reloadSpeed: 2
+    equipmentSpeed: 2
+    gunDistance: 3
+    cameraDistance: 3.5
+    baseSpread: 0
+    maximumSpread: 2
+    spreadIncreaseRate: 0.15
+  maxSlots: 3
 --- !u!114 &2000135662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3374,6 +3398,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 2
+  hangType: 2
 --- !u!1 &2088222432
 GameObject:
   m_ObjectHideFlags: 0

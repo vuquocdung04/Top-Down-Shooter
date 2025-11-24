@@ -51,11 +51,13 @@ public class PlayerWeaponController : MonoBehaviour
 
     private void EquipWeapon(int i)
     {
+        if(i >= weaponSlots.Count) return;
+        
         SetWeaponReady(false);
         currentWeapon = weaponSlots[i];
         player.weaponVisuals.PlayWeaponEquipAnimation();
         
-        CameraManager.instance.ChangeCameraDistance(CurrentWeapon().cameraDistance);
+        //CameraManager.instance.ChangeCameraDistance(CurrentWeapon().cameraDistance);
     }
 
     public void PickupItem(Weapon newWeapon)
@@ -153,6 +155,16 @@ public class PlayerWeaponController : MonoBehaviour
 
     public bool HasOnlyOneWeapon() => weaponSlots.Count <= 1;
 
+    public bool HasWeaponTypeInInventory(WeaponType weaponType)
+    {
+        foreach (var weapon in weaponSlots)
+        {
+            if(weapon.weaponType == weaponType)
+                return true;
+        }
+        return false;
+    }
+
     public Weapon CurrentWeapon() => currentWeapon;
 
     public Weapon BackupWeapon()
@@ -178,6 +190,8 @@ public class PlayerWeaponController : MonoBehaviour
 
         player.controls.Character.EquipSlot1.performed += context => EquipWeapon(0);
         player.controls.Character.EquipSlot2.performed += context => EquipWeapon(1);
+        player.controls.Character.EquipSlot3.performed += context => EquipWeapon(2);
+        player.controls.Character.EquipSlot4.performed += context => EquipWeapon(3);
 
         player.controls.Character.DropCurrentWeapon.performed += context => DropWeapon();
 

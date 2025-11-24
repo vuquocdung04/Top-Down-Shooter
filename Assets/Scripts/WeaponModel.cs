@@ -16,7 +16,7 @@ public class WeaponModel : MonoBehaviour
 {
     public WeaponType weaponType;
     public EquipType equipAnimationType; // lay
-    public HoldType holdType;
+    public HoldType holdType; // cach cam sung, sung luc cam bth, highhold cam cao, ...
     
     public Transform gunPoint;
     public Transform holdPoint;

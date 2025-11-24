@@ -24,7 +24,7 @@ public class CameraManager : MonoBehaviour
 
     private void Update()
     {
-        UpdateCameraDistance();
+        //UpdateCameraDistance();
     }
 
     private void UpdateCameraDistance()
