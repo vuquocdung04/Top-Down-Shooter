@@ -1,4 +1,4 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,10 +6,10 @@ public class ObjectPool : MonoBehaviour
 {
     public static ObjectPool instance;
     
-    [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private int poolSize = 10;
-
-    private Queue<GameObject> bulletPool;
+    
+    private Dictionary<GameObject, Queue<GameObject>> poolDictionary = new();
+    
     private void Awake()
     {
         if(!instance)
@@ -17,42 +17,57 @@ public class ObjectPool : MonoBehaviour
         else
             Destroy(gameObject);
     }
+    
 
-    private void Start()
+    public GameObject GetObject(GameObject prefab)
     {
-        bulletPool = new Queue<GameObject>();
-        CreateInitialPool();
+        if(!poolDictionary.ContainsKey(prefab)){
+        {
+            InitializeNewPool(prefab);
+        }}
+        
+        if(poolDictionary[prefab].Count == 0)
+            CreateNewObject(prefab);
+        
+        GameObject objToGet = poolDictionary[prefab].Dequeue();
+        objToGet.SetActive(true);
+        objToGet.transform.parent = null;
+        return objToGet;
     }
 
-    public GameObject GetBullet()
+    public void ReturnObject(GameObject objToReturn, float delay = 0.001f)
     {
-        if(bulletPool.Count == 0)
-            CreateNewBullet();
-        GameObject bulletToGet = bulletPool.Dequeue();
-        bulletToGet.SetActive(true);
-        bulletToGet.transform.parent = null;
-        return bulletToGet;
-    }
-
-    public void ReturnBullet(GameObject bullet)
-    {
-        bullet.SetActive(false);
-        bulletPool.Enqueue(bullet);
-        bullet.transform.parent = transform;
+        StartCoroutine(DelayReturn(delay, objToReturn));
     }
     
-    private void CreateInitialPool()
+    private IEnumerator DelayReturn(float delay, GameObject objToReturn)
     {
+        yield return new WaitForSeconds(delay);
+        ReturnToPool(objToReturn);
+    }
+
+    private void ReturnToPool(GameObject objToReturn)
+    {
+        GameObject originalPrefab = objToReturn.GetComponent<PooledObject>().originalPrefab;
+        objToReturn.SetActive(false);
+        objToReturn.transform.parent = transform;
+        poolDictionary[originalPrefab].Enqueue(objToReturn);
+    }
+    
+    private void InitializeNewPool(GameObject prefab)
+    {
+        poolDictionary[prefab] = new Queue<GameObject>();
         for (int i = 0; i < poolSize; i++)
         {
-            CreateNewBullet();
+            CreateNewObject(prefab);
         }
     }
 
-    private void CreateNewBullet()
+    private void CreateNewObject(GameObject prefab)
     {
-        GameObject newBullet = Instantiate(bulletPrefab, transform);
-        newBullet.SetActive(false);
-        bulletPool.Enqueue(newBullet);
+        GameObject newObj = Instantiate(prefab, transform);
+        newObj.AddComponent<PooledObject>().originalPrefab = prefab;
+        newObj.SetActive(false);
+        poolDictionary[prefab].Enqueue(newObj);
     }
 }

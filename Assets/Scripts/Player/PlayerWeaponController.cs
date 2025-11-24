@@ -10,6 +10,7 @@ public class PlayerWeaponController : MonoBehaviour
 
     private Player player;
 
+    [SerializeField] private Weapon_Data defaultWeaponData;
     [SerializeField] private Weapon currentWeapon;
     private bool weaponReady;
     private bool isShooting;
@@ -36,9 +37,6 @@ public class PlayerWeaponController : MonoBehaviour
     {
         if (isShooting)
             Shoot();
-
-        if (Input.GetKeyDown(KeyCode.T))
-            currentWeapon.ToggleBurst();
     }
 
 
@@ -46,6 +44,7 @@ public class PlayerWeaponController : MonoBehaviour
 
     private void EquipStartingWeapon()
     {
+        weaponSlots[0] = new Weapon(defaultWeaponData);
         EquipWeapon(0);
     }
 
@@ -60,11 +59,12 @@ public class PlayerWeaponController : MonoBehaviour
         //CameraManager.instance.ChangeCameraDistance(CurrentWeapon().cameraDistance);
     }
 
-    public void PickupItem(Weapon newWeapon)
+    public void PickupItem(Weapon_Data weaponData)
     {
         if (weaponSlots.Count >= maxSlots)
             return;
 
+        Weapon newWeapon = new Weapon(weaponData);
         weaponSlots.Add(newWeapon);
         player.weaponVisuals.SwitchOnBackupWeaponModel();
     }
@@ -120,7 +120,7 @@ public class PlayerWeaponController : MonoBehaviour
     {
         currentWeapon.bulletsInMagazine--;
         
-        GameObject newBullet = ObjectPool.instance.GetBullet();
+        GameObject newBullet = ObjectPool.instance.GetObject(bulletPrefab);
 
         newBullet.transform.position = GunPoint().position;
         newBullet.transform.rotation = Quaternion.LookRotation(GunPoint().forward);
@@ -155,14 +155,14 @@ public class PlayerWeaponController : MonoBehaviour
 
     public bool HasOnlyOneWeapon() => weaponSlots.Count <= 1;
 
-    public bool HasWeaponTypeInInventory(WeaponType weaponType)
+    public Weapon WeaponInSlots(WeaponType weaponType)
     {
         foreach (var weapon in weaponSlots)
         {
             if(weapon.weaponType == weaponType)
-                return true;
+                return weapon;
         }
-        return false;
+        return null;
     }
 
     public Weapon CurrentWeapon() => currentWeapon;
@@ -193,6 +193,7 @@ public class PlayerWeaponController : MonoBehaviour
         player.controls.Character.EquipSlot3.performed += context => EquipWeapon(2);
         player.controls.Character.EquipSlot4.performed += context => EquipWeapon(3);
 
+
         player.controls.Character.DropCurrentWeapon.performed += context => DropWeapon();
 
         player.controls.Character.Reload.performed += context =>
@@ -202,6 +203,7 @@ public class PlayerWeaponController : MonoBehaviour
                 Reload();
             }
         };
+        player.controls.Character.ToggleWeaponMode.performed += context => currentWeapon.ToggleBurst();
     }
 
     #endregion
