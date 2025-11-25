@@ -23,7 +23,7 @@ MonoBehaviour:
   burstActive: 0
   burstBulletsPerShot: 2
   burstFireRate: 1
-  burstFireDelay: 0.2
+  burstFireDelay: 0.1
   baseSpread: 0.25
   maximumSpread: 2
   spreadIncreaseRate: 0.15

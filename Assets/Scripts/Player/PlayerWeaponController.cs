@@ -11,6 +11,8 @@ public class PlayerWeaponController : MonoBehaviour
     private Player player;
 
     [SerializeField] private Weapon_Data defaultWeaponData;
+    [SerializeField] private Weapon_Data sniperData;
+    
     [SerializeField] private Weapon currentWeapon;
     private bool weaponReady;
     private bool isShooting;
@@ -45,6 +47,7 @@ public class PlayerWeaponController : MonoBehaviour
     private void EquipStartingWeapon()
     {
         weaponSlots[0] = new Weapon(defaultWeaponData);
+        weaponSlots[1] = new Weapon(sniperData);
         EquipWeapon(0);
     }
 
