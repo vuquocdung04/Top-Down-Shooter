@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour
 {
-    [SerializeField] private MeshRenderer mesh;
     [SerializeField] private Material highlightMaterial;
+    private MeshRenderer mesh;
     private Material defaultMaterial;
     private void Start()
     {
@@ -14,6 +14,11 @@ public class Interactable : MonoBehaviour
         defaultMaterial = mesh.material;
     }
 
+    public virtual void Interaction()
+    {
+        
+    }
+    
     public void HighlightActive(bool active)
     {
         if (active)
@@ -21,7 +26,7 @@ public class Interactable : MonoBehaviour
         else
             mesh.material = defaultMaterial;
     }
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         PlayerInteraction playerInteraction = other.GetComponent<PlayerInteraction>();
         
@@ -30,7 +35,7 @@ public class Interactable : MonoBehaviour
         playerInteraction.UpdateClosestInteractable();
     }
 
-    private void OnTriggerExit(Collider other)
+    protected virtual void OnTriggerExit(Collider other)
     {
         PlayerInteraction playerInteraction = other.GetComponent<PlayerInteraction>();
         
@@ -39,4 +44,5 @@ public class Interactable : MonoBehaviour
         playerInteraction.interactables.Remove(this);
         playerInteraction.UpdateClosestInteractable();
     }
+    
 }

@@ -589,9 +589,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 363953396}
-  - component: {fileID: 363953395}
   - component: {fileID: 363953394}
   - component: {fileID: 363953397}
+  - component: {fileID: 363953398}
   m_Layer: 0
   m_Name: Shotgun_Pickup
   m_TagString: Untagged
@@ -620,19 +620,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.10908306, y: 0.1922406, z: 0.72680014}
   m_Center: {x: -0.0023360252, y: -0.016094625, z: 0.015092701}
---- !u!114 &363953395
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 363953393}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07d8084a2883446ab56a46efd17383a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponData: {fileID: 11400000, guid: 1657c5d8ed51e4744a4587d0363594ef, type: 2}
 --- !u!4 &363953396
 Transform:
   m_ObjectHideFlags: 0
@@ -677,6 +664,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &363953398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363953393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5eadb6ef9de4baeb03bbbf14c138bf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightMaterial: {fileID: 2100000, guid: bc215cffa2a9ac046a0a4a14ae38ea42, type: 2}
+  weaponData: {fileID: 11400000, guid: 1657c5d8ed51e4744a4587d0363594ef, type: 2}
 --- !u!1 &397746342
 GameObject:
   m_ObjectHideFlags: 0
@@ -950,9 +951,9 @@ GameObject:
   m_Component:
   - component: {fileID: 614669720}
   - component: {fileID: 614669722}
-  - component: {fileID: 614669721}
+  - component: {fileID: 614669723}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Ammo_Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -974,20 +975,6 @@ Transform:
   - {fileID: 190975106}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &614669721
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 614669719}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a9f510dbaac4156a3d61dd297c36483, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mesh: {fileID: 0}
-  highlightMaterial: {fileID: 2100000, guid: bc215cffa2a9ac046a0a4a14ae38ea42, type: 2}
 --- !u!65 &614669722
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1009,6 +996,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &614669723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 614669719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbea2a7c1d6c4c94afb46925a8adb3b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightMaterial: {fileID: 2100000, guid: bc215cffa2a9ac046a0a4a14ae38ea42, type: 2}
 --- !u!1 &627681825
 GameObject:
   m_ObjectHideFlags: 0
@@ -1144,7 +1144,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a9f510dbaac4156a3d61dd297c36483, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mesh: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: bc215cffa2a9ac046a0a4a14ae38ea42, type: 2}
 --- !u!65 &650209572
 BoxCollider:
@@ -1258,7 +1257,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a9f510dbaac4156a3d61dd297c36483, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mesh: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: bc215cffa2a9ac046a0a4a14ae38ea42, type: 2}
 --- !u!65 &655368503
 BoxCollider:
@@ -2875,7 +2873,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a9f510dbaac4156a3d61dd297c36483, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mesh: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: bc215cffa2a9ac046a0a4a14ae38ea42, type: 2}
 --- !u!65 &1487279236
 BoxCollider:
@@ -3577,8 +3574,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88100032656c21a4b9a1b06e615f3be0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 1.5
-  runSpeed: 3
+  walkSpeed: 3
+  runSpeed: 5
   turnSpeed: 10
 --- !u!143 &2000135660
 CharacterController:
