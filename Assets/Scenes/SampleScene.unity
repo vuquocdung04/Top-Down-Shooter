@@ -790,6 +790,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnSpeed: 5
   aggressionRange: 5
+  attackRange: 2
   idleTime: 2
   moveSpeed: 1.5
   chaseSpeed: 4

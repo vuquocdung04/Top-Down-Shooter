@@ -5,9 +5,11 @@ using UnityEngine.AI;
 public abstract class Enemy : MonoBehaviour
 {
     public float turnSpeed;
-    
     [Header("Pham vi xam luoc")]
     public float aggressionRange;
+
+    [Header("Attack Data")] public float attackRange;
+    
     [Header("Idle Data")] public float idleTime;
 
     [Header("Move Data")] public float moveSpeed;
@@ -52,11 +54,15 @@ public abstract class Enemy : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, aggressionRange);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 
+    
     public void AnimationTrigger() => stateMachine.currentState.AnimationTrigger();
     public bool PlayerInAggressionRange() => Vector3.Distance(transform.position, player.position) < aggressionRange;
-    
+
+    public bool PlayerInAttackRange() => Vector3.Distance(transform.position, player.position) < attackRange;
 
     public Vector3 GetPatrolDestination()
     {
