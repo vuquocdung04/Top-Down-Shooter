@@ -5,7 +5,7 @@ public class Interactable : MonoBehaviour
 {
     [SerializeField] private Material highlightMaterial;
     private MeshRenderer mesh;
-    private Material defaultMaterial;
+    protected Material defaultMaterial;
     private void Start()
     {
         if(mesh == null)
@@ -14,9 +14,15 @@ public class Interactable : MonoBehaviour
         defaultMaterial = mesh.material;
     }
 
+    protected virtual void UpdateMeshAndMaterial(MeshRenderer newMesh)
+    {
+        mesh = newMesh;
+        defaultMaterial = newMesh.sharedMaterial;
+    }
+
     public virtual void Interaction()
     {
-        
+      //TODO: override   
     }
     
     public void HighlightActive(bool active)
@@ -31,7 +37,7 @@ public class Interactable : MonoBehaviour
         PlayerInteraction playerInteraction = other.GetComponent<PlayerInteraction>();
         
         if(playerInteraction == null) return;
-        playerInteraction.interactables.Add(this);
+        playerInteraction.GetInteractables().Add(this);
         playerInteraction.UpdateClosestInteractable();
     }
 
@@ -41,7 +47,7 @@ public class Interactable : MonoBehaviour
         
         if(playerInteraction == null) return;
         
-        playerInteraction.interactables.Remove(this);
+        playerInteraction.GetInteractables().Remove(this);
         playerInteraction.UpdateClosestInteractable();
     }
     

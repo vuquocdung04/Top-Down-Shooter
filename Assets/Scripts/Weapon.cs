@@ -57,6 +57,9 @@ public class Weapon
     private float lastSpreadUpdateTime;
     private float spreadCooldown = 1;
     #endregion
+    
+    public Weapon_Data weaponData { get; private set; }
+    
 
     public Weapon(Weapon_Data weaponData)
     {
@@ -85,6 +88,8 @@ public class Weapon
         burstFireDelay = weaponData.burstFireDelay;
         
         defaultFireRate = fireRate;
+
+        this.weaponData = weaponData;
     }
     
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,9 @@ public class ObjectPool : MonoBehaviour
     [SerializeField] private int poolSize = 10;
     
     private Dictionary<GameObject, Queue<GameObject>> poolDictionary = new();
+
+    [Header("To Initialize")] [SerializeField]
+    private GameObject weaponPickup;
     
     private void Awake()
     {
@@ -17,7 +21,11 @@ public class ObjectPool : MonoBehaviour
         else
             Destroy(gameObject);
     }
-    
+
+    private void Start()
+    {
+        InitializeNewPool(weaponPickup);
+    }
 
     public GameObject GetObject(GameObject prefab)
     {
