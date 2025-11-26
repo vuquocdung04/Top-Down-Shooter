@@ -788,9 +788,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d539d75c8a04458f8c76816557c8d1d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turnSpeed: 5
+  aggressionRange: 5
   idleTime: 2
   moveSpeed: 0
-  turnSpeed: 5
   patrolPoints:
   - {fileID: 1375218284}
   - {fileID: 1330086585}
@@ -6346,6 +6347,7 @@ GameObject:
   m_Component:
   - component: {fileID: 543450652278338684}
   - component: {fileID: 5866666020629704198}
+  - component: {fileID: 5866666020629704199}
   m_Layer: 0
   m_Name: enemy_character_1
   m_TagString: Untagged
@@ -19538,6 +19540,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5866666020629704199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148293791430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9846545caa79430cae5ea63b151f7abf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!33 &5869837306122014983
 MeshFilter:
   m_ObjectHideFlags: 0
