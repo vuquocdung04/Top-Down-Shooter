@@ -1,12 +1,13 @@
 using UnityEngine;
 
-public class EnemyState
+public abstract class EnemyState
 {
     protected Enemy enemyBase;
     protected EnemyStateMachine stateMachine;
     protected Animator anim;
 
     protected string animBoolName;
+    protected float stateTimer;
 
     public EnemyState(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName)
     {
@@ -15,18 +16,18 @@ public class EnemyState
         this.animBoolName = animBoolName;
     }
 
-    public virtual void Enter()
+    public virtual void EnterState()
     {
-        Debug.Log("I enter " + animBoolName + "state!");
+        enemyBase.anim.SetBool(animBoolName, true);
     }
 
-    public virtual void Update()
+    public virtual void UpdateState()
     {
-        Debug.Log("Im running " + animBoolName + "state!");
+        stateTimer -= Time.deltaTime;
     }
 
-    public virtual void Exit()
+    public virtual void ExitState()
     {
-        Debug.Log("I exit " + animBoolName + "state!");
+        enemyBase.anim.SetBool(animBoolName,false);
     }
 }

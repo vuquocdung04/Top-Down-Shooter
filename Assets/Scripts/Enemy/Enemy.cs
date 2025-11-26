@@ -1,31 +1,52 @@
 using System;
 using UnityEngine;
+using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour
 {
+    [Header("Idle Data")] public float idleTime;
+
+    [Header("Move Data")] public float moveSpeed;
+    
+    [SerializeField] private Transform[] patrolPoints;
+    private int currentPatrolIndex;
+
+    public Animator anim { get; private set; }
+    public NavMeshAgent agent { get; private set; }
     public EnemyStateMachine stateMachine { get; private set; }
-    public EnemyState idleState { get; private set; }
-    public EnemyState moveState { get; private set; }
-    private void Start()
+
+
+    protected virtual void Awake()
     {
         stateMachine = new EnemyStateMachine();
-        idleState = new EnemyState(this, stateMachine, "Idle");
-        moveState = new EnemyState(this, stateMachine, "Move");
-        
-        stateMachine.Initialize(idleState);
+        agent = GetComponent<NavMeshAgent>();
+        anim = GetComponentInChildren<Animator>();
     }
-    private void Update()
+
+    protected virtual void Start()
     {
-        stateMachine.currentState.Update();
+        InitializePatrolPoints();
+    }
 
-        if (Input.GetKeyDown(KeyCode.V))
+    private void InitializePatrolPoints()
+    {
+        foreach (Transform t in patrolPoints)
         {
-            stateMachine.ChangeState(idleState);
-        }
-
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            stateMachine.ChangeState(moveState);
+            t.parent = null;
         }
     }
+
+    protected virtual void Update()
+    {
+    }
+
+    public Vector3 GetPatrolDestination()
+    {
+        Vector3 destination = patrolPoints[currentPatrolIndex].transform.position;
+        currentPatrolIndex++;
+        if(currentPatrolIndex >= patrolPoints.Length)
+            currentPatrolIndex = 0;
+        return destination;
+    }
+    
 }

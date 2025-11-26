@@ -5,14 +5,14 @@ public class EnemyStateMachine
     public void Initialize(EnemyState startState)
     {
         currentState = startState;
-        currentState.Enter();
+        currentState.EnterState();
     }
 
     public void ChangeState(EnemyState newState)
     {
-        currentState.Exit();
+        currentState.ExitState();
         currentState = newState;
-        currentState.Enter();
+        currentState.EnterState();
     }
 
 }
