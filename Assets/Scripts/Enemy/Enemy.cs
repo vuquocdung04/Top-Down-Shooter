@@ -7,7 +7,8 @@ public abstract class Enemy : MonoBehaviour
     [Header("Idle Data")] public float idleTime;
 
     [Header("Move Data")] public float moveSpeed;
-    
+
+    [Header("Quaternion Data")] public float turnSpeed;
     [SerializeField] private Transform[] patrolPoints;
     private int currentPatrolIndex;
 
@@ -38,15 +39,26 @@ public abstract class Enemy : MonoBehaviour
 
     protected virtual void Update()
     {
+         
     }
 
     public Vector3 GetPatrolDestination()
     {
         Vector3 destination = patrolPoints[currentPatrolIndex].transform.position;
         currentPatrolIndex++;
-        if(currentPatrolIndex >= patrolPoints.Length)
+        if (currentPatrolIndex >= patrolPoints.Length)
             currentPatrolIndex = 0;
         return destination;
     }
-    
+
+    public Quaternion FaceTarget(Vector3 target)
+    {
+        Vector3 direction = target - transform.position;
+        direction.y = 0;
+        if (direction == Vector3.zero)
+            return transform.rotation;
+        
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        return Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * turnSpeed);
+    }
 }
