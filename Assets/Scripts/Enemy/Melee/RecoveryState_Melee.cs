@@ -19,7 +19,7 @@ public class RecoveryState_Melee : EnemyState
         base.UpdateState();
         enemy.transform.rotation = enemy.FaceTarget(enemy.player.position);
         if(triggerCalled)
-            Debug.Log("Im supposed to be triggered");
+            stateMachine.ChangeState(enemy.chaseState);
     }
 
     public override void ExitState()
