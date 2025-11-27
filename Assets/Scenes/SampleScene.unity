@@ -797,10 +797,25 @@ MonoBehaviour:
   - {fileID: 1375218284}
   - {fileID: 1330086585}
   attackData:
+    attackName: 
     attackRange: 1
     moveSpeed: 2.5
-    attackIndex: 0
+    attackIndex: 1
     animationSpeed: 2
+    attackType: 0
+  attackList:
+  - attackName: Spin
+    attackRange: 2
+    moveSpeed: 2.5
+    attackIndex: 0
+    animationSpeed: 1
+    attackType: 1
+  - attackName: Slash
+    attackRange: 1
+    moveSpeed: 0
+    attackIndex: 1
+    animationSpeed: 1.642
+    attackType: 0
   hiddenWeapon: {fileID: 1809160868}
   pulledWeapon: {fileID: 2995424777924024976}
 --- !u!195 &536294376
