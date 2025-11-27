@@ -4,17 +4,15 @@ using UnityEngine.AI;
 
 public abstract class Enemy : MonoBehaviour
 {
-    public float turnSpeed;
-    [Header("Pham vi xam luoc")]
-    public float aggressionRange;
-
-    [Header("Attack Data")] public float attackRange;
-    
     [Header("Idle Data")] public float idleTime;
-
+    public float aggressionRange;
+    
     [Header("Move Data")] public float moveSpeed;
     public float chaseSpeed;
-
+    public float turnSpeed;
+    private bool manualMovement;
+    private bool manualRotation;
+    
     [SerializeField] private Transform[] patrolPoints;
     private int currentPatrolIndex;
     
@@ -51,19 +49,18 @@ public abstract class Enemy : MonoBehaviour
          
     }
 
-    private void OnDrawGizmos()
+    protected virtual void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, aggressionRange);
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 
+    public void ActivateManualMovement(bool state) => manualMovement = state; 
+    public bool ManualMovementActive() => manualMovement;
     
+    public void ActivateManualRotation(bool state) => manualRotation = state;
+    public bool ManualRotationActive() => manualRotation;
     public void AnimationTrigger() => stateMachine.currentState.AnimationTrigger();
     public bool PlayerInAggressionRange() => Vector3.Distance(transform.position, player.position) < aggressionRange;
-
-    public bool PlayerInAttackRange() => Vector3.Distance(transform.position, player.position) < attackRange;
-
     public Vector3 GetPatrolDestination()
     {
         Vector3 destination = patrolPoints[currentPatrolIndex].transform.position;
@@ -72,7 +69,6 @@ public abstract class Enemy : MonoBehaviour
             currentPatrolIndex = 0;
         return destination;
     }
-
     public Quaternion FaceTarget(Vector3 target)
     {
         Vector3 direction = target - transform.position;
