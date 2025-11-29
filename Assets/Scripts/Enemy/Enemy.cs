@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -44,11 +45,21 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    protected virtual void Update()
+    protected virtual void Update() {}
+
+    public virtual void GetHit() {}
+
+    public virtual void HitImpact(Vector3 force, Vector3 hitPoint, Rigidbody rb)
     {
-         
+        StartCoroutine(HitImpactCoroutine(force, hitPoint, rb));
     }
 
+    private IEnumerator HitImpactCoroutine(Vector3 force, Vector3 hitPoint, Rigidbody rb)
+    {
+        yield return new WaitForSeconds(0.1f);
+        rb.AddForceAtPosition(force, hitPoint, ForceMode.Impulse);
+    }
+    
     protected virtual void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, aggressionRange);
