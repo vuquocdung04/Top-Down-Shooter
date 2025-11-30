@@ -9,7 +9,7 @@ public struct AttackData
     public float attackRange;
     public float moveSpeed;
     public float attackIndex;
-    [Range(1,2)] public float animationSpeed;
+    [Range(1, 2)] public float animationSpeed;
     public AttackType_Melee attackType;
 }
 
@@ -19,6 +19,12 @@ public enum AttackType_Melee
     Charge = 1,
 }
 
+public enum EnemyMelee_Type
+{
+    Regular = 0,
+    Shield = 1,
+}
+
 public class Enemy_Melee : Enemy
 {
     public IdleState_Melee idleState { get; private set; }
@@ -26,15 +32,18 @@ public class Enemy_Melee : Enemy
     public RecoveryState_Melee recoveryState { get; private set; }
     public ChaseState_Melee chaseState { get; private set; }
     public AttackState_Melee attackState { get; private set; }
-    public DeadState_Melee deadState { get; private set; }
-    
+    private DeadState_Melee deadState { get; set; }
+
+    [Header("Enemy Melee Type")] public EnemyMelee_Type meleeType;
+
+    public Transform shieldTransform;
     [Header("Attack Data")] public AttackData attackData;
     public List<AttackData> attackList;
-    
+
     [SerializeField] private Transform hiddenWeapon;
     [SerializeField] private Transform pulledWeapon;
 
-    
+
     protected override void Awake()
     {
         base.Awake();
@@ -43,13 +52,15 @@ public class Enemy_Melee : Enemy
         recoveryState = new RecoveryState_Melee(this, stateMachine, "Recovery");
         chaseState = new ChaseState_Melee(this, stateMachine, "Chase");
         attackState = new AttackState_Melee(this, stateMachine, "Attack");
-        deadState = new DeadState_Melee(this, stateMachine, "Idle"); // Idle anim is just a place holder, we use dragdoll
+        deadState = new DeadState_Melee(this, stateMachine,
+            "Idle"); // Idle anim is just a place holder, we use dragdoll
     }
 
     protected override void Start()
     {
         base.Start();
         stateMachine.Initialize(idleState);
+        InitializeSpeciality();
     }
 
     protected override void Update()
@@ -57,9 +68,20 @@ public class Enemy_Melee : Enemy
         stateMachine.currentState.UpdateState();
     }
 
+    private void InitializeSpeciality()
+    {
+        if (meleeType == EnemyMelee_Type.Shield)
+        {
+            anim.SetFloat("ChaseIndex", 1);
+            shieldTransform.gameObject.SetActive(true);
+        }
+    }
+
     public override void GetHit()
     {
-        stateMachine.ChangeState(deadState);
+        base.GetHit();
+        if (heathPoints <= 0)
+            stateMachine.ChangeState(deadState);
     }
 
     public void PullWeapon()
@@ -67,7 +89,7 @@ public class Enemy_Melee : Enemy
         hiddenWeapon.gameObject.SetActive(false);
         pulledWeapon.gameObject.SetActive(true);
     }
-    
+
     public bool PlayerInAttackRange() => Vector3.Distance(transform.position, player.position) < attackData.attackRange;
 
     protected override void OnDrawGizmos()

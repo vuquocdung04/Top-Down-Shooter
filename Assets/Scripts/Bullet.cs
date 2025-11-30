@@ -78,7 +78,13 @@ public class Bullet : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         Enemy enemy = other.transform.GetComponentInParent<Enemy>();
-
+        EnemyShield shield = other.gameObject.GetComponent<EnemyShield>();
+        if (shield)
+        {
+            shield.ReduceDurability();
+            return;
+        }
+        
         if (enemy)
         {
             Vector3 force = rb.velocity.normalized * impactForce;

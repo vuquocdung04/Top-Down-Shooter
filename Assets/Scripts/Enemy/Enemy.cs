@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public abstract class Enemy : MonoBehaviour
 {
+    protected int heathPoints = 20;
+    
     [Header("Idle Data")] public float idleTime;
     public float aggressionRange;
     
@@ -47,7 +49,10 @@ public abstract class Enemy : MonoBehaviour
 
     protected virtual void Update() {}
 
-    public virtual void GetHit() {}
+    public virtual void GetHit()
+    {
+        heathPoints--;
+    }
 
     public virtual void HitImpact(Vector3 force, Vector3 hitPoint, Rigidbody rb)
     {

@@ -45,5 +45,4 @@ public class ChaseState_Melee : EnemyState
         }
         return false;
     }
-    
 }
