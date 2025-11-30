@@ -23,6 +23,7 @@ public enum EnemyMelee_Type
 {
     Regular = 0,
     Shield = 1,
+    Dodge = 2,
 }
 
 public class Enemy_Melee : Enemy
@@ -37,6 +38,8 @@ public class Enemy_Melee : Enemy
     [Header("Enemy Melee Type")] public EnemyMelee_Type meleeType;
 
     public Transform shieldTransform;
+    public float dodgeCooldown;
+    private float lastTimeDodge;
     [Header("Attack Data")] public AttackData attackData;
     public List<AttackData> attackList;
 
@@ -92,6 +95,23 @@ public class Enemy_Melee : Enemy
 
     public bool PlayerInAttackRange() => Vector3.Distance(transform.position, player.position) < attackData.attackRange;
 
+    public void ActivateDodgeRoll()
+    {
+        
+        if(meleeType != EnemyMelee_Type.Dodge) return;
+        
+        if(stateMachine.currentState != chaseState) return;
+
+        if(Vector3.Distance(transform.position, player.position) < 1.8f)
+            return;
+        if (Time.time > dodgeCooldown + lastTimeDodge)
+        {
+            lastTimeDodge =  Time.time;
+            anim.SetTrigger("Dodge");
+        }
+    }
+    
+    
     protected override void OnDrawGizmos()
     {
         base.OnDrawGizmos();

@@ -789,6 +789,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d539d75c8a04458f8c76816557c8d1d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heathPoints: 20
   idleTime: 2
   aggressionRange: 6
   moveSpeed: 1.5
@@ -797,11 +798,12 @@ MonoBehaviour:
   patrolPoints:
   - {fileID: 1375218284}
   - {fileID: 1330086585}
-  meleeType: 1
+  meleeType: 2
   shieldTransform: {fileID: 6510073148312706785}
+  dodgeCooldown: 2
   attackData:
     attackName: 
-    attackRange: 1
+    attackRange: 1.4
     moveSpeed: 2.5
     attackIndex: 1
     animationSpeed: 2
@@ -12407,7 +12409,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &2893967256552050764
 BoxCollider:
   m_ObjectHideFlags: 0

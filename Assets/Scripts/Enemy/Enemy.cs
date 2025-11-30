@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public abstract class Enemy : MonoBehaviour
 {
-    protected int heathPoints = 20;
+    [SerializeField] protected int heathPoints = 20;
     
     [Header("Idle Data")] public float idleTime;
     public float aggressionRange;
