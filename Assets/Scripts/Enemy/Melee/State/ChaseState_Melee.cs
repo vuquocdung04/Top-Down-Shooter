@@ -12,8 +12,8 @@ public class ChaseState_Melee : EnemyState
     public override void EnterState()
     {
         base.EnterState();
-        enemy.agent.isStopped = false;
         enemy.agent.speed = enemy.chaseSpeed;
+        enemy.agent.isStopped = false;
     }
 
     public override void UpdateState()

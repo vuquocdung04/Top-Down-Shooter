@@ -24,6 +24,7 @@ public enum EnemyMelee_Type
     Regular = 0,
     Shield = 1,
     Dodge = 2,
+    AxeThrow = 3,
 }
 
 public class Enemy_Melee : Enemy
@@ -42,6 +43,15 @@ public class Enemy_Melee : Enemy
     public Transform shieldTransform;
     public float dodgeCooldown;
     private float lastTimeDodge;
+
+    [Header("Axe throw ability")]
+    public GameObject axePrefab;
+    public float axeFlySpeed;
+    public float animTimer;
+    public float axeThrowCooldown;
+    private float lastTimeAxeThrow;
+    public Transform axeStartPoint;
+    
     [Header("Attack Data")] public AttackData attackData;
     public List<AttackData> attackList;
 
@@ -73,13 +83,14 @@ public class Enemy_Melee : Enemy
     {
         stateMachine.currentState.UpdateState();
     }
-
-    public void TriggerAbility()
+    
+    public override void AbilityTrigger()
     {
-        Debug.Log("Ability Triggered");
+        base.AbilityTrigger();
+        moveSpeed = moveSpeed * 0.6f;
         pulledWeapon.gameObject.SetActive(false);
     }
-    
+
     private void InitializeSpeciality()
     {
         if (meleeType == EnemyMelee_Type.Shield)
@@ -119,7 +130,18 @@ public class Enemy_Melee : Enemy
             anim.SetTrigger("Dodge");
         }
     }
-    
+
+    public bool CanThrowAxe()
+    {
+        if (meleeType != EnemyMelee_Type.AxeThrow) return false;
+        
+        if (Time.time > lastTimeAxeThrow + axeThrowCooldown)
+        {
+            lastTimeAxeThrow = Time.time;
+            return true;
+        }
+        return false;
+    }
     
     protected override void OnDrawGizmos()
     {
