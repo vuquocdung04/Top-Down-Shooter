@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class EnemyAxe : MonoBehaviour
+public class Enemy_Axe_Obj : MonoBehaviour
 {
     [SerializeField]private GameObject impactFx;
     [SerializeField] private Rigidbody rb;

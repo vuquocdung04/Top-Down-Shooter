@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class EnemyShield : MonoBehaviour
+public class Enemy_Shield_Obj : MonoBehaviour
 {
     private Enemy_Melee enemy;
     [SerializeField] private int durability = 10;

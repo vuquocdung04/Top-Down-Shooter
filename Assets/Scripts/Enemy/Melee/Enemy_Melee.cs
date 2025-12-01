@@ -29,20 +29,22 @@ public enum EnemyMelee_Type
 
 public class Enemy_Melee : Enemy
 {
+    #region States
     public IdleState_Melee idleState { get; private set; }
     public MoveState_Melee moveState { get; private set; }
     public RecoveryState_Melee recoveryState { get; private set; }
     public ChaseState_Melee chaseState { get; private set; }
     public AttackState_Melee attackState { get; private set; }
     private DeadState_Melee deadState { get; set; }
-    
     public AbilityState_Melee abilityState { get; private set; }
+    #endregion
+    
 
     [Header("Enemy Melee Type")] public EnemyMelee_Type meleeType;
 
     public Transform shieldTransform;
     public float dodgeCooldown;
-    private float lastTimeDodge;
+    private float lastTimeDodge = -10;
 
     [Header("Axe throw ability")]
     public GameObject axePrefab;
@@ -82,8 +84,18 @@ public class Enemy_Melee : Enemy
     protected override void Update()
     {
         stateMachine.currentState.UpdateState();
+        if (ShouldEnterBattleMode())
+            EnterBattleMode();
     }
-    
+
+    public override void EnterBattleMode()
+    {
+        if (inBattleMode)
+            return;
+        base.EnterBattleMode();
+        stateMachine.ChangeState(recoveryState);
+    }
+
     public override void AbilityTrigger()
     {
         base.AbilityTrigger();
@@ -124,7 +136,11 @@ public class Enemy_Melee : Enemy
 
         if(Vector3.Distance(transform.position, player.position) < 1.8f)
             return;
-        if (Time.time > dodgeCooldown + lastTimeDodge)
+        float dodgeAnimationDuration = GetAnimationClipDuration("Sprinting Forward Roll");
+        
+        Debug.Log(dodgeAnimationDuration);
+        
+        if (Time.time > dodgeCooldown + lastTimeDodge + dodgeAnimationDuration)
         {
             lastTimeDodge =  Time.time;
             anim.SetTrigger("Dodge");
@@ -141,6 +157,17 @@ public class Enemy_Melee : Enemy
             return true;
         }
         return false;
+    }
+
+    private float GetAnimationClipDuration(string clipName)
+    {
+        AnimationClip[] clips = anim.runtimeAnimatorController.animationClips;
+        
+        foreach(var t in clips)
+            if(clipName == t.name)
+                return t.length;
+        Debug.Log(clipName + " animation not found!");
+        return 0;
     }
     
     protected override void OnDrawGizmos()

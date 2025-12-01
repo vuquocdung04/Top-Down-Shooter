@@ -24,16 +24,19 @@ public class DeadState_Melee : EnemyState
     public override void UpdateState()
     {
         base.UpdateState();
+        DisableInteractionIfShould();
+    }
+    public override void ExitState()
+    {
+        base.ExitState();
+    }
+    private void DisableInteractionIfShould()
+    {
         if (stateTimer <= 0 && !interactionDisabled)
         {
             interactionDisabled = true;
             ragdoll.RagdollActive(false);
             ragdoll.CollidersActive(false);
         }
-    }
-
-    public override void ExitState()
-    {
-        base.ExitState();
     }
 }

@@ -78,10 +78,10 @@ public class Bullet : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         Enemy enemy = other.transform.GetComponentInParent<Enemy>();
-        EnemyShield shield = other.gameObject.GetComponent<EnemyShield>();
-        if (shield)
+        Enemy_Shield_Obj shieldObj = other.gameObject.GetComponent<Enemy_Shield_Obj>();
+        if (shieldObj)
         {
-            shield.ReduceDurability();
+            shieldObj.ReduceDurability();
             return;
         }
         
@@ -90,7 +90,7 @@ public class Bullet : MonoBehaviour
             Vector3 force = rb.velocity.normalized * impactForce;
             Rigidbody hitRigidbody = other.collider.attachedRigidbody;
             enemy.GetHit();
-            enemy.HitImpact(force, other.contacts[0].point, hitRigidbody);
+            enemy.DeathImpact(force, other.contacts[0].point, hitRigidbody);
         }
         
         CreateImpactFX(other);

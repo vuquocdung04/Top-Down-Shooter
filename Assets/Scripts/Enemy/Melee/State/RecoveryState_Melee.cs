@@ -19,7 +19,7 @@ public class RecoveryState_Melee : EnemyState
     public override void UpdateState()
     {
         base.UpdateState();
-        enemy.transform.rotation = enemy.FaceTarget(enemy.player.position);
+        enemy.FaceTarget(enemy.player.position);
         if (triggerCalled)
         {
             if (enemy.CanThrowAxe())
