@@ -19,7 +19,7 @@ public class AttackState_Melee : EnemyState
     public override void EnterState()
     {
         base.EnterState();
-        enemy.PullWeapon();
+        enemy.EnableWeaponModel(true);
         
         attackMoveSpeed = enemy.attackData.moveSpeed;
         enemy.anim.SetFloat("AttackAnimationSpeed", enemy.attackData.animationSpeed);
