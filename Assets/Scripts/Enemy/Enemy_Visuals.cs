@@ -33,6 +33,12 @@ public class Enemy_Visuals : MonoBehaviour
         CollectCorruptionCrystals();
     }
 
+    public void EnableWeaponTrail(bool enable)
+    {
+        Enemy_WeaponModel currentWeaponScript = currentWeaponModel.GetComponent<Enemy_WeaponModel>();
+        currentWeaponScript.EnableTrailEffect(enable);
+    }
+
     public void SetupWeaponType(Enemy_MeleeWeaponType type)
     {
         weaponType = type;

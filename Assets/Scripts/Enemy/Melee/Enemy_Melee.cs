@@ -29,7 +29,7 @@ public enum EnemyMelee_Type
 
 public class Enemy_Melee : Enemy
 {
-    private Enemy_Visuals visuals;
+    public Enemy_Visuals visuals { get; private set; }
     
     #region States
     public IdleState_Melee idleState { get; private set; }
@@ -147,8 +147,6 @@ public class Enemy_Melee : Enemy
         if(Vector3.Distance(transform.position, player.position) < 1.8f)
             return;
         float dodgeAnimationDuration = GetAnimationClipDuration("Sprinting Forward Roll");
-        
-        Debug.Log(dodgeAnimationDuration);
         
         if (Time.time > dodgeCooldown + lastTimeDodge + dodgeAnimationDuration)
         {

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class AttackState_Melee : EnemyState
 {
-    private Enemy_Melee enemy;
+    public Enemy_Melee enemy { get; private set; }
     private Vector3 attackDirection;
 
     private float attackMoveSpeed;
@@ -20,6 +20,7 @@ public class AttackState_Melee : EnemyState
     {
         base.EnterState();
         enemy.EnableWeaponModel(true);
+        enemy.visuals.EnableWeaponTrail(true);
         
         attackMoveSpeed = enemy.attackData.moveSpeed;
         enemy.anim.SetFloat("AttackAnimationSpeed", enemy.attackData.animationSpeed);
@@ -60,6 +61,8 @@ public class AttackState_Melee : EnemyState
     {
         base.ExitState();
         SetupNextAttack();
+        
+        enemy.visuals.EnableWeaponTrail(false);
     }
 
     private void SetupNextAttack()
