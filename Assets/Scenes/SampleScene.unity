@@ -4339,7 +4339,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8902c62b1db94356a90b0d51fd809d1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponModels: []
   corruptionCrystals: []
   corruptionAmount: 5
   colorTextures:
@@ -6515,6 +6514,7 @@ GameObject:
   - component: {fileID: 7888133216865298589}
   - component: {fileID: 9206571809582797869}
   - component: {fileID: 3184376443431384335}
+  - component: {fileID: 9206571809582797870}
   m_Layer: 11
   m_Name: weap_Auto rifle
   m_TagString: Untagged
@@ -15961,6 +15961,7 @@ GameObject:
   - component: {fileID: 6308414069031392983}
   - component: {fileID: 5816084715061669642}
   - component: {fileID: 636689701179185755}
+  - component: {fileID: 6308414069031392984}
   m_Layer: 11
   m_Name: weap_shotgun
   m_TagString: Untagged
@@ -19718,6 +19719,7 @@ GameObject:
   - component: {fileID: 2617362421595733528}
   - component: {fileID: 368067589613408431}
   - component: {fileID: 3281097512062434685}
+  - component: {fileID: 5143404357742484101}
   m_Layer: 11
   m_Name: weap_sniper_rifle
   m_TagString: Untagged
@@ -19725,6 +19727,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!114 &5143404357742484101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5143404357742484100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4fc6e190406449d8ce28ee61e622c0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: 4
 --- !u!4 &5161594603361056694
 Transform:
   m_ObjectHideFlags: 0
@@ -22324,6 +22339,7 @@ MonoBehaviour:
   - {fileID: 1692437477398732728}
   - {fileID: 6621143121163130702}
   weaponHolder: {fileID: 7667812387875613773}
+  weaponType: 1
   fireRate: 10
   bulletPrefab: {fileID: 9104223003364152627, guid: 2fc0fd9978279bc4f92e6c6e0487fe09, type: 3}
   gunPoint: {fileID: 277465374}
@@ -23086,6 +23102,19 @@ Transform:
   - {fileID: 5508063243181169327}
   m_Father: {fileID: 7667812387875613773}
   m_LocalEulerAnglesHint: {x: -94.182, y: -90.39398, z: 205.83}
+--- !u!114 &6308414069031392984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3776771144642200256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4fc6e190406449d8ce28ee61e622c0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: 2
 --- !u!65 &6318522295592354633
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -23249,6 +23278,7 @@ GameObject:
   - component: {fileID: 1389428948428514875}
   - component: {fileID: 681902351601521912}
   - component: {fileID: 8832820248148027330}
+  - component: {fileID: 8832820248148027331}
   m_Layer: 11
   m_Name: weap_revolver
   m_TagString: Untagged
@@ -29337,6 +29367,7 @@ GameObject:
   - component: {fileID: 9188466283462761817}
   - component: {fileID: 130601658409184660}
   - component: {fileID: 35561189974440087}
+  - component: {fileID: 9188466283462761818}
   m_Layer: 11
   m_Name: weap_pistol
   m_TagString: Untagged
@@ -29537,6 +29568,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8832820248148027331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6425224927867203857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4fc6e190406449d8ce28ee61e622c0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: 1
 --- !u!1 &8847023345760393636
 GameObject:
   m_ObjectHideFlags: 0
@@ -30831,6 +30875,19 @@ Transform:
   - {fileID: 4945394271327494501}
   m_Father: {fileID: 7667812387875613773}
   m_LocalEulerAnglesHint: {x: -94.182, y: -90.39398, z: 205.83}
+--- !u!114 &9188466283462761818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8771996532943889115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4fc6e190406449d8ce28ee61e622c0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: 0
 --- !u!65 &9196839529437428298
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -30892,6 +30949,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 839563122244994350}
   m_Mesh: {fileID: 7005862561380833248, guid: 556391969a5d5b7479d7b9829a2e59a1, type: 3}
+--- !u!114 &9206571809582797870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 839563122244994350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4fc6e190406449d8ce28ee61e622c0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: 3
 --- !u!23 &9218460654197208019
 MeshRenderer:
   m_ObjectHideFlags: 0

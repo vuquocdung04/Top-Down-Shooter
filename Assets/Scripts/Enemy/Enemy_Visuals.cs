@@ -11,39 +11,32 @@ public enum Enemy_MeleeWeaponType
     Unarmed = 2,
 }
 
+public enum Enemy_RangeWeaponType
+{
+    Pistol = 0,
+    Revolver = 1,
+    Shotgun = 2,
+    AutoRifle = 3,
+    Rifle = 4,
+}
+
 public class Enemy_Visuals : MonoBehaviour
 {
-    [Header("Weapon Visual")] [SerializeField]
-    private Enemy_WeaponModel[] weaponModels;
-
-    private Enemy_MeleeWeaponType weaponType;
     public GameObject currentWeaponModel { get; private set; }
 
     [Header("Corruption visuals")] [SerializeField]
     private GameObject[] corruptionCrystals;
 
     [SerializeField] private int corruptionAmount;
-    
+
     [Header("Color")] [SerializeField] private Texture[] colorTextures;
     [SerializeField] private SkinnedMeshRenderer skinnedMeshRenderer;
-    
-    private void Awake()
-    {
-        weaponModels = GetComponentsInChildren<Enemy_WeaponModel>(true);
-        CollectCorruptionCrystals();
-    }
-
     public void EnableWeaponTrail(bool enable)
     {
         Enemy_WeaponModel currentWeaponScript = currentWeaponModel.GetComponent<Enemy_WeaponModel>();
         currentWeaponScript.EnableTrailEffect(enable);
     }
 
-    public void SetupWeaponType(Enemy_MeleeWeaponType type)
-    {
-        weaponType = type;
-    }
-    
     public void SetupLook()
     {
         SetupRandomColor();
@@ -53,29 +46,53 @@ public class Enemy_Visuals : MonoBehaviour
 
     private void SetupRandomWeapon()
     {
+        bool thisEnemyIsMelee = GetComponent<Enemy_Melee>() != null;
+        bool thisEnemyIsRange = GetComponent<Enemy_Range>() != null;
+        
+        if (thisEnemyIsRange)
+            currentWeaponModel = FindRangeWeaponModel();
+        if (thisEnemyIsMelee)
+            currentWeaponModel = FindMeleeWeaponModel();
+        
+        currentWeaponModel.SetActive(true);
+
+        OverrideAnimatorControllerIfCan();
+    }
+
+    private GameObject FindRangeWeaponModel()
+    {
+        Enemy_RangeWeaponModel[] weaponModels = GetComponentsInChildren<Enemy_RangeWeaponModel>(true);
+        Enemy_RangeWeaponType weaponType = GetComponent<Enemy_Range>().weaponType;
+
         foreach (var w in weaponModels)
         {
-            w.gameObject.SetActive(false);
+            if (w.weaponType == weaponType)
+                return w.gameObject;
         }
+        Debug.Log("No range weapon found");
+        return null;
+    }
 
+    private GameObject FindMeleeWeaponModel()
+    {
+        Enemy_WeaponModel[] weaponModels = GetComponentsInChildren<Enemy_WeaponModel>(true);
+        Enemy_MeleeWeaponType weaponType = GetComponent<Enemy_Melee>().weaponType;
         List<Enemy_WeaponModel> filteredWeaponModels = new();
         foreach (var w in weaponModels)
         {
-            if(w.weaponType == weaponType)
+            if (w.weaponType == weaponType)
                 filteredWeaponModels.Add(w);
         }
 
         int randomIndex = Random.Range(0, filteredWeaponModels.Count);
-        currentWeaponModel = filteredWeaponModels[randomIndex].gameObject;
-        currentWeaponModel.SetActive(true);
-
-        OverideAnimatorControllerIfCan();
+        return filteredWeaponModels[randomIndex].gameObject;
     }
 
-    private void OverideAnimatorControllerIfCan()
+    
+    private void OverrideAnimatorControllerIfCan()
     {
         AnimatorOverrideController overrideController =
-            currentWeaponModel.GetComponent<Enemy_WeaponModel>().overrideController;
+            currentWeaponModel.GetComponent<Enemy_WeaponModel>()?.overrideController;
         if (overrideController != null)
         {
             GetComponentInChildren<Animator>().runtimeAnimatorController = overrideController;
@@ -84,9 +101,9 @@ public class Enemy_Visuals : MonoBehaviour
 
     private void SetupRandomColor()
     {
-        int randomIndex =  Random.Range(0, colorTextures.Length);
-        Material newMat = new  Material(skinnedMeshRenderer.material);
-        
+        int randomIndex = Random.Range(0, colorTextures.Length);
+        Material newMat = new Material(skinnedMeshRenderer.material);
+
         newMat.mainTexture = colorTextures[randomIndex];
         skinnedMeshRenderer.material = newMat;
     }
@@ -94,6 +111,7 @@ public class Enemy_Visuals : MonoBehaviour
     private void SetupRandomCorruption()
     {
         List<int> availableIndexs = new();
+        corruptionCrystals = CollectCorruptionCrystals();
         for (int i = 0; i < corruptionCrystals.Length; i++)
         {
             availableIndexs.Add(i);
@@ -102,25 +120,26 @@ public class Enemy_Visuals : MonoBehaviour
 
         for (int i = 0; i < corruptionAmount; i++)
         {
-            if(availableIndexs.Count ==0)
+            if (availableIndexs.Count == 0)
                 break;
-            
+
             int randomIndex = Random.Range(0, availableIndexs.Count);
             int objectIndex = availableIndexs[randomIndex];
             corruptionCrystals[objectIndex].SetActive(true);
             availableIndexs.RemoveAt(randomIndex);
         }
     }
-    
-    private void CollectCorruptionCrystals()
+
+    private GameObject[] CollectCorruptionCrystals()
     {
         Enemy_CorruptionCrystal[] crystalsComponents = GetComponentsInChildren<Enemy_CorruptionCrystal>(true);
-        corruptionCrystals = new GameObject[crystalsComponents.Length];
+        GameObject[] corruptionCrystals = new GameObject[crystalsComponents.Length];
 
         for (int i = 0; i < crystalsComponents.Length; i++)
         {
             corruptionCrystals[i] = crystalsComponents[i].gameObject;
         }
-    }
 
+        return corruptionCrystals;
+    }
 }
