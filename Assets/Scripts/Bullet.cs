@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float impactForce;
+    private float impactForce;
     
     private BoxCollider cd;
     private Rigidbody rb;
@@ -17,7 +17,7 @@ public class Bullet : MonoBehaviour
 
     private bool bulletDisabled;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         cd = GetComponent<BoxCollider>();
         rb = GetComponent<Rigidbody>();
@@ -25,7 +25,7 @@ public class Bullet : MonoBehaviour
         meshRenderer = GetComponent<MeshRenderer>();
     }
 
-    public void BulletSetup(float fly_distance, float impact_force)
+    public void BulletSetup(float fly_distance = 100, float impact_force = 100)
     {
         impactForce = impact_force;
         bulletDisabled = false;
@@ -36,7 +36,7 @@ public class Bullet : MonoBehaviour
         flyDistance = fly_distance + 0.5f; // magic number 0.5f is a length of tip of the laser (Check method UpdateVisuals on PlayerAim)
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         FadeTrailIfNeeded();
         
@@ -46,18 +46,18 @@ public class Bullet : MonoBehaviour
             
     }
 
-    private void ReturnToPoolIfNeeded()
+    protected void ReturnToPoolIfNeeded()
     {
         if(trailRenderer.time < 0)
             ReturnBulletToPool();
     }
 
-    private void ReturnBulletToPool()
+    protected void ReturnBulletToPool()
     {
         ObjectPool.instance.ReturnObject(gameObject);
     }
 
-    private void DisableBulletIfNeeded()
+    protected void DisableBulletIfNeeded()
     {
         if (Vector3.Distance(startPosition, transform.position) > flyDistance && !bulletDisabled)
         {
@@ -67,7 +67,7 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    private void FadeTrailIfNeeded()
+    protected void FadeTrailIfNeeded()
     {
         if (Vector3.Distance(startPosition, transform.position) > flyDistance - 1.5f)
         {
@@ -75,7 +75,7 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision other)
+    protected virtual void OnCollisionEnter(Collision other)
     {
         Enemy enemy = other.transform.GetComponentInParent<Enemy>();
         Enemy_Shield_Obj shieldObj = other.gameObject.GetComponent<Enemy_Shield_Obj>();
@@ -97,7 +97,7 @@ public class Bullet : MonoBehaviour
         ReturnBulletToPool();
     }
 
-    private void CreateImpactFX(Collision other)
+    protected void CreateImpactFX(Collision other)
     {
         if (other.contacts.Length > 0)
         {
