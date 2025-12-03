@@ -3,7 +3,7 @@ using UnityEngine;
 
 
 [System.Serializable]
-public struct Enemy_MeleeAttackData
+public struct AttackData_EnemyMelee
 {
     public string attackName;
     public float attackRange;
@@ -54,8 +54,8 @@ public class Enemy_Melee : Enemy
     private float lastTimeAxeThrow;
     public Transform axeStartPoint;
     
-    [Header("Attack Data")] public Enemy_MeleeAttackData enemyMeleeAttackData;
-    public List<Enemy_MeleeAttackData> attackList;
+    [Header("Attack Data")] public AttackData_EnemyMelee attackDataEnemyMelee;
+    public List<AttackData_EnemyMelee> attackList;
     
     protected override void Awake()
     {
@@ -76,16 +76,15 @@ public class Enemy_Melee : Enemy
     {
         base.Start();
         stateMachine.Initialize(idleState);
-        InitializeSpeciality();
+        InitializePerk();
         visuals.SetupLook();
         UpdateAttackData();
     }
 
     protected override void Update()
     {
+        base.Update();
         stateMachine.currentState.UpdateState();
-        if (ShouldEnterBattleMode())
-            EnterBattleMode();
     }
 
     public override void EnterBattleMode()
@@ -108,12 +107,12 @@ public class Enemy_Melee : Enemy
         Enemy_WeaponModel currentWeapon = visuals.currentWeaponModel.GetComponent<Enemy_WeaponModel>();
         if (currentWeapon != null)
         {
-            attackList = new List<Enemy_MeleeAttackData>(currentWeapon.weaponData.attackDatas);
+            attackList = new List<AttackData_EnemyMelee>(currentWeapon.weaponData.attackDatas);
             turnSpeed = currentWeapon.weaponData.turnSpeed;
         }
     }
     
-    private void InitializeSpeciality()
+    private void InitializePerk()
     {
         if (meleeType == EnemyMelee_Type.AxeThrow)
         {
@@ -145,9 +144,7 @@ public class Enemy_Melee : Enemy
         
         visuals.currentWeaponModel.gameObject.SetActive(active);
     }
-
-    public bool PlayerInAttackRange() => Vector3.Distance(transform.position, player.position) < enemyMeleeAttackData.attackRange;
-
+    
     public void ActivateDodgeRoll()
     {
         
@@ -189,10 +186,13 @@ public class Enemy_Melee : Enemy
         return 0;
     }
     
+    public bool PlayerInAttackRange() => Vector3.Distance(transform.position, player.position) < attackDataEnemyMelee.attackRange;
+    
+    
     protected override void OnDrawGizmos()
     {
         base.OnDrawGizmos();
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, enemyMeleeAttackData.attackRange);
+        Gizmos.DrawWireSphere(transform.position, attackDataEnemyMelee.attackRange);
     }
 }
