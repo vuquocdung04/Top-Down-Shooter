@@ -8,6 +8,7 @@ public enum Enemy_MeleeWeaponType
 {
     OneHand = 0,
     Throw = 1,
+    Unarmed = 2,
 }
 
 public class Enemy_Visuals : MonoBehaviour
@@ -61,7 +62,20 @@ public class Enemy_Visuals : MonoBehaviour
         int randomIndex = Random.Range(0, filteredWeaponModels.Count);
         currentWeaponModel = filteredWeaponModels[randomIndex].gameObject;
         currentWeaponModel.SetActive(true);
+
+        OverideAnimatorControllerIfCan();
     }
+
+    private void OverideAnimatorControllerIfCan()
+    {
+        AnimatorOverrideController overrideController =
+            currentWeaponModel.GetComponent<Enemy_WeaponModel>().overrideController;
+        if (overrideController != null)
+        {
+            GetComponentInChildren<Animator>().runtimeAnimatorController = overrideController;
+        }
+    }
+
     private void SetupRandomColor()
     {
         int randomIndex =  Random.Range(0, colorTextures.Length);

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Weapon_Shotgun_Data
   m_EditorClassIdentifier: 
   weaponName: ShotGun G7
-  bulletsInMagazine: 28
-  magazineCapacity: 28
+  bulletsInMagazine: 200
+  magazineCapacity: 200
   totalReserveAmmo: 999999
   shootType: 0
   bulletsPerShot: 7
