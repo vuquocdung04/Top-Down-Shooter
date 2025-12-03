@@ -4,6 +4,7 @@ public class BattleState_Range : EnemyState
 {
     private Enemy_Range enemy;
     private float lastTimeShoot = -10f;
+    private int bulletsShoot = 0;
 
     public BattleState_Range(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName) : base(enemyBase,
         stateMachine, animBoolName)
@@ -20,17 +21,37 @@ public class BattleState_Range : EnemyState
     {
         base.UpdateState();
         enemy.FaceTarget(enemy.player.position);
-        if (Time.time > lastTimeShoot + 1 / enemy.fireRate)
+        if (WeaponOutOfBullets())
         {
-            enemy.FireSingleBullet();
-            lastTimeShoot =  Time.time;
+            if (WeaponOnCoolDown())
+                AttemptToResetWeapon();
+            return;
+        }
+        
+        if (CanShoot())
+        {
+            Shoot();
         }
     }
+
+    private void AttemptToResetWeapon() => bulletsShoot = 0;
+
+    private bool WeaponOnCoolDown() => Time.time > lastTimeShoot + enemy.weaponCooldown;
+
+    private bool WeaponOutOfBullets() => bulletsShoot >= enemy.bulletToShoot;
+    private bool CanShoot() => Time.time > lastTimeShoot + 1 / enemy.fireRate;
 
     public override void ExitState()
     {
         base.ExitState();
     }
+    private void Shoot()
+    {
+        enemy.FireSingleBullet();
+        lastTimeShoot =  Time.time;
+        bulletsShoot++;
+    }
+
     
     
 }
