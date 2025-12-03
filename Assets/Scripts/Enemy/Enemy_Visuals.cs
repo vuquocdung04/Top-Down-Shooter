@@ -73,22 +73,22 @@ public class Enemy_Visuals : MonoBehaviour
 
     private void SetupRandomCorruption()
     {
-        List<int> availableIndex = new();
+        List<int> availableIndexs = new();
         for (int i = 0; i < corruptionCrystals.Length; i++)
         {
-            availableIndex.Add(i);
+            availableIndexs.Add(i);
             corruptionCrystals[i].SetActive(false);
         }
 
         for (int i = 0; i < corruptionAmount; i++)
         {
-            if(availableIndex.Count ==0)
+            if(availableIndexs.Count ==0)
                 break;
             
-            int randomIndex = Random.Range(0, availableIndex.Count);
-            int objectIndex = availableIndex[randomIndex];
+            int randomIndex = Random.Range(0, availableIndexs.Count);
+            int objectIndex = availableIndexs[randomIndex];
             corruptionCrystals[objectIndex].SetActive(true);
-            availableIndex.RemoveAt(randomIndex);
+            availableIndexs.RemoveAt(randomIndex);
         }
     }
     
