@@ -879,12 +879,12 @@ MonoBehaviour:
   animTimer: 0.2
   axeThrowCooldown: 0
   axeStartPoint: {fileID: 1135623903}
-  attackData:
+  enemyMeleeAttackData:
     attackName: 
-    attackRange: 1.3
-    moveSpeed: 2.5
-    attackIndex: 1
-    animationSpeed: 2
+    attackRange: 0
+    moveSpeed: 0
+    attackIndex: 0
+    animationSpeed: 0
     attackType: 0
   attackList:
   - attackName: Spin
@@ -3332,7 +3332,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1731864698
 Transform:
   m_ObjectHideFlags: 0
@@ -3363,6 +3363,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 2
   overrideController: {fileID: 22100000, guid: 329d7e7ce8a832d40ac8d68f3006dcb8, type: 2}
+  weaponData: {fileID: 11400000, guid: 44f58dfb77793b04f8dfc8b93073d50b, type: 2}
   trailEffects:
   - {fileID: 2054559821}
   - {fileID: 1701566443}
@@ -19871,6 +19872,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 0
   overrideController: {fileID: 0}
+  weaponData: {fileID: 0}
   trailEffects:
   - {fileID: 1645069425}
 --- !u!1 &5236052518235194962
@@ -25169,6 +25171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 0
   overrideController: {fileID: 0}
+  weaponData: {fileID: 0}
   trailEffects:
   - {fileID: 1256632977}
 --- !u!23 &7227248317150636690
@@ -27763,6 +27766,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 0
   overrideController: {fileID: 0}
+  weaponData: {fileID: 0}
   trailEffects:
   - {fileID: 1178876162}
 --- !u!1 &8200202668029456196
@@ -29854,6 +29858,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 1
   overrideController: {fileID: 0}
+  weaponData: {fileID: 0}
   trailEffects:
   - {fileID: 1595017}
 --- !u!64 &8954387019475589424
@@ -30382,6 +30387,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 1
   overrideController: {fileID: 0}
+  weaponData: {fileID: 0}
   trailEffects:
   - {fileID: 1006045841}
 --- !u!4 &9094447460340902852

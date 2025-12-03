@@ -3,7 +3,7 @@ using UnityEngine;
 
 
 [System.Serializable]
-public struct AttackData
+public struct Enemy_MeleeAttackData
 {
     public string attackName;
     public float attackRange;
@@ -54,8 +54,8 @@ public class Enemy_Melee : Enemy
     private float lastTimeAxeThrow;
     public Transform axeStartPoint;
     
-    [Header("Attack Data")] public AttackData attackData;
-    public List<AttackData> attackList;
+    [Header("Attack Data")] public Enemy_MeleeAttackData enemyMeleeAttackData;
+    public List<Enemy_MeleeAttackData> attackList;
     
     protected override void Awake()
     {
@@ -78,6 +78,7 @@ public class Enemy_Melee : Enemy
         stateMachine.Initialize(idleState);
         InitializeSpeciality();
         visuals.SetupLook();
+        UpdateAttackData();
     }
 
     protected override void Update()
@@ -102,6 +103,16 @@ public class Enemy_Melee : Enemy
         EnableWeaponModel(false);
     }
 
+    public void UpdateAttackData()
+    {
+        Enemy_WeaponModel currentWeapon = visuals.currentWeaponModel.GetComponent<Enemy_WeaponModel>();
+        if (currentWeapon != null)
+        {
+            attackList = new List<Enemy_MeleeAttackData>(currentWeapon.weaponData.attackDatas);
+            turnSpeed = currentWeapon.weaponData.turnSpeed;
+        }
+    }
+    
     private void InitializeSpeciality()
     {
         if (meleeType == EnemyMelee_Type.AxeThrow)
@@ -135,7 +146,7 @@ public class Enemy_Melee : Enemy
         visuals.currentWeaponModel.gameObject.SetActive(active);
     }
 
-    public bool PlayerInAttackRange() => Vector3.Distance(transform.position, player.position) < attackData.attackRange;
+    public bool PlayerInAttackRange() => Vector3.Distance(transform.position, player.position) < enemyMeleeAttackData.attackRange;
 
     public void ActivateDodgeRoll()
     {
@@ -182,6 +193,6 @@ public class Enemy_Melee : Enemy
     {
         base.OnDrawGizmos();
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, attackData.attackRange);
+        Gizmos.DrawWireSphere(transform.position, enemyMeleeAttackData.attackRange);
     }
 }
