@@ -15,6 +15,7 @@ public class BattleState_Range : EnemyState
     public override void EnterState()
     {
         base.EnterState();
+        enemy.visuals.EnableIk(true);
     }
 
     public override void UpdateState()
@@ -34,6 +35,11 @@ public class BattleState_Range : EnemyState
         }
     }
 
+    public override void ExitState()
+    {
+        base.ExitState();
+        enemy.visuals.EnableIk(false);
+    }
     private void AttemptToResetWeapon() => bulletsShoot = 0;
 
     private bool WeaponOnCoolDown() => Time.time > lastTimeShoot + enemy.weaponCooldown;
@@ -41,10 +47,6 @@ public class BattleState_Range : EnemyState
     private bool WeaponOutOfBullets() => bulletsShoot >= enemy.bulletToShoot;
     private bool CanShoot() => Time.time > lastTimeShoot + 1 / enemy.fireRate;
 
-    public override void ExitState()
-    {
-        base.ExitState();
-    }
     private void Shoot()
     {
         enemy.FireSingleBullet();

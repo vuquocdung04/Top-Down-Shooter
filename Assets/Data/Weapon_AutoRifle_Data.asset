@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Weapon_AutoRifle_Data
   m_EditorClassIdentifier: 
   weaponName: Blasker K-567
-  bulletsInMagazine: 50
-  magazineCapacity: 50
+  bulletsInMagazine: 100
+  magazineCapacity: 100
   totalReserveAmmo: 2147483647
   shootType: 1
   bulletsPerShot: 1
@@ -30,5 +30,5 @@ MonoBehaviour:
   weaponType: 3
   reloadSpeed: 1.25
   equipmentSpeed: 1
-  gunDistance: 6
+  gunDistance: 8
   cameraDistance: 6

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 using Random = UnityEngine.Random;
 
 public enum Enemy_MeleeWeaponType
@@ -31,6 +32,11 @@ public class Enemy_Visuals : MonoBehaviour
 
     [Header("Color")] [SerializeField] private Texture[] colorTextures;
     [SerializeField] private SkinnedMeshRenderer skinnedMeshRenderer;
+
+    [Header("Rig references")] [SerializeField]
+    private Transform leftHandIK;
+    [SerializeField] private Transform leftElbowIK;
+    [SerializeField] private Rig rig;
     public void EnableWeaponTrail(bool enable)
     {
         Enemy_WeaponModel currentWeaponScript = currentWeaponModel.GetComponent<Enemy_WeaponModel>();
@@ -69,6 +75,7 @@ public class Enemy_Visuals : MonoBehaviour
             if (weaponModel.weaponType == weaponType)
             {
                 SwitchAnimationLayer((int)weaponModel.weaponHoldType);
+                SetLeftHandIK(weaponModel.leftHandTarget, weaponModel.leftElbowTarget);
                 return weaponModel.gameObject;
             }
         }
@@ -155,5 +162,18 @@ public class Enemy_Visuals : MonoBehaviour
         }
         anim.SetLayerWeight(layerIndex, 1f);
     }
-    
+
+
+    public void EnableIk(bool enable)
+    {
+        rig.weight = enable ? 1f : 0f;
+    }
+    private void SetLeftHandIK(Transform leftHandTarget, Transform leftElbowTarget)
+    {
+        leftHandIK.localPosition = leftHandTarget.localPosition;
+        leftHandIK.localRotation = leftHandTarget.localRotation;
+        
+        leftElbowIK.localPosition = leftElbowTarget.localPosition;
+        leftElbowIK.localRotation = leftElbowTarget.localRotation;
+    }
 }
