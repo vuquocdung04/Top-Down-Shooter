@@ -6521,7 +6521,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &848877695746037920
 Transform:
   m_ObjectHideFlags: 0
@@ -19740,6 +19740,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 4
+  weaponHoldType: 2
 --- !u!4 &5161594603361056694
 Transform:
   m_ObjectHideFlags: 0
@@ -22339,7 +22340,7 @@ MonoBehaviour:
   - {fileID: 1692437477398732728}
   - {fileID: 6621143121163130702}
   weaponHolder: {fileID: 7667812387875613773}
-  weaponType: 1
+  weaponType: 2
   fireRate: 10
   bulletPrefab: {fileID: 9104223003364152627, guid: 2fc0fd9978279bc4f92e6c6e0487fe09, type: 3}
   gunPoint: {fileID: 277465374}
@@ -23115,6 +23116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 2
+  weaponHoldType: 1
 --- !u!65 &6318522295592354633
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -29581,6 +29583,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 1
+  weaponHoldType: 0
 --- !u!1 &8847023345760393636
 GameObject:
   m_ObjectHideFlags: 0
@@ -30888,6 +30891,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 0
+  weaponHoldType: 0
 --- !u!65 &9196839529437428298
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -30962,6 +30966,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 3
+  weaponHoldType: 0
 --- !u!23 &9218460654197208019
 MeshRenderer:
   m_ObjectHideFlags: 0

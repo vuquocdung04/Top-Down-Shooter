@@ -64,10 +64,13 @@ public class Enemy_Visuals : MonoBehaviour
         Enemy_RangeWeaponModel[] weaponModels = GetComponentsInChildren<Enemy_RangeWeaponModel>(true);
         Enemy_RangeWeaponType weaponType = GetComponent<Enemy_Range>().weaponType;
 
-        foreach (var w in weaponModels)
+        foreach (var weaponModel in weaponModels)
         {
-            if (w.weaponType == weaponType)
-                return w.gameObject;
+            if (weaponModel.weaponType == weaponType)
+            {
+                SwitchAnimationLayer((int)weaponModel.weaponHoldType);
+                return weaponModel.gameObject;
+            }
         }
         Debug.Log("No range weapon found");
         return null;
@@ -142,4 +145,15 @@ public class Enemy_Visuals : MonoBehaviour
 
         return corruptionCrystals;
     }
+
+    private void SwitchAnimationLayer(int layerIndex)
+    {
+        Animator anim = transform.GetComponentInChildren<Animator>();
+        for (int i = 0; i < anim.layerCount; i++)
+        {
+            anim.SetLayerWeight(i, 0f);
+        }
+        anim.SetLayerWeight(layerIndex, 1f);
+    }
+    
 }
