@@ -10,6 +10,8 @@ public enum Enemy_RangeWeaponHoldType
 
 public class Enemy_RangeWeaponModel : MonoBehaviour
 {
+    public Transform gunPoint;
+    [Space(5)]
     public Enemy_RangeWeaponType weaponType;
     public Enemy_RangeWeaponHoldType weaponHoldType;
     

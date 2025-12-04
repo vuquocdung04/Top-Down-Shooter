@@ -1,16 +1,19 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy_Range : Enemy
 {
-    public Transform weaponHolder;
-    public Enemy_RangeWeaponType weaponType;
+    [Header("Weapon Details")]
     
-    public float fireRate = 1; // bullet per second
+    public Enemy_RangeWeaponData weaponData;
+    public Enemy_RangeWeaponType weaponType;
+    [Space(5)]
+    private Transform gunPoint;
+    public Transform weaponHolder;
     public GameObject bulletPrefab;
-    public Transform gunPoint;
-    public float bulletSpeed = 20;
-    public float bulletToShoot = 5; // Bullet to shoot before weapon goes on cooldown
-    public float weaponCooldown = 1.5f; // Weapon cooldown after all bullets shoot
+
+    [SerializeField] private List<Enemy_RangeWeaponData> availableWeaponDatas;
+    
     public IdleState_Range idleState { get; private set; }
     public MoveState_Range moveState { get; private set; }
     public BattleState_Range battleState { get; private set; }
@@ -26,8 +29,10 @@ public class Enemy_Range : Enemy
     protected override void Start()
     {
         base.Start();
+        
         stateMachine.Initialize(idleState);
         visuals.SetupLook();
+        SetupWeapon();
     }
 
     protected override void Update()
@@ -48,12 +53,11 @@ public class Enemy_Range : Enemy
         newBullet.GetComponent<Enemy_Bullet>().BulletSetup();
         
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
-        rbNewBullet.mass = 20 / bulletSpeed;
-        rbNewBullet.velocity = bulletsDirection * bulletSpeed;
-        Debug.Log("Velocity: " + rbNewBullet.velocity);
-        Debug.Log("AngularVe: " +  rbNewBullet.angularVelocity);
-        Debug.Log("Max velo" + rbNewBullet.maxLinearVelocity);
 
+        Vector3 bulletDirectionWithSpread = weaponData.ApplyWeaponSpread(bulletsDirection);
+        
+        rbNewBullet.mass = 20 / weaponData.bulletSpeed;
+        rbNewBullet.velocity = bulletDirectionWithSpread * weaponData.bulletSpeed;
     }
 
     public override void EnterBattleMode()
@@ -61,5 +65,25 @@ public class Enemy_Range : Enemy
         if(inBattleMode) return;
         base.EnterBattleMode();
         stateMachine.ChangeState(battleState);
+    }
+
+    private void SetupWeapon()
+    {
+        List<Enemy_RangeWeaponData> filteredData = new();
+        foreach (var data in availableWeaponDatas)
+        {
+            if(data.weaponType == weaponType)
+                filteredData.Add(data);
+        }
+
+        if (filteredData.Count > 0)
+        {
+            int randomIndex = Random.Range(0, filteredData.Count);
+            weaponData = filteredData[randomIndex];
+        }
+        else
+            Debug.Log("No available weapon data was found!");
+
+        gunPoint = visuals.currentWeaponModel.GetComponent<Enemy_RangeWeaponModel>().gunPoint;
     }
 }
