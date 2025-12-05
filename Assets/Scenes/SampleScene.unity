@@ -4026,6 +4026,37 @@ Transform:
   - {fileID: 80312210}
   m_Father: {fileID: 2010111877}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2090155518
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2090155519}
+  m_Layer: 0
+  m_Name: CoverPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2090155519
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090155518}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -6.87, y: 0.68094426, z: 5.62}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2092893032
 GameObject:
   m_ObjectHideFlags: 0
@@ -5051,7 +5082,8 @@ MonoBehaviour:
   skinnedMeshRenderer: {fileID: 3375409769635031394}
   leftHandIK: {fileID: 1360676963}
   leftElbowIK: {fileID: 1350284415}
-  rig: {fileID: 754479382}
+  leftHandIKConstraint: {fileID: 2142045896}
+  weaponAimConstraint: {fileID: 1991554651}
 --- !u!65 &128683036527529459
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -23050,15 +23082,16 @@ MonoBehaviour:
   heathPoints: 20
   idleTime: 2
   aggressionRange: 5
-  moveSpeed: 1.5
-  chaseSpeed: 4
+  walkSpeed: 1.5
+  runSpeed: 3
   turnSpeed: 10
   patrolPoints:
   - {fileID: 1692437477398732728}
   - {fileID: 6621143121163130702}
+  canUseCover: 1
+  lastCover: {fileID: 2090155519}
   weaponData: {fileID: 11400000, guid: 23dd22a5c4a3f5c4ab4bf54459cf7104, type: 2}
   weaponType: 3
-  gunPoint: {fileID: 0}
   weaponHolder: {fileID: 7667812387875613773}
   bulletPrefab: {fileID: 9104223003364152627, guid: 2fc0fd9978279bc4f92e6c6e0487fe09, type: 3}
   availableWeaponDatas:
@@ -31780,3 +31813,4 @@ SceneRoots:
   - {fileID: 1103645544}
   - {fileID: 1951946304}
   - {fileID: 511014172471880783}
+  - {fileID: 2090155519}

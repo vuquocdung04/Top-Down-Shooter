@@ -13,7 +13,7 @@ public class MoveState_Range : EnemyState
     public override void EnterState()
     {
         base.EnterState();
-        enemy.agent.speed = enemy.moveSpeed;
+        enemy.agent.speed = enemy.walkSpeed;
 
         destination = enemy.GetPatrolDestination();
         enemy.agent.SetDestination(destination);

@@ -17,7 +17,7 @@ public class AbilityState_Melee : EnemyState
     {
         base.EnterState();
         enemy.EnableWeaponModel(true);
-        moveSpeed = enemy.moveSpeed;
+        moveSpeed = enemy.walkSpeed;
         movementDirection = enemy.transform.position + (enemy.transform.forward * MAX_MOVEMENT_DISTANCE);
         
     }
@@ -34,7 +34,7 @@ public class AbilityState_Melee : EnemyState
         
         if (enemy.ManualMovementActive())
             enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, movementDirection,
-                enemy.moveSpeed * Time.deltaTime);
+                enemy.walkSpeed * Time.deltaTime);
         
         if(triggerCalled)
             stateMachine.ChangeState(enemy.recoveryState);
@@ -44,7 +44,7 @@ public class AbilityState_Melee : EnemyState
     public override void ExitState()
     {
         base.ExitState();
-        enemy.moveSpeed = moveSpeed;
+        enemy.walkSpeed = moveSpeed;
         enemy.anim.SetFloat("RecoveryIndex",1);
     }
 

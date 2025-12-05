@@ -10,8 +10,8 @@ public abstract class Enemy : MonoBehaviour
     [Header("Idle Data")] public float idleTime;
     public float aggressionRange;
     
-    [Header("Move Data")] public float moveSpeed;
-    public float chaseSpeed;
+    [Header("Move Data")] public float walkSpeed = 1.5f;
+    public float runSpeed = 3;
     public float turnSpeed;
     private bool manualMovement;
     private bool manualRotation;
