@@ -1,9 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum CoverPerk
+{
+    Unavailable = 0,
+    CanTakeCover = 1,
+    CanTakeAndChangeCover = 2,
+}
+
 public class Enemy_Range : Enemy
 {
-    [Header("Cover systems")] public bool canUseCover = true;
+    [Header("Enemy Perk")]
+    public CoverPerk coverPerk;
+    
+    [Header("Cover systems")]
+    public float safeDistance;
     public CoverPoint lastCover { get; private set; }
     public CoverPoint currentCover { get; private set; }
 
@@ -100,7 +111,7 @@ public class Enemy_Range : Enemy
 
     public bool CanGetCover()
     {
-        if (!canUseCover)
+        if (coverPerk == CoverPerk.Unavailable)
             return false;
         currentCover = AttemptToFindCover()?.GetComponent<CoverPoint>();
 
@@ -160,4 +171,5 @@ public class Enemy_Range : Enemy
     }
 
     #endregion
+
 }

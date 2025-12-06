@@ -8,7 +8,7 @@ public class Enemy_Bullet : Bullet
         ReturnBulletToPool();
         
         Player player = other.gameObject.GetComponentInParent<Player>();
-        if(player != null)
-            Debug.Log("Shot player");
+        // if(player != null)
+        //     Debug.Log("Shot player");
     }
 }
