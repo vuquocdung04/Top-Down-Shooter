@@ -42,19 +42,14 @@ public abstract class Enemy : MonoBehaviour
     {
         InitializePatrolPoints();
     }
-
-
-
     protected virtual void Update()
     {
         if (ShouldEnterBattleMode())
             EnterBattleMode();
     }
-
     protected bool ShouldEnterBattleMode()
     {
-        bool inAggresionRange = Vector3.Distance(transform.position, player.position) < aggressionRange;
-        if (inAggresionRange && !inBattleMode)
+        if (IsPlayerInAggressionRange() && !inBattleMode)
         {
             EnterBattleMode();
             return true;
@@ -93,6 +88,8 @@ public abstract class Enemy : MonoBehaviour
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * turnSpeed);
     }
+
+    public bool IsPlayerInAggressionRange() => Vector3.Distance(transform.position, player.position) < aggressionRange;
     
     protected virtual void OnDrawGizmos()
     {

@@ -23618,14 +23618,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heathPoints: 20
   idleTime: 2
-  aggressionRange: 5
+  aggressionRange: 7
   walkSpeed: 1.5
   runSpeed: 3
   turnSpeed: 10
   patrolPoints:
   - {fileID: 1692437477398732728}
   - {fileID: 6621143121163130702}
-  coverPerk: 0
+  coverPerk: 2
+  advanceSpeed: 5
+  advanceStoppingDistance: 5
   safeDistance: 2
   weaponData: {fileID: 11400000, guid: 23dd22a5c4a3f5c4ab4bf54459cf7104, type: 2}
   weaponType: 3
