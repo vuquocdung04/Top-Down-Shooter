@@ -44,8 +44,8 @@ public class BattleState_Range : EnemyState
         
         //if player in aggression range  = false
         // change state to advance player state
-        if (!enemy.IsPlayerInAggressionRange())
-            stateMachine.ChangeState(enemy.AdvancePlayerState);
+        if (!enemy.IsPlayerInAggressionRange() && ReadyToLeaveCover())
+            stateMachine.ChangeState(enemy.advancePlayerState);
         
         ChangeCoverIfShould();
         
@@ -63,6 +63,10 @@ public class BattleState_Range : EnemyState
         }
     }
 
+    private bool ReadyToLeaveCover()
+    {
+        return Time.time > enemy.minCoverTime + enemy.runToCoverState.lastTimeTookCover;
+    }
     private void ChangeCoverIfShould()
     {
         if(enemy.coverPerk != CoverPerk.CanTakeAndChangeCover)
@@ -73,7 +77,7 @@ public class BattleState_Range : EnemyState
         if (coverCheckTimer < 0)
         {
             coverCheckTimer = 0.5f;
-            if (IsPlayInClearSight() || IsPlayerClose())
+            if (ReadyToChangeCover())
             {
                 if(enemy.CanGetCover())
                     stateMachine.ChangeState(enemy.runToCoverState);
@@ -81,6 +85,13 @@ public class BattleState_Range : EnemyState
         }
     }
 
+    private bool ReadyToChangeCover()
+    {
+        bool inDanger = IsPlayInClearSight() || IsPlayerClose();
+        bool advanceTimeIsOver = Time.time > enemy.advancePlayerState.lastTimeAdvanced + enemy.advanceTime;
+        
+        return inDanger &&  advanceTimeIsOver;
+    }
 
     #region Cover system region
 

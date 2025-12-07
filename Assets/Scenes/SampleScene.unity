@@ -3612,7 +3612,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1806327942
 Transform:
   m_ObjectHideFlags: 0
@@ -23703,16 +23703,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heathPoints: 20
   idleTime: 2
-  aggressionRange: 10
+  aggressionRange: 15
   walkSpeed: 1.5
   runSpeed: 3
   turnSpeed: 5
   patrolPoints:
   - {fileID: 1692437477398732728}
   - {fileID: 6621143121163130702}
-  coverPerk: 0
+  coverPerk: 2
   advanceSpeed: 3
-  advanceStoppingDistance: 7
+  advanceStoppingDistance: 4
+  advanceTime: 2.5
+  minCoverTime: 4
   safeDistance: 2
   weaponData: {fileID: 11400000, guid: 23dd22a5c4a3f5c4ab4bf54459cf7104, type: 2}
   weaponType: 3

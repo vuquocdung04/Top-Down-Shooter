@@ -4,6 +4,8 @@ public class AdvancePlayerState_Range : EnemyState
 {
     private Enemy_Range enemy;
     private Vector3 playerPosition;
+    
+    public float lastTimeAdvanced { get; private set; }
     public AdvancePlayerState_Range(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName) : base(enemyBase, stateMachine, animBoolName)
     {
         enemy = enemyBase as Enemy_Range;
@@ -35,6 +37,7 @@ public class AdvancePlayerState_Range : EnemyState
     public override void ExitState()
     {
         base.ExitState();
+        lastTimeAdvanced = Time.time;
     }
 
     private bool CanEnterBattleState()

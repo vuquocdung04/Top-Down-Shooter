@@ -15,8 +15,9 @@ public class Enemy_Range : Enemy
 
     [Header("Advance perk")] public float advanceSpeed;
     public float advanceStoppingDistance;
-    
-    [Header("Cover systems")]
+    public float advanceTime = 2.5f;
+
+    [Header("Cover systems")] public float minCoverTime;
     public float safeDistance;
     public CoverPoint lastCover { get; private set; }
     public CoverPoint currentCover { get; private set; }
@@ -43,7 +44,7 @@ public class Enemy_Range : Enemy
     public BattleState_Range battleState { get; private set; }
     public RunToCoverState_Range runToCoverState { get; private set; }
     
-    public AdvancePlayerState_Range AdvancePlayerState { get; private set; }
+    public AdvancePlayerState_Range advancePlayerState { get; private set; }
     #endregion
     
 
@@ -54,7 +55,7 @@ public class Enemy_Range : Enemy
         moveState = new MoveState_Range(this, stateMachine, "Move");
         battleState = new BattleState_Range(this, stateMachine, "Battle");
         runToCoverState = new RunToCoverState_Range(this, stateMachine, "Run");
-        AdvancePlayerState = new AdvancePlayerState_Range(this, stateMachine, "Advance");
+        advancePlayerState = new AdvancePlayerState_Range(this, stateMachine, "Advance");
     }
 
     protected override void Start()
