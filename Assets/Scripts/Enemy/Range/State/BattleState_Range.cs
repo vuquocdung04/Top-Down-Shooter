@@ -30,19 +30,26 @@ public class BattleState_Range : EnemyState
         enemy.visuals.EnableIk(true,true);
     }
 
+    public override void ExitState()
+    {
+        base.ExitState();
+        enemy.visuals.EnableIk(false,false);
+    }
     public override void UpdateState()
     {
         base.UpdateState();
         
+        if(enemy.IsSeeingPlayer())
+            enemy.FaceTarget(enemy.aim.position);
+        
         //if player in aggression range  = false
         // change state to advance player state
         if (!enemy.IsPlayerInAggressionRange())
-        {
             stateMachine.ChangeState(enemy.AdvancePlayerState);
-        }
+        
         ChangeCoverIfShould();
         
-        enemy.FaceTarget(enemy.player.position);
+        
         if (WeaponOutOfBullets())
         {
             if (WeaponOnCoolDown())
@@ -50,7 +57,7 @@ public class BattleState_Range : EnemyState
             return;
         }
         
-        if (CanShoot())
+        if (CanShoot() && enemy.IsAimOnPlayer())
         {
             Shoot();
         }
@@ -74,11 +81,6 @@ public class BattleState_Range : EnemyState
         }
     }
 
-    public override void ExitState()
-    {
-        base.ExitState();
-        enemy.visuals.EnableIk(false,false);
-    }
 
     #region Cover system region
 

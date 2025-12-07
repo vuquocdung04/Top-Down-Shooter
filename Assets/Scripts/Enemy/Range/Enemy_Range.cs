@@ -23,10 +23,18 @@ public class Enemy_Range : Enemy
 
     [Header("Weapon Details")] public Enemy_RangeWeaponData weaponData;
     public Enemy_RangeWeaponType weaponType;
+    
     [Space(5)] private Transform gunPoint;
     public Transform weaponHolder;
     public GameObject bulletPrefab;
 
+    [Header("Aim details")]
+    public float slowAim = 4; // slowAim is enemy's reaction when it sees the player again
+    public float fastAim = 20; // fastAim is enemy's reaction until player is out of sight
+    public Transform aim;
+    public Transform playersBody;
+    public LayerMask whatToIgnore;
+    
     [SerializeField] private List<Enemy_RangeWeaponData> availableWeaponDatas;
 
     #region States
@@ -53,6 +61,9 @@ public class Enemy_Range : Enemy
     {
         base.Start();
 
+        playersBody = player.GetComponent<Player>().playerBody;
+        aim.parent = null;
+        
         stateMachine.Initialize(idleState);
         visuals.SetupLook();
         SetupWeapon();
@@ -66,7 +77,7 @@ public class Enemy_Range : Enemy
     public void FireSingleBullet()
     {
         anim.SetTrigger("Shoot");
-        Vector3 bulletsDirection = ((player.position + Vector3.up) - gunPoint.position).normalized;
+        Vector3 bulletsDirection = (aim.position - gunPoint.position).normalized;
 
         GameObject newBullet = ObjectPool.instance.GetObject(bulletPrefab);
         newBullet.transform.position = gunPoint.position;
@@ -93,6 +104,8 @@ public class Enemy_Range : Enemy
             stateMachine.ChangeState(battleState);
     }
 
+
+    
     private void SetupWeapon()
     {
         List<Enemy_RangeWeaponData> filteredData = new();
@@ -111,6 +124,51 @@ public class Enemy_Range : Enemy
             Debug.Log("No available weapon data was found!");
 
         gunPoint = visuals.currentWeaponModel.GetComponent<Enemy_RangeWeaponModel>().gunPoint;
+    }
+
+    #region Enemy's aim region
+    public void UpdateAimPosition()
+    {
+        float aimSpeed = IsAimOnPlayer() ? fastAim : slowAim;
+        aim.position = Vector3.MoveTowards(aim.position, playersBody.position, aimSpeed * Time.deltaTime);
+    }
+    public bool IsAimOnPlayer()
+    {
+        float distanceAimToPlayer = Vector3.Distance(aim.position, player.position);
+        return distanceAimToPlayer < 2;
+    }
+
+    public bool IsSeeingPlayer()
+    {
+        Vector3 myPosition = transform.position + Vector3.up;
+        Vector3 directionToPlayer = playersBody.position - myPosition;
+
+        // ~ tuong ung ! 
+        if (Physics.Raycast(myPosition, directionToPlayer, out RaycastHit hit, Mathf.Infinity, ~whatToIgnore))
+        {
+            Debug.Log(hit.transform.name);
+            if (hit.transform == player)
+            {
+                Debug.Log("Player is seeing");
+                UpdateAimPosition();
+                return true;
+            }
+        }
+        return false;
+    }
+    #endregion
+    
+    protected override void OnDrawGizmos()
+    {
+        base.OnDrawGizmos();
+        if (playersBody == null) return;
+        
+        Vector3 myPosition = transform.position + Vector3.up;
+        Vector3 directionToPlayer = playersBody.position - myPosition;
+        
+        Gizmos.color = Color.magenta;
+        
+        Gizmos.DrawRay(myPosition, directionToPlayer.normalized * 100f);
     }
 
     #region Cover System

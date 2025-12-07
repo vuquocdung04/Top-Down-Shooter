@@ -23,20 +23,23 @@ public class AdvancePlayerState_Range : EnemyState
         base.UpdateState();
 
         playerPosition = enemy.player.position;
+        enemy.UpdateAimPosition();
         
         enemy.agent.SetDestination(playerPosition);
         enemy.FaceTarget(GetNextPathPoint());
 
-        if (Vector3.Distance(enemy.transform.position, playerPosition) < enemy.advanceStoppingDistance)
-        {
+        if (CanEnterBattleState())
             stateMachine.ChangeState(enemy.battleState);
-        }
     }
 
     public override void ExitState()
     {
         base.ExitState();
     }
-    
-    
+
+    private bool CanEnterBattleState()
+    {
+        return Vector3.Distance(enemy.transform.position, playerPosition) < enemy.advanceStoppingDistance &&
+               enemy.IsSeeingPlayer();
+    }
 }
