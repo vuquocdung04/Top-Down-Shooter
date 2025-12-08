@@ -8,21 +8,29 @@ public enum CoverPerk
     CanTakeAndChangeCover = 2,
 }
 
+public enum UnstoppablePerk
+{
+    Unavailable = 0,
+    Unstoppable = 1,
+}
+
 public class Enemy_Range : Enemy
 {
     [Header("Enemy Perk")]
     public CoverPerk coverPerk;
+    public UnstoppablePerk unstoppablePerk;
 
     [Header("Advance perk")] public float advanceSpeed;
     public float advanceStoppingDistance;
-    public float advanceTime = 2.5f;
+    public float advanceDuration = 2.5f;
 
     [Header("Cover systems")] public float minCoverTime;
     public float safeDistance;
     public CoverPoint lastCover { get; private set; }
     public CoverPoint currentCover { get; private set; }
 
-    [Header("Weapon Details")] public Enemy_RangeWeaponData weaponData;
+    [Header("Weapon Details")] public float attackDelay; // attack delay for unstoppable state
+    public Enemy_RangeWeaponData weaponData;
     public Enemy_RangeWeaponType weaponType;
     
     [Space(5)] private Transform gunPoint;
@@ -65,6 +73,8 @@ public class Enemy_Range : Enemy
         playersBody = player.GetComponent<Player>().playerBody;
         aim.parent = null;
         
+        InitializePerk();
+        
         stateMachine.Initialize(idleState);
         visuals.SetupLook();
         SetupWeapon();
@@ -73,6 +83,16 @@ public class Enemy_Range : Enemy
     {
         base.Update();
         stateMachine.currentState.UpdateState();
+    }
+
+    protected override void InitializePerk()
+    {
+        base.InitializePerk();
+        if (IsUnstoppable())
+        {
+            advanceSpeed = 1;
+            anim.SetFloat("AdvanceAnimIndex",1); // 1 is a slow walk
+        }
     }
 
     public void FireSingleBullet()
@@ -93,7 +113,6 @@ public class Enemy_Range : Enemy
         rbNewBullet.mass = 20 / weaponData.bulletSpeed;
         rbNewBullet.velocity = bulletDirectionWithSpread * weaponData.bulletSpeed;
     }
-
     public override void EnterBattleMode()
     {
         if (inBattleMode) return;
@@ -104,9 +123,6 @@ public class Enemy_Range : Enemy
         else
             stateMachine.ChangeState(battleState);
     }
-
-
-    
     private void SetupWeapon()
     {
         List<Enemy_RangeWeaponData> filteredData = new();
@@ -236,5 +252,7 @@ public class Enemy_Range : Enemy
     }
 
     #endregion
+
+    public bool IsUnstoppable() => unstoppablePerk == UnstoppablePerk.Unstoppable;
 
 }
