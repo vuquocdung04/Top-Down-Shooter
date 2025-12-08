@@ -9,6 +9,10 @@ public class ThrowGrenadeState_Range : EnemyState
     public override void EnterState()
     {
         base.EnterState();
+        
+        enemy.visuals.EnableWeaponModel(false);
+        enemy.visuals.EnableIk(false,false);
+        enemy.visuals.EnableSecondaryWeaponModel(true);
     }
 
     public override void UpdateState()
@@ -24,6 +28,8 @@ public class ThrowGrenadeState_Range : EnemyState
     public override void ExitState()
     {
         base.ExitState();
+        enemy.visuals.EnableWeaponModel(true);
+        enemy.visuals.EnableSecondaryWeaponModel(false);
     }
 
     public override void AbilityTrigger()

@@ -35,9 +35,32 @@ public class Enemy_Visuals : MonoBehaviour
 
     [Header("Rig references")] [SerializeField]
     private Transform leftHandIK;
+
     [SerializeField] private Transform leftElbowIK;
     [SerializeField] private TwoBoneIKConstraint leftHandIKConstraint;
-    [SerializeField] private MultiAimConstraint weaponAimConstraint; 
+    [SerializeField] private MultiAimConstraint weaponAimConstraint;
+
+    private float leftHandTargetWeight;
+    private float weaponAimTargetWeight;
+    private float rigChangeRate;
+
+
+    private void Update()
+    {
+        leftHandIKConstraint.weight = AdjustIKWeight(leftHandIKConstraint.weight, leftHandTargetWeight);
+        weaponAimConstraint.weight = AdjustIKWeight(weaponAimConstraint.weight, weaponAimTargetWeight);
+    }
+
+    public void EnableWeaponModel(bool active)
+    {
+        currentWeaponModel?.SetActive(active);
+    }
+
+    public void EnableSecondaryWeaponModel(bool active)
+    {
+        FindSecondaryWeaponModel()?.SetActive(active);
+    }
+
     public void EnableWeaponTrail(bool enable)
     {
         Enemy_WeaponModel currentWeaponScript = currentWeaponModel.GetComponent<Enemy_WeaponModel>();
@@ -55,12 +78,12 @@ public class Enemy_Visuals : MonoBehaviour
     {
         bool thisEnemyIsMelee = GetComponent<Enemy_Melee>() != null;
         bool thisEnemyIsRange = GetComponent<Enemy_Range>() != null;
-        
+
         if (thisEnemyIsRange)
             currentWeaponModel = FindRangeWeaponModel();
         if (thisEnemyIsMelee)
             currentWeaponModel = FindMeleeWeaponModel();
-        
+
         currentWeaponModel.SetActive(true);
 
         OverrideAnimatorControllerIfCan();
@@ -80,6 +103,7 @@ public class Enemy_Visuals : MonoBehaviour
                 return weaponModel.gameObject;
             }
         }
+
         Debug.Log("No range weapon found");
         return null;
     }
@@ -99,7 +123,7 @@ public class Enemy_Visuals : MonoBehaviour
         return filteredWeaponModels[randomIndex].gameObject;
     }
 
-    
+
     private void OverrideAnimatorControllerIfCan()
     {
         AnimatorOverrideController overrideController =
@@ -154,6 +178,20 @@ public class Enemy_Visuals : MonoBehaviour
         return corruptionCrystals;
     }
 
+    private GameObject FindSecondaryWeaponModel()
+    {
+        Enemy_SecondaryRangeWeaponModel[] weaponModels = GetComponentsInChildren<Enemy_SecondaryRangeWeaponModel>();
+        Enemy_RangeWeaponType weaponType = GetComponentInParent<Enemy_Range>().weaponType;
+
+        foreach (var weaponModel in weaponModels)
+        {
+            if (weaponModel.weaponType == weaponType)
+                return weaponModel.gameObject;
+        }
+        return null;
+    }
+    
+    
     private void SwitchAnimationLayer(int layerIndex)
     {
         Animator anim = transform.GetComponentInChildren<Animator>();
@@ -161,21 +199,31 @@ public class Enemy_Visuals : MonoBehaviour
         {
             anim.SetLayerWeight(i, 0f);
         }
+
         anim.SetLayerWeight(layerIndex, 1f);
     }
 
 
-    public void EnableIk(bool enableLeftHand, bool enableAim)
+    public void EnableIk(bool enableLeftHand, bool enableAim, float changeRate = 10)
     {
-        leftHandIKConstraint.weight = enableLeftHand ? 1f : 0f;
-        weaponAimConstraint.weight = enableAim ? 1f : 0f;
+        rigChangeRate =  changeRate;
+        leftHandTargetWeight = enableLeftHand ? 1f : 0f;
+        weaponAimTargetWeight = enableAim ? 1f : 0f;
     }
+
     private void SetLeftHandIK(Transform leftHandTarget, Transform leftElbowTarget)
     {
         leftHandIK.localPosition = leftHandTarget.localPosition;
         leftHandIK.localRotation = leftHandTarget.localRotation;
-        
+
         leftElbowIK.localPosition = leftElbowTarget.localPosition;
         leftElbowIK.localRotation = leftElbowTarget.localRotation;
+    }
+
+    private float AdjustIKWeight(float currentWeight, float targetWeight)
+    {
+        if (Mathf.Abs(currentWeight - targetWeight) > 0.05f)
+            return Mathf.Lerp(currentWeight, targetWeight, rigChangeRate * Time.deltaTime);
+        return targetWeight;
     }
 }
