@@ -14,11 +14,20 @@ public enum UnstoppablePerk
     Unstoppable = 1,
 }
 
+public enum GrenadePerk
+{
+    Unavailable = 0,
+    CanThrowGrenade = 1,
+}
 public class Enemy_Range : Enemy
 {
     [Header("Enemy Perk")]
     public CoverPerk coverPerk;
     public UnstoppablePerk unstoppablePerk;
+    public GrenadePerk grenadePerk;
+
+    [Header("Grenade Perk")] public float grenadeCooldown;
+    private float lastTimeGrenadeThrown = -10;
 
     [Header("Advance perk")] public float advanceSpeed;
     public float advanceStoppingDistance;
@@ -51,8 +60,10 @@ public class Enemy_Range : Enemy
     public MoveState_Range moveState { get; private set; }
     public BattleState_Range battleState { get; private set; }
     public RunToCoverState_Range runToCoverState { get; private set; }
-    
     public AdvancePlayerState_Range advancePlayerState { get; private set; }
+    
+    public ThrowGrenadeState_Range  throwGrenadeState { get; private set; }
+    
     #endregion
     
 
@@ -64,6 +75,7 @@ public class Enemy_Range : Enemy
         battleState = new BattleState_Range(this, stateMachine, "Battle");
         runToCoverState = new RunToCoverState_Range(this, stateMachine, "Run");
         advancePlayerState = new AdvancePlayerState_Range(this, stateMachine, "Advance");
+        throwGrenadeState =  new ThrowGrenadeState_Range(this, stateMachine, "ThrowGrenade");
     }
 
     protected override void Start()
@@ -85,6 +97,21 @@ public class Enemy_Range : Enemy
         stateMachine.currentState.UpdateState();
     }
 
+    public bool CanThrowGrenade()
+    {
+        if(grenadePerk == GrenadePerk.Unavailable) return false;
+        
+        if(Vector3.Distance(player.transform.position, transform.position) < safeDistance) return false;
+        
+        if(Time.time > grenadeCooldown + lastTimeGrenadeThrown) return true;
+        
+        return false;
+    }
+
+    public void ThrowGrenade()
+    {
+        lastTimeGrenadeThrown = Time.time;
+    }
     protected override void InitializePerk()
     {
         base.InitializePerk();

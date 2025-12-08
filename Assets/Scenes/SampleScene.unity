@@ -23711,13 +23711,15 @@ MonoBehaviour:
   - {fileID: 1692437477398732728}
   - {fileID: 6621143121163130702}
   coverPerk: 0
-  unstoppablePerk: 1
+  unstoppablePerk: 0
+  grenadePerk: 1
+  grenadeCooldown: 2
   advanceSpeed: 3
   advanceStoppingDistance: 4
   advanceDuration: 2.5
   minCoverTime: 4
   safeDistance: 2
-  attackDelay: 1
+  attackDelay: 0
   weaponData: {fileID: 11400000, guid: 23dd22a5c4a3f5c4ab4bf54459cf7104, type: 2}
   weaponType: 3
   weaponHolder: {fileID: 7667812387875613773}
