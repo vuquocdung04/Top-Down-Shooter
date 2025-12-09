@@ -66,14 +66,12 @@ public class Enemy_Visuals : MonoBehaviour
         Enemy_WeaponModel currentWeaponScript = currentWeaponModel.GetComponent<Enemy_WeaponModel>();
         currentWeaponScript.EnableTrailEffect(enable);
     }
-
     public void SetupLook()
     {
         SetupRandomColor();
         SetupRandomWeapon();
         SetupRandomCorruption();
     }
-
     private void SetupRandomWeapon()
     {
         bool thisEnemyIsMelee = GetComponent<Enemy_Melee>() != null;
@@ -88,7 +86,6 @@ public class Enemy_Visuals : MonoBehaviour
 
         OverrideAnimatorControllerIfCan();
     }
-
     private GameObject FindRangeWeaponModel()
     {
         Enemy_RangeWeaponModel[] weaponModels = GetComponentsInChildren<Enemy_RangeWeaponModel>(true);
@@ -107,7 +104,6 @@ public class Enemy_Visuals : MonoBehaviour
         Debug.Log("No range weapon found");
         return null;
     }
-
     private GameObject FindMeleeWeaponModel()
     {
         Enemy_WeaponModel[] weaponModels = GetComponentsInChildren<Enemy_WeaponModel>(true);
@@ -122,8 +118,6 @@ public class Enemy_Visuals : MonoBehaviour
         int randomIndex = Random.Range(0, filteredWeaponModels.Count);
         return filteredWeaponModels[randomIndex].gameObject;
     }
-
-
     private void OverrideAnimatorControllerIfCan()
     {
         AnimatorOverrideController overrideController =
@@ -133,7 +127,6 @@ public class Enemy_Visuals : MonoBehaviour
             GetComponentInChildren<Animator>().runtimeAnimatorController = overrideController;
         }
     }
-
     private void SetupRandomColor()
     {
         int randomIndex = Random.Range(0, colorTextures.Length);
@@ -142,7 +135,6 @@ public class Enemy_Visuals : MonoBehaviour
         newMat.mainTexture = colorTextures[randomIndex];
         skinnedMeshRenderer.material = newMat;
     }
-
     private void SetupRandomCorruption()
     {
         List<int> availableIndexs = new();
@@ -164,7 +156,6 @@ public class Enemy_Visuals : MonoBehaviour
             availableIndexs.RemoveAt(randomIndex);
         }
     }
-
     private GameObject[] CollectCorruptionCrystals()
     {
         Enemy_CorruptionCrystal[] crystalsComponents = GetComponentsInChildren<Enemy_CorruptionCrystal>(true);
@@ -177,12 +168,10 @@ public class Enemy_Visuals : MonoBehaviour
 
         return corruptionCrystals;
     }
-
     private GameObject FindSecondaryWeaponModel()
     {
-        Enemy_SecondaryRangeWeaponModel[] weaponModels = GetComponentsInChildren<Enemy_SecondaryRangeWeaponModel>();
+        Enemy_SecondaryRangeWeaponModel[] weaponModels = GetComponentsInChildren<Enemy_SecondaryRangeWeaponModel>(true);
         Enemy_RangeWeaponType weaponType = GetComponentInParent<Enemy_Range>().weaponType;
-
         foreach (var weaponModel in weaponModels)
         {
             if (weaponModel.weaponType == weaponType)

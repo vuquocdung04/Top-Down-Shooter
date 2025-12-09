@@ -20,5 +20,5 @@ public class Enemy_AnimationEvents : MonoBehaviour
 
     public void AbilityEvent() => enemy.AbilityTrigger();
 
-    public void EnableIK() => enemy.visuals.EnableIk(true, true, 1f);
+    public void EnableIK() => enemy.visuals.EnableIk(true, true, 1.5f);
 }

@@ -190,10 +190,8 @@ public class Enemy_Range : Enemy
         // ~ tuong ung ! 
         if (Physics.Raycast(myPosition, directionToPlayer, out RaycastHit hit, Mathf.Infinity, ~whatToIgnore))
         {
-            Debug.Log(hit.transform.name);
             if (hit.transform == player)
             {
-                Debug.Log("Player is seeing");
                 UpdateAimPosition();
                 return true;
             }
