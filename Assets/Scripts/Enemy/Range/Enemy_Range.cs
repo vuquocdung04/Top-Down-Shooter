@@ -26,9 +26,15 @@ public class Enemy_Range : Enemy
     public UnstoppablePerk unstoppablePerk;
     public GrenadePerk grenadePerk;
 
-    [Header("Grenade Perk")] public float grenadeCooldown;
+    [Header("Grenade Perk")]
+    public GameObject grenadePrefab;
+    public float impactPower;
+    public float explosionTimer = 1;
+    public float timeToTarget = 1.2f;
+    public float grenadeCooldown;
     private float lastTimeGrenadeThrown = -10;
-
+    [SerializeField] private Transform grenadePoint;
+    
     [Header("Advance perk")] public float advanceSpeed;
     public float advanceStoppingDistance;
     public float advanceDuration = 2.5f;
@@ -38,7 +44,8 @@ public class Enemy_Range : Enemy
     public CoverPoint lastCover { get; private set; }
     public CoverPoint currentCover { get; private set; }
 
-    [Header("Weapon Details")] public float attackDelay; // attack delay for unstoppable state
+    [Header("Weapon Details")]
+    public float attackDelay; // attack delay for unstoppable state
     public Enemy_RangeWeaponData weaponData;
     public Enemy_RangeWeaponType weaponType;
     
@@ -111,6 +118,11 @@ public class Enemy_Range : Enemy
     public void ThrowGrenade()
     {
         lastTimeGrenadeThrown = Time.time;
+
+        GameObject newGrenade = ObjectPool.instance.GetObject(grenadePrefab);
+        newGrenade.transform.position = grenadePoint.transform.position; // weapoonHolder is hand held.
+        Enemy_Grenade newGrenadeScript = newGrenade.GetComponent<Enemy_Grenade>();
+        newGrenadeScript.SetupGrenade(player.transform.position, timeToTarget, explosionTimer, impactPower);
     }
     protected override void InitializePerk()
     {
