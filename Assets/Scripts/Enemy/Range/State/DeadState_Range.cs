@@ -1,16 +1,24 @@
-public class DeadState_Melee : EnemyState
+public class DeadState_Range : EnemyState
 {
-    private Enemy_Melee enemy;
+    private Enemy_Range enemy;
     private bool interactionDisabled;
-    public DeadState_Melee(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName) : base(enemyBase,
+    
+    
+    public DeadState_Range(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName) : base(enemyBase,
         stateMachine, animBoolName)
     {
-        enemy = enemyBase as Enemy_Melee;
+        enemy = enemyBase as Enemy_Range;
     }
 
     public override void EnterState()
     {
         base.EnterState();
+
+        if (enemy.throwGrenadeState.finishedThrowingGrenade == false)
+        {
+            enemy.ThrowGrenade();
+        }
+        
         interactionDisabled = false;
         enemy.anim.enabled = false;
         enemy.agent.isStopped = true;
@@ -22,12 +30,15 @@ public class DeadState_Melee : EnemyState
     public override void UpdateState()
     {
         base.UpdateState();
+        
         DisableInteractionIfShould();
     }
+
     public override void ExitState()
     {
         base.ExitState();
     }
+    
     private void DisableInteractionIfShould()
     {
         if (stateTimer <= 0 && !interactionDisabled)
@@ -37,4 +48,5 @@ public class DeadState_Melee : EnemyState
             enemy.ragdoll.CollidersActive(false);
         }
     }
+    
 }

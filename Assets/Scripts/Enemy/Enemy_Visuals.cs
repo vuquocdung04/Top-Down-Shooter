@@ -24,7 +24,8 @@ public enum Enemy_RangeWeaponType
 public class Enemy_Visuals : MonoBehaviour
 {
     public GameObject currentWeaponModel { get; private set; }
-
+    public GameObject grenadeModel;
+    
     [Header("Corruption visuals")] [SerializeField]
     private GameObject[] corruptionCrystals;
 
@@ -51,15 +52,9 @@ public class Enemy_Visuals : MonoBehaviour
         weaponAimConstraint.weight = AdjustIKWeight(weaponAimConstraint.weight, weaponAimTargetWeight);
     }
 
-    public void EnableWeaponModel(bool active)
-    {
-        currentWeaponModel?.SetActive(active);
-    }
-
-    public void EnableSecondaryWeaponModel(bool active)
-    {
-        FindSecondaryWeaponModel()?.SetActive(active);
-    }
+    public void EnableGrenadeModel(bool active) => grenadeModel?.SetActive(active);
+    public void EnableWeaponModel(bool active) => currentWeaponModel?.SetActive(active);
+    public void EnableSecondaryWeaponModel(bool active) => FindSecondaryWeaponModel()?.SetActive(active);
 
     public void EnableWeaponTrail(bool enable)
     {
