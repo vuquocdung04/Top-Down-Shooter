@@ -129,8 +129,8 @@ public class Enemy_Range : Enemy
         lastTimeGrenadeThrown = Time.time;
         visuals.EnableGrenadeModel(false);
 
-        GameObject newGrenade = ObjectPool.instance.GetObject(grenadePrefab);
-        newGrenade.transform.position = grenadePoint.transform.position; // weapoonHolder is hand held.
+        GameObject newGrenade = ObjectPool.instance.GetObject(grenadePrefab,grenadePoint);
+        
         Enemy_Grenade newGrenadeScript = newGrenade.GetComponent<Enemy_Grenade>();
 
         if (stateMachine.currentState == deadState)
@@ -157,8 +157,8 @@ public class Enemy_Range : Enemy
         anim.SetTrigger("Shoot");
         Vector3 bulletsDirection = (aim.position - gunPoint.position).normalized;
 
-        GameObject newBullet = ObjectPool.instance.GetObject(bulletPrefab);
-        newBullet.transform.position = gunPoint.position;
+        GameObject newBullet = ObjectPool.instance.GetObject(bulletPrefab,gunPoint);
+        
         newBullet.transform.rotation = Quaternion.LookRotation(bulletsDirection);
 
         newBullet.GetComponent<Enemy_Bullet>().BulletSetup();

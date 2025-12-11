@@ -29,7 +29,7 @@ public class ObjectPool : MonoBehaviour
         InitializeNewPool(ammoPickup);
     }
 
-    public GameObject GetObject(GameObject prefab)
+    public GameObject GetObject(GameObject prefab, Transform target)
     {
         if(!poolDictionary.ContainsKey(prefab)){
         {
@@ -40,6 +40,8 @@ public class ObjectPool : MonoBehaviour
             CreateNewObject(prefab);
         
         GameObject objToGet = poolDictionary[prefab].Dequeue();
+        
+        objToGet.transform.position = target.position;
         objToGet.SetActive(true);
         objToGet.transform.parent = null;
         return objToGet;

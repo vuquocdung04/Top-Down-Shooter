@@ -138,8 +138,6 @@ public class Enemy_Melee : Enemy
         if (heathPoints <= 0 && stateMachine.currentState != deadState)
             stateMachine.ChangeState(deadState);
     }
-
-
     
     public void ActivateDodgeRoll()
     {
@@ -159,6 +157,12 @@ public class Enemy_Melee : Enemy
         }
     }
 
+    public void ThrowAxe()
+    {
+        GameObject newAxe = ObjectPool.instance.GetObject(axePrefab, axeStartPoint);
+        
+        newAxe.GetComponent<Enemy_Axe_Obj>().AxeSetup(axeFlySpeed, player, animTimer);
+    }
     public bool CanThrowAxe()
     {
         if (meleeType != EnemyMelee_Type.AxeThrow) return false;

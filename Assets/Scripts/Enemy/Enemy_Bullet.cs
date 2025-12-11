@@ -4,7 +4,7 @@ public class Enemy_Bullet : Bullet
 {
     protected override void OnCollisionEnter(Collision other)
     {
-        CreateImpactFX(other);
+        CreateImpactFX();
         ReturnBulletToPool();
         
         Player player = other.gameObject.GetComponentInParent<Player>();

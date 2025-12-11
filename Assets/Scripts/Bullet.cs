@@ -4,14 +4,14 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     private float impactForce;
-    
+
     private BoxCollider cd;
     private Rigidbody rb;
     private TrailRenderer trailRenderer;
     private MeshRenderer meshRenderer;
 
     [SerializeField] private GameObject bulletImpactFX;
-    
+
     private Vector3 startPosition;
     private float flyDistance;
 
@@ -31,24 +31,27 @@ public class Bullet : MonoBehaviour
         bulletDisabled = false;
         cd.enabled = true;
         meshRenderer.enabled = true;
+        
+        trailRenderer.Clear();
         trailRenderer.time = 0.25f;
         startPosition = transform.position;
-        flyDistance = fly_distance + 0.5f; // magic number 0.5f is a length of tip of the laser (Check method UpdateVisuals on PlayerAim)
+        flyDistance =
+            fly_distance +
+            0.5f; // magic number 0.5f is a length of tip of the laser (Check method UpdateVisuals on PlayerAim)
     }
 
     protected virtual void Update()
     {
         FadeTrailIfNeeded();
-        
+
         DisableBulletIfNeeded();
-        
+
         ReturnToPoolIfNeeded();
-            
     }
 
     protected void ReturnToPoolIfNeeded()
     {
-        if(trailRenderer.time < 0)
+        if (trailRenderer.time < 0)
             ReturnBulletToPool();
     }
 
@@ -84,7 +87,7 @@ public class Bullet : MonoBehaviour
             shieldObj.ReduceDurability();
             return;
         }
-        
+
         if (enemy)
         {
             Vector3 force = rb.velocity.normalized * impactForce;
@@ -92,19 +95,14 @@ public class Bullet : MonoBehaviour
             enemy.GetHit();
             enemy.DeathImpact(force, other.contacts[0].point, hitRigidbody);
         }
-        
-        CreateImpactFX(other);
+
+        CreateImpactFX();
         ReturnBulletToPool();
     }
 
-    protected void CreateImpactFX(Collision other)
+    protected void CreateImpactFX()
     {
-        if (other.contacts.Length > 0)
-        {
-            ContactPoint contact = other.contacts[0];
-            GameObject newImpactFX = ObjectPool.instance.GetObject(bulletImpactFX);
-            newImpactFX.transform.position = contact.point;
-            ObjectPool.instance.ReturnObject(newImpactFX, 1);
-        }
+        GameObject newImpactFX = ObjectPool.instance.GetObject(bulletImpactFX, transform);
+        ObjectPool.instance.ReturnObject(newImpactFX, 1);
     }
 }
