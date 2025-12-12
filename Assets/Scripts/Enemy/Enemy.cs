@@ -87,10 +87,14 @@ public abstract class Enemy : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         rb.AddForceAtPosition(force, hitPoint, ForceMode.Impulse);
     }
-    public void FaceTarget(Vector3 target)
+    public void FaceTarget(Vector3 target, float turnSpeed = 0f)
     {
         Vector3 direction = target - transform.position;
         direction.y = 0;
+
+        if (turnSpeed == 0)
+            turnSpeed = this.turnSpeed;
+        
         if (direction == Vector3.zero)
         {
             return;

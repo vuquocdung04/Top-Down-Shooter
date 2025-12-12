@@ -46,17 +46,17 @@ public class BattleState_Range : EnemyState
         if (enemy.IsSeeingPlayer())
             enemy.FaceTarget(enemy.aim.position);
 
-        if(enemy.CanThrowGrenade())
+        if (enemy.CanThrowGrenade())
             stateMachine.ChangeState(enemy.throwGrenadeState);
-        
-        if(MustAdvancePlayer())
+
+        if (MustAdvancePlayer())
             stateMachine.ChangeState(enemy.advancePlayerState);
 
         ChangeCoverIfShould();
-        
-        if(stateTimer > 0) // delay for shot to player
+
+        if (stateTimer > 0) // delay for shot to player
             return;
-        
+
         if (WeaponOutOfBullets())
         {
             if (enemy.IsUnstoppable() && UnstoppableWalkReady())
@@ -132,10 +132,11 @@ public class BattleState_Range : EnemyState
     {
         Vector3 directionToPlayer = enemy.player.position - enemy.transform.position;
 
-        
+
         if (Physics.Raycast(enemy.transform.position, directionToPlayer, out RaycastHit hit))
         {
-            return hit.transform.parent == enemy.player;
+            if (hit.transform == enemy.player || hit.transform.parent == enemy.player)
+                return true;
         }
 
         return false;
