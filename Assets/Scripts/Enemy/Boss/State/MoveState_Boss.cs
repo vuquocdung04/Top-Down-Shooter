@@ -13,7 +13,8 @@ public class MoveState_Boss : EnemyState
     {
         base.EnterState();
         enemy.agent.speed = enemy.walkSpeed;
-
+        enemy.agent.isStopped = false;
+        
         destination = enemy.GetPatrolDestination();
         enemy.agent.SetDestination(destination);
     }
@@ -22,9 +23,18 @@ public class MoveState_Boss : EnemyState
     {
         base.UpdateState();
         enemy.FaceTarget(GetNextPathPoint());
+
+        if (enemy.inBattleMode)
+        {
+            Vector3 playerPos = enemy.player.position;
+            enemy.agent.SetDestination(playerPos);
+            if(enemy.PlayerInAttackRange())
+                stateMachine.ChangeState(enemy.attackState);
+        }
+        else
+            if(Vector3.Distance(enemy.transform.position, destination) < 0.25f)
+                stateMachine.ChangeState(enemy.idleState);
         
-        if(enemy.agent.remainingDistance <= enemy.agent.stoppingDistance + 0.5f)
-            stateMachine.ChangeState(enemy.idleState);
     }
 
     public override void ExitState()

@@ -1528,7 +1528,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heathPoints: 20
   idleTime: 2
-  aggressionRange: 0
+  aggressionRange: 15
   walkSpeed: 2
   runSpeed: 3
   turnSpeed: 8
@@ -1536,6 +1536,7 @@ MonoBehaviour:
   - {fileID: 1624051544}
   - {fileID: 1742981731}
   - {fileID: 1016368181}
+  attackRange: 2
 --- !u!195 &755924290
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -8166,6 +8167,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1810071494994758512}
   - component: {fileID: 5764192713889337610}
+  - component: {fileID: 5764192713889337611}
   m_Layer: 0
   m_Name: character_boss@
   m_TagString: Untagged
@@ -20069,6 +20071,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5764192713889337611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1321097046451114442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9846545caa79430cae5ea63b151f7abf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5782964555716137542
 GameObject:
   m_ObjectHideFlags: 0
