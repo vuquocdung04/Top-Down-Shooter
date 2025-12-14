@@ -27,8 +27,8 @@ public class AbilityState_Boss : EnemyState
         
         enemy.FaceTarget(enemy.player.position);
         
-        if(stateTimer <= 0 && enemy.flameThrowActive)
-            enemy.ActivateFlameThrower(false);
+        if(stateTimer <= 0)
+            DisableFlameThrower();
         
         if(triggerCalled)
             stateMachine.ChangeState(enemy.moveState);
@@ -41,6 +41,14 @@ public class AbilityState_Boss : EnemyState
         enemy.bossVisuals.ResetBatteries();
     }
 
+    public void DisableFlameThrower()
+    {
+        if(enemy.flameThrowActive == false)
+            return;
+        
+        enemy.ActivateFlameThrower(false);
+    }
+    
     public override void AbilityTrigger()
     {
         base.AbilityTrigger();
