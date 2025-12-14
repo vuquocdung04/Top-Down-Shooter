@@ -1688,7 +1688,7 @@ MonoBehaviour:
   actionCooldown: 1
   attackRange: 2
   flameThrower: {fileID: 198421077290103021}
-  abilityCooldown: 1
+  abilityCooldown: 888
   flameThrowDuration: 3
   travelTimeToTarget: 1
   jumpAttackCooldown: 6
