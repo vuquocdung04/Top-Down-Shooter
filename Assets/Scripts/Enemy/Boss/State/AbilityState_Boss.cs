@@ -16,6 +16,9 @@ public class AbilityState_Boss : EnemyState
         stateTimer = enemy.flameThrowDuration;
         enemy.agent.isStopped = true;
         enemy.agent.velocity = Vector3.zero;
+        
+        enemy.bossVisuals.EnableWeaponTrail(true);
+        
     }
 
     public override void UpdateState()
@@ -43,5 +46,6 @@ public class AbilityState_Boss : EnemyState
         base.AbilityTrigger();
         enemy.ActivateFlameThrower(true);
         enemy.bossVisuals.DisChargeBatteries();
+        enemy.bossVisuals.EnableWeaponTrail(false);
     }
 }

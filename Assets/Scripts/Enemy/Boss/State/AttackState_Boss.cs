@@ -13,6 +13,9 @@ public class AttackState_Boss : EnemyState
     public override void EnterState()
     {
         base.EnterState();
+        
+        enemy.bossVisuals.EnableWeaponTrail(true);
+        
         enemy.agent.isStopped = true;
         enemy.anim.SetFloat("AttackAnimIndex", Random.Range(0, 2)); // we have two attack
 
@@ -39,5 +42,8 @@ public class AttackState_Boss : EnemyState
     {
         base.ExitState();
         lastTimeAttacked = Time.time;
+        
+        enemy.bossVisuals.EnableWeaponTrail(false);
+        
     }
 }
