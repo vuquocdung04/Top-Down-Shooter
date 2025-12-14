@@ -22,12 +22,15 @@ public class Enemy_Boss : Enemy
     public MoveState_Boss moveState { get; private set; }
     public AttackState_Boss attackState {get; private set;}
     public JumpAttackState_Boss  jumpAttackState { get; private set; }
-    
     public AbilityState_Boss  abilityState { get; private set; }
+    
+    public Enemy_BossVisuals bossVisuals { get; private set; }
     
     protected override void Awake()
     {
         base.Awake();
+
+        bossVisuals = GetComponent<Enemy_BossVisuals>();
         idleState = new IdleState_Boss(this, stateMachine, "Idle");
         moveState = new MoveState_Boss(this, stateMachine, "Move");
         attackState = new AttackState_Boss(this, stateMachine, "Attack");
