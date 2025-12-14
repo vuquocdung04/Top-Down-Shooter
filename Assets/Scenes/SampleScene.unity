@@ -1529,7 +1529,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heathPoints: 20
   idleTime: 2
-  aggressionRange: 15
+  aggressionRange: 10
   walkSpeed: 2
   runSpeed: 3
   turnSpeed: 8
