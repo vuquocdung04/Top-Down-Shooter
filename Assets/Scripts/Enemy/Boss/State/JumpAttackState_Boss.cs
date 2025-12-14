@@ -16,10 +16,12 @@ public class JumpAttackState_Boss : EnemyState
     public override void EnterState()
     {
         base.EnterState();
+        lastPlayerPos = enemy.player.position;
+        enemy.bossVisuals.PlaceLandingZone(lastPlayerPos);
+        
         enemy.agent.isStopped = true;
         enemy.agent.velocity = Vector2.zero;
         
-        lastPlayerPos = enemy.player.position;
 
         float distanceToPlayer = Vector3.Distance(lastPlayerPos, enemy.transform.position);
         jumpAttackMovementSpeed = distanceToPlayer / enemy.travelTimeToTarget; // v = s/t
