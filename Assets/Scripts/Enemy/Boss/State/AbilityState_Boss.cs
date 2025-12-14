@@ -34,6 +34,7 @@ public class AbilityState_Boss : EnemyState
     public override void ExitState()
     {
         base.ExitState();
+        enemy.SetAbilityOnCooldown();
     }
 
     public override void AbilityTrigger()

@@ -1537,11 +1537,13 @@ MonoBehaviour:
   - {fileID: 1624051544}
   - {fileID: 1742981731}
   - {fileID: 1016368181}
+  actionCooldown: 5
   attackRange: 2
   flameThrower: {fileID: 198421077290103021}
+  abilityCooldown: 7
   flameThrowDuration: 3
   travelTimeToTarget: 1
-  jumpAttackCooldown: 5
+  jumpAttackCooldown: 6
   minJumpDistanceRequired: 5
   whatToIgnore:
     serializedVersion: 2
