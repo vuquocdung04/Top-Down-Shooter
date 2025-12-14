@@ -12,6 +12,7 @@ public class AbilityState_Boss : EnemyState
     public override void EnterState()
     {
         base.EnterState();
+        // stateTimer is time change state
         stateTimer = enemy.flameThrowDuration;
         enemy.agent.isStopped = true;
         enemy.agent.velocity = Vector3.zero;
@@ -23,7 +24,7 @@ public class AbilityState_Boss : EnemyState
         
         enemy.FaceTarget(enemy.player.position);
         
-        if(stateTimer <= 0)
+        if(stateTimer <= 0 && enemy.flameThrowActive)
             enemy.ActivateFlameThrower(false);
         
         if(triggerCalled)

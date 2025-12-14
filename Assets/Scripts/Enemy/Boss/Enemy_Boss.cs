@@ -4,7 +4,9 @@ public class Enemy_Boss : Enemy
 {
     public float attackRange;
 
-    [Header("Ability")] public float flameThrowDuration = 10;
+    [Header("Ability")] public ParticleSystem flameThrower;
+    public float flameThrowDuration = 10;
+    public bool flameThrowActive { get; private set; }
     
     [Header("Jump Attack")] public float travelTimeToTarget = 1;
     public float jumpAttackCooldown = 10;
@@ -39,25 +41,38 @@ public class Enemy_Boss : Enemy
     protected override void Update()
     {
         base.Update();
+        
+        if(Input.GetKeyDown(KeyCode.V))
+            stateMachine.ChangeState(abilityState);
+        
         stateMachine.currentState.UpdateState();
         
     }
 
     public override void EnterBattleMode()
     {
-        base.EnterBattleMode();
-        stateMachine.ChangeState(moveState);
+        // base.EnterBattleMode();
+        // stateMachine.ChangeState(moveState);
     }
 
     public void ActivateFlameThrower(bool activate)
     {
+        flameThrowActive = activate;
         if (!activate)
         {
+            flameThrower.Stop();
             anim.SetTrigger("StopFlamethrower");
-            Debug.Log("Flame Stopped");
             return;
         }
-        Debug.Log("Flame activated");
+
+        var mainModule = flameThrower.main;
+        var extraModule = flameThrower.transform.GetChild(0).GetComponent<ParticleSystem>().main;
+        
+        mainModule.duration = flameThrowDuration;
+        extraModule.duration = flameThrowDuration;
+        
+        flameThrower.Clear();
+        flameThrower.Play();
     }
     
     public bool CanDoJumpAttack()
