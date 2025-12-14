@@ -52,4 +52,10 @@ public class JumpAttackState_Boss : EnemyState
         enemy.SetJumpAttackCooldown();
         enemy.bossVisuals.EnableWeaponTrail(false);
     }
+
+    public override void AbilityTrigger()
+    {
+        base.AbilityTrigger();
+        enemy.JumpImpact();
+    }
 }

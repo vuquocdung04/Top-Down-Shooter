@@ -4,7 +4,6 @@ using UnityEngine;
 public class Enemy_AnimationEvents : MonoBehaviour
 {
     private Enemy enemy;
-
     private void Awake()
     {
         enemy = GetComponentInParent<Enemy>();
@@ -21,4 +20,5 @@ public class Enemy_AnimationEvents : MonoBehaviour
     public void AbilityEvent() => enemy.AbilityTrigger();
 
     public void EnableIK() => enemy.visuals.EnableIk(true, true, 1.5f);
+    
 }

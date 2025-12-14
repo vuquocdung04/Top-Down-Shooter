@@ -10,11 +10,17 @@ public class Enemy_Boss : Enemy
     private float lastTimeUsedAbility;
     public float flameThrowDuration = 10;
     public bool flameThrowActive { get; private set; }
-    
-    [Header("Jump Attack")] public float travelTimeToTarget = 1;
+
+    [Header("Jump Attack")]
+    [Space]
+    public float travelTimeToTarget = 1;
     public float jumpAttackCooldown = 10;
     private float lastTimeJumped = -10f;
     public float minJumpDistanceRequired;
+    [Space]
+    public float impactRadius = 2.5f;
+    public float impactPower = 5;
+    [SerializeField] private float upforceMultiplier = 10;
     
     [Space] [SerializeField] private LayerMask whatToIgnore;
     
@@ -81,7 +87,19 @@ public class Enemy_Boss : Enemy
     public bool CanDoAbility() => Time.time > lastTimeUsedAbility + abilityCooldown;
 
     public void SetAbilityOnCooldown() => lastTimeUsedAbility = Time.time;
-    
+
+
+    public void JumpImpact()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, impactRadius);
+
+        foreach (var col in colliders)
+        {
+            Rigidbody rb = col.GetComponent<Rigidbody>();
+            if(rb != null)
+                rb.AddExplosionForce(impactPower, transform.position, impactRadius, upforceMultiplier, ForceMode.Impulse);
+        }
+    }
     public bool CanDoJumpAttack()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
@@ -129,5 +147,8 @@ public class Enemy_Boss : Enemy
         
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, minJumpDistanceRequired);
+        
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, impactRadius);
     }
 }

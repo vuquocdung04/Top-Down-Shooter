@@ -1692,6 +1692,9 @@ MonoBehaviour:
   travelTimeToTarget: 1
   jumpAttackCooldown: 6
   minJumpDistanceRequired: 5
+  impactRadius: 2.5
+  impactPower: 10
+  upforceMultiplier: 5
   whatToIgnore:
     serializedVersion: 2
     m_Bits: 2048
