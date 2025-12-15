@@ -1,8 +1,16 @@
 using UnityEngine;
 
+public enum BossWeaponType
+{
+    Fist = 0,
+    Hummer = 1,
+}
+
 public class Enemy_Boss : Enemy
 {
-    [Header("Boss Details")] public float actionCooldown = 10;
+    [Header("Boss Details")]
+    public BossWeaponType bossWeaponType;
+    public float actionCooldown = 10;
     public float attackRange;
 
     [Header("Ability")] public ParticleSystem flameThrower;
@@ -20,7 +28,8 @@ public class Enemy_Boss : Enemy
     [Space]
     public float impactRadius = 2.5f;
     public float impactPower = 5;
-    [SerializeField] private float upforceMultiplier = 10;
+    public Transform impactPoint;
+    [SerializeField] private float upforceMultiplier = 10; // chi anh huong toi truc y
     
     [Space] [SerializeField] private LayerMask whatToIgnore;
     
@@ -102,7 +111,11 @@ public class Enemy_Boss : Enemy
 
     public void JumpImpact()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, impactRadius);
+        Transform imPoint = this.impactPoint;
+        if (imPoint == null)
+            imPoint = transform;
+        
+        Collider[] colliders = Physics.OverlapSphere(imPoint.position, impactRadius);
 
         foreach (var col in colliders)
         {

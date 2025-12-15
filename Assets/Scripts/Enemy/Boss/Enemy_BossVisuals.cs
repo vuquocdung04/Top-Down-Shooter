@@ -5,6 +5,7 @@ public class Enemy_BossVisuals : MonoBehaviour
 {
     private Enemy_Boss enemy;
 
+    [SerializeField] private float landingOffset = 1;
     [SerializeField] private ParticleSystem landingZoneFx;
     [SerializeField] private GameObject[] weaponTrails;
     
@@ -44,7 +45,10 @@ public class Enemy_BossVisuals : MonoBehaviour
     
     public void PlaceLandingZone(Vector3 target)
     {
-        landingZoneFx.transform.position = target;
+        Vector3 direction = (target - transform.position).normalized;
+        Vector3 offset = direction * landingOffset;
+        
+        landingZoneFx.transform.position = target + offset;
         landingZoneFx.Clear();
         
         var mainModule = landingZoneFx.main;

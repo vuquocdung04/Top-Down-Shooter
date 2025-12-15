@@ -1076,6 +1076,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 1
   hangType: 2
+--- !u!1 &631184301
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 631184302}
+  m_Layer: 0
+  m_Name: hammer point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &631184302
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 631184301}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.011, y: 0.211, z: 0.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2274753982214456221}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &651401332
 GameObject:
   m_ObjectHideFlags: 0
@@ -15942,6 +15973,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2076980744}
+  - {fileID: 631184302}
   m_Father: {fileID: 454575848952541825}
   m_LocalEulerAnglesHint: {x: -79.957, y: -95.355, z: 185.273}
 --- !u!54 &2277596968766927796
@@ -18336,7 +18368,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6525986230617404429}
   serializedVersion: 4
-  m_Mass: 4
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -27421,6 +27453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ddf2af9c009402eab24608f29898070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  landingOffset: 1.25
   landingZoneFx: {fileID: 4390575063456276733}
   weaponTrails:
   - {fileID: 2076980743}
@@ -39465,6 +39498,7 @@ MonoBehaviour:
   - {fileID: 9022801959903163412}
   - {fileID: 4645309066621441132}
   - {fileID: 7521349200501015730}
+  bossWeaponType: 1
   actionCooldown: 1
   attackRange: 2
   flameThrower: {fileID: 6829067723701735976}
@@ -39474,8 +39508,9 @@ MonoBehaviour:
   jumpAttackCooldown: 6
   minJumpDistanceRequired: 5
   impactRadius: 2.5
-  impactPower: 10
-  upforceMultiplier: 5
+  impactPower: 15
+  impactPoint: {fileID: 631184302}
+  upforceMultiplier: 10
   whatToIgnore:
     serializedVersion: 2
     m_Bits: 2048
@@ -44082,7 +44117,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 885430867893495778}
   serializedVersion: 4
-  m_Mass: 4
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
