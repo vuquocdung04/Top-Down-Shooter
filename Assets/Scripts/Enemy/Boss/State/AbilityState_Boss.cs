@@ -27,12 +27,14 @@ public class AbilityState_Boss : EnemyState
         
         enemy.FaceTarget(enemy.player.position);
         
-        if(stateTimer <= 0)
+        if(ShouldDisableFlameThrower())
             DisableFlameThrower();
         
         if(triggerCalled)
             stateMachine.ChangeState(enemy.moveState);
     }
+
+    private bool ShouldDisableFlameThrower() => stateTimer <= 0;
 
     public override void ExitState()
     {
@@ -43,6 +45,7 @@ public class AbilityState_Boss : EnemyState
 
     public void DisableFlameThrower()
     {
+        if(enemy.bossWeaponType != BossWeaponType.Flamethrower) return;
         if(enemy.flameThrowActive == false)
             return;
         
@@ -52,8 +55,18 @@ public class AbilityState_Boss : EnemyState
     public override void AbilityTrigger()
     {
         base.AbilityTrigger();
-        enemy.ActivateFlameThrower(true);
-        enemy.bossVisuals.DisChargeBatteries();
-        enemy.bossVisuals.EnableWeaponTrail(false);
+
+        if (enemy.bossWeaponType == BossWeaponType.Flamethrower)
+        {
+            enemy.ActivateFlameThrower(true);
+            enemy.bossVisuals.DisChargeBatteries();
+            enemy.bossVisuals.EnableWeaponTrail(false);
+        }
+
+        if (enemy.bossWeaponType == BossWeaponType.Hummer)
+        {
+            enemy.ActivateHummer();
+        }
+        
     }
 }

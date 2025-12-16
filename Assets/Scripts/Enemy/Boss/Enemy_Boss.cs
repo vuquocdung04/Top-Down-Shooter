@@ -2,7 +2,7 @@ using UnityEngine;
 
 public enum BossWeaponType
 {
-    Fist = 0,
+    Flamethrower = 0,
     Hummer = 1,
 }
 
@@ -13,12 +13,20 @@ public class Enemy_Boss : Enemy
     public float actionCooldown = 10;
     public float attackRange;
 
-    [Header("Ability")] public ParticleSystem flameThrower;
+    [Header("Ability")] public float minAbilityDistance;
     public float abilityCooldown;
     private float lastTimeUsedAbility;
+    
+    [Header("Flamethrower")]
+    public ParticleSystem flameThrower;
     public float flameThrowDuration = 10;
     public bool flameThrowActive { get; private set; }
+    
+    [Header("Hummer")]
+    public GameObject activationPrefab;
 
+    
+    
     [Header("Jump Attack")]
     [Space]
     public float travelTimeToTarget = 1;
@@ -104,7 +112,19 @@ public class Enemy_Boss : Enemy
         flameThrower.Play();
     }
 
-    public bool CanDoAbility() => Time.time > lastTimeUsedAbility + abilityCooldown;
+    public void ActivateHummer()
+    {
+        GameObject newActivation = ObjectPool.instance.GetObject(activationPrefab, impactPoint);
+        ObjectPool.instance.ReturnObject(newActivation,1);
+    }
+    
+    public bool CanDoAbility()
+    {
+        bool playerWithinDistance = Vector3.Distance(transform.position,player.position) < minAbilityDistance;
+        
+        if(playerWithinDistance == false) return false;
+        return Time.time > lastTimeUsedAbility + abilityCooldown;
+    }
 
     public void SetAbilityOnCooldown() => lastTimeUsedAbility = Time.time;
 
@@ -133,7 +153,7 @@ public class Enemy_Boss : Enemy
         
         return Time.time > lastTimeJumped + jumpAttackCooldown && IsPlayerInClearSight();
     }
-
+ 
     public void SetJumpAttackCooldown() => lastTimeJumped = Time.time;
     private bool IsPlayerInClearSight()
     {
@@ -174,5 +194,8 @@ public class Enemy_Boss : Enemy
         
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, impactRadius);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, minAbilityDistance);
     }
 }

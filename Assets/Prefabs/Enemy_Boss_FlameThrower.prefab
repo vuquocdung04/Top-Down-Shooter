@@ -6461,7 +6461,7 @@ GameObject:
   - component: {fileID: 8880904208172737060}
   - component: {fileID: 6008569125212217763}
   m_Layer: 0
-  m_Name: Enemy_Boss
+  m_Name: Enemy_Boss_FlameThrower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6530,16 +6530,20 @@ MonoBehaviour:
   - {fileID: 4091253777656611408}
   - {fileID: 398305553800241704}
   - {fileID: 3283493628584096502}
+  bossWeaponType: 0
   actionCooldown: 1
   attackRange: 2
-  flameThrower: {fileID: 1960714934351864940}
+  minAbilityDistance: 8
   abilityCooldown: 888
+  flameThrower: {fileID: 1960714934351864940}
   flameThrowDuration: 3
+  activationPrefab: {fileID: 0}
   travelTimeToTarget: 1
   jumpAttackCooldown: 6
   minJumpDistanceRequired: 5
   impactRadius: 2.5
   impactPower: 10
+  impactPoint: {fileID: 0}
   upforceMultiplier: 5
   whatToIgnore:
     serializedVersion: 2
@@ -6556,6 +6560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ddf2af9c009402eab24608f29898070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  landingOffset: 1
   landingZoneFx: {fileID: 8727439462708319929}
   weaponTrails:
   - {fileID: 4905744228674166883}
