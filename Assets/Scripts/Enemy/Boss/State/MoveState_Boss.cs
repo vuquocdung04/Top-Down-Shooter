@@ -79,14 +79,21 @@ public class MoveState_Boss : EnemyState
         actionTimer = enemy.actionCooldown;
         if (Random.Range(0, 2) == 0)
         {
-            if (enemy.CanDoAbility())
-                stateMachine.ChangeState(enemy.abilityState);
+            TryAbility();
         }
         else
         {
             if (enemy.CanDoJumpAttack())
                 stateMachine.ChangeState(enemy.jumpAttackState);
+            else if (enemy.bossWeaponType == BossWeaponType.Hummer)
+                TryAbility();
         }
+    }
+
+    private void TryAbility()
+    {
+        if (enemy.CanDoAbility())
+            stateMachine.ChangeState(enemy.abilityState);
     }
 
     // Check: boss will speed up if it do not attack player of lastTimeAttacked + timeBeforeSpeedUp
