@@ -7,7 +7,7 @@ public class PlayerWeaponController : MonoBehaviour
 {
     private const float REFERENCE_BULLET_SPEED = 20f;
 
-
+    [SerializeField] private LayerMask whatIsAlly;
     private Player player;
 
     [SerializeField] private Weapon_Data defaultWeaponData;
@@ -150,7 +150,7 @@ public class PlayerWeaponController : MonoBehaviour
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
         
         Bullet bulletScript = newBullet.GetComponent<Bullet>();
-        bulletScript.BulletSetup(currentWeapon.gunDistance,bulletImpactForce);
+        bulletScript.BulletSetup(whatIsAlly,currentWeapon.gunDistance,bulletImpactForce);
 
         Vector3 bulletsDirection = currentWeapon.ApplySpread(BulletDirection());
 

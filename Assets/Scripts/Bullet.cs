@@ -17,6 +17,8 @@ public class Bullet : MonoBehaviour
 
     private bool bulletDisabled;
 
+    private LayerMask allyLayerMask;
+    
     protected virtual void Awake()
     {
         cd = GetComponent<BoxCollider>();
@@ -25,9 +27,11 @@ public class Bullet : MonoBehaviour
         meshRenderer = GetComponent<MeshRenderer>();
     }
 
-    public void BulletSetup(float fly_distance = 100, float impact_force = 100)
+    public void BulletSetup(LayerMask allyLayer, float fly_distance = 100, float impact_force = 100)
     {
         impactForce = impact_force;
+        allyLayerMask = allyLayer;
+        
         bulletDisabled = false;
         cd.enabled = true;
         meshRenderer.enabled = true;
@@ -55,9 +59,9 @@ public class Bullet : MonoBehaviour
             ReturnBulletToPool();
     }
 
-    protected void ReturnBulletToPool()
+    protected void ReturnBulletToPool(float delay = 0)
     {
-        ObjectPool.instance.ReturnObject(gameObject);
+        ObjectPool.instance.ReturnObject(gameObject, delay);
     }
 
     protected void DisableBulletIfNeeded()
@@ -80,7 +84,24 @@ public class Bullet : MonoBehaviour
 
     protected virtual void OnCollisionEnter(Collision other)
     {
-        Enemy enemy = other.transform.GetComponentInParent<Enemy>();
+        // ban nham dong doi
+        if (FriendlyFire() == false)
+        {
+            // other.gameObject.layer == LayerMask.NameToLayer("Ally") kieu vậy, cach duoi toi uu hon " bitwise "
+            // use a bitwise and to check if the collision layer is in the allyLayerMask
+            if ((allyLayerMask.value & (1 << other.gameObject.layer)) > 0)
+            {
+                ReturnBulletToPool(10);
+                return;
+            }
+        }
+        
+        CreateImpactFX();
+        ReturnBulletToPool();
+        
+        IDamageable damageable = other.gameObject.GetComponent<IDamageable>();
+        damageable?.TakeDamage();
+        
         Enemy_Shield_Obj shieldObj = other.gameObject.GetComponent<Enemy_Shield_Obj>();
         if (shieldObj)
         {
@@ -88,16 +109,19 @@ public class Bullet : MonoBehaviour
             return;
         }
 
+        ApplyBulletImpactToEnemy(other);
+    }
+
+    private void ApplyBulletImpactToEnemy(Collision other)
+    {
+        Enemy enemy = other.transform.GetComponentInParent<Enemy>();
         if (enemy)
         {
             Vector3 force = rb.velocity.normalized * impactForce;
             Rigidbody hitRigidbody = other.collider.attachedRigidbody;
             enemy.GetHit();
-            enemy.DeathImpact(force, other.contacts[0].point, hitRigidbody);
+            enemy.BulletImpact(force, other.contacts[0].point, hitRigidbody);
         }
-
-        CreateImpactFX();
-        ReturnBulletToPool();
     }
 
     protected void CreateImpactFX()
@@ -105,4 +129,6 @@ public class Bullet : MonoBehaviour
         GameObject newImpactFX = ObjectPool.instance.GetObject(bulletImpactFX, transform);
         ObjectPool.instance.ReturnObject(newImpactFX, 1);
     }
+    
+    public bool FriendlyFire() => GameManager.instance.friendlyFire;
 }

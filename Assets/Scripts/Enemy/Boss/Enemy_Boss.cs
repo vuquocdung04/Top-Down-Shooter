@@ -61,6 +61,7 @@ public class Enemy_Boss : Enemy
         jumpAttackState = new JumpAttackState_Boss(this, stateMachine, "JumpAttack");
         abilityState = new AbilityState_Boss(this, stateMachine, "Ability");
         deadState = new DeadState_Boss(this, stateMachine, "Idle"); // Idle is just a placeholder we use ragdoll
+        
     }
 
     protected override void Start()

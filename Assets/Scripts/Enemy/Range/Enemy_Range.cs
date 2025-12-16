@@ -106,10 +106,11 @@ public class Enemy_Range : Enemy
         stateMachine.currentState.UpdateState();
     }
 
-    public override void GetHit()
+    public override void Die()
     {
-        base.GetHit();
-        if (heathPoints <= 0 && stateMachine.currentState != deadState)
+        base.Die();
+        
+        if(stateMachine.currentState != deadState)
             stateMachine.ChangeState(deadState);
     }
 
@@ -161,7 +162,7 @@ public class Enemy_Range : Enemy
         
         newBullet.transform.rotation = Quaternion.LookRotation(bulletsDirection);
 
-        newBullet.GetComponent<Enemy_Bullet>().BulletSetup();
+        newBullet.GetComponent<Bullet>().BulletSetup(whatIsAlly);
 
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
 
