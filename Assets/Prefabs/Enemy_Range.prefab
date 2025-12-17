@@ -4177,6 +4177,9 @@ MonoBehaviour:
   whatIsAlly:
     serializedVersion: 2
     m_Bits: 2048
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 0
   heathPoints: 3
   idleTime: 5
   aggressionRange: 10
@@ -4196,7 +4199,7 @@ MonoBehaviour:
   grenadeCooldown: 1
   grenadePoint: {fileID: 8592294665124739916}
   advanceSpeed: 3
-  advanceStoppingDistance: 3
+  advanceStoppingDistance: 8
   advanceDuration: 2.5
   minCoverTime: 4
   safeDistance: 2

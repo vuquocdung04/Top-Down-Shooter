@@ -25,23 +25,26 @@ public class Enemy_Grenade : MonoBehaviour
     private void Explode()
     {
         canExplode = false;
-        
         PlayExplosionFx();
 
         HashSet<GameObject> uniqueEntities = new();
-        
         Collider[] colliders = Physics.OverlapSphere(transform.position, impactRadius);
 
         foreach (var hit in colliders)
         {
-            if (IsTargetValid(hit) == false)
-                continue;
+            IDamageable damageable = hit.GetComponent<IDamageable>();
+            if (damageable != null)
+            {
+                if (IsTargetValid(hit) == false)
+                    continue;
             
-            GameObject rootEntity = hit.transform.root.gameObject;
-            if(uniqueEntities.Add(rootEntity) == false)
-                continue;
+                GameObject rootEntity = hit.transform.root.gameObject;
+                if(uniqueEntities.Add(rootEntity) == false)
+                    continue;
+                
+                damageable.TakeDamage();
+            }
             
-            ApplyDamageTo(hit);
             ApplyPhysicalForceTo(hit);
         }
     }
@@ -52,13 +55,6 @@ public class Enemy_Grenade : MonoBehaviour
         if(rb != null)
             rb.AddExplosionForce(impactPower, transform.position, impactRadius, upwardsMultiplier, ForceMode.Impulse);
     }
-
-    private static void ApplyDamageTo(Collider hit)
-    {
-        IDamageable damageable = hit.GetComponent<IDamageable>();
-        damageable?.TakeDamage();
-    }
-
     private void PlayExplosionFx()
     {
         GameObject newFx = ObjectPool.instance.GetObject(explosionFx, transform);
