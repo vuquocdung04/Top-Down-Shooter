@@ -19,7 +19,7 @@ public class AttackState_Melee : EnemyState
     public override void EnterState()
     {
         base.EnterState();
-        enemy.UpdateAttackData();
+        enemy.UpdateAttackData();     
         enemy.visuals.EnableWeaponModel(true);
         enemy.visuals.EnableWeaponTrail(true);
         

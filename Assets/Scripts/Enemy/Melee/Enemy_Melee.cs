@@ -29,8 +29,8 @@ public enum EnemyMelee_Type
 
 public class Enemy_Melee : Enemy
 {
-    
     #region States
+
     public IdleState_Melee idleState { get; private set; }
     public MoveState_Melee moveState { get; private set; }
     public RecoveryState_Melee recoveryState { get; private set; }
@@ -38,30 +38,34 @@ public class Enemy_Melee : Enemy
     public AttackState_Melee attackState { get; private set; }
     private DeadState_Melee deadState { get; set; }
     public AbilityState_Melee abilityState { get; private set; }
+
     #endregion
+
     [Header("Enemy Melee Type")] public EnemyMelee_Type meleeType;
     public Enemy_MeleeWeaponType weaponType;
-    
+
 
     public Transform shieldTransform;
     public float dodgeCooldown;
     private float lastTimeDodge = -10;
 
-    [Header("Axe throw ability")]
-    public GameObject axePrefab;
+    [Header("Axe throw ability")] public GameObject axePrefab;
     public float axeFlySpeed;
     public float animTimer;
     public float axeThrowCooldown;
     private float lastTimeAxeThrow;
     public Transform axeStartPoint;
-    
+
     [Header("Attack Data")] public AttackData_EnemyMelee attackDataEnemyMelee;
     public List<AttackData_EnemyMelee> attackList;
-    
+    public Enemy_WeaponModel currentWeapon;
+    private bool isAttackReady;
+    [Space] [SerializeField] private GameObject meleeAttackFx;
+
     protected override void Awake()
     {
         base.Awake();
-        
+
         idleState = new IdleState_Melee(this, stateMachine, "Idle");
         moveState = new MoveState_Melee(this, stateMachine, "Move");
         recoveryState = new RecoveryState_Melee(this, stateMachine, "Recovery");
@@ -85,8 +89,35 @@ public class Enemy_Melee : Enemy
     {
         base.Update();
         stateMachine.currentState.UpdateState();
+
+        if (isAttackReady)
+            AttackCheck();
     }
 
+    public void AttackCheck()
+    {
+        if (isAttackReady == false) return;
+        foreach (var attackPoint in currentWeapon.damagePoints)
+        {
+            Collider[] detectedHits =
+                Physics.OverlapSphere(attackPoint.position, currentWeapon.attackRadius, whatIsPlayer);
+            
+            for (int i = 0; i < detectedHits.Length; i++)
+            {
+                IDamageable damageable = detectedHits[i].GetComponent<IDamageable>();
+                if (damageable != null)
+                {
+                    damageable.TakeDamage();
+                    isAttackReady = false;
+                    GameObject newAttackFx = ObjectPool.instance.GetObject(meleeAttackFx, attackPoint);
+                    ObjectPool.instance.ReturnObject(newAttackFx,1);
+                    return;
+                }
+            }
+        }
+    }
+    public void EnableAttackCheck(bool enable) => isAttackReady = enable;
+    
     public override void EnterBattleMode()
     {
         if (inBattleMode)
@@ -104,21 +135,21 @@ public class Enemy_Melee : Enemy
 
     public void UpdateAttackData()
     {
-        Enemy_WeaponModel currentWeapon = visuals.currentWeaponModel.GetComponent<Enemy_WeaponModel>();
-        if (currentWeapon != null)
+        currentWeapon = visuals.currentWeaponModel.GetComponent<Enemy_WeaponModel>();
+        if (currentWeapon.weaponData != null)
         {
             attackList = new List<AttackData_EnemyMelee>(currentWeapon.weaponData.attackDatas);
             turnSpeed = currentWeapon.weaponData.turnSpeed;
         }
     }
-    
+
     protected override void InitializePerk()
     {
         if (meleeType == EnemyMelee_Type.AxeThrow)
         {
             weaponType = Enemy_MeleeWeaponType.Throw;
         }
-        
+
         if (meleeType == EnemyMelee_Type.Shield)
         {
             anim.SetFloat("ChaseIndex", 1);
@@ -131,7 +162,7 @@ public class Enemy_Melee : Enemy
             weaponType = Enemy_MeleeWeaponType.Unarmed;
         }
     }
-    
+
     public override void Die()
     {
         base.Die();
@@ -141,18 +172,17 @@ public class Enemy_Melee : Enemy
 
     public void ActivateDodgeRoll()
     {
-        
-        if(meleeType != EnemyMelee_Type.Dodge) return;
-        
-        if(stateMachine.currentState != chaseState) return;
+        if (meleeType != EnemyMelee_Type.Dodge) return;
 
-        if(Vector3.Distance(transform.position, player.position) < 1.8f)
+        if (stateMachine.currentState != chaseState) return;
+
+        if (Vector3.Distance(transform.position, player.position) < 1.8f)
             return;
         float dodgeAnimationDuration = GetAnimationClipDuration("Sprinting Forward Roll");
-        
+
         if (Time.time > dodgeCooldown + lastTimeDodge + dodgeAnimationDuration)
         {
-            lastTimeDodge =  Time.time;
+            lastTimeDodge = Time.time;
             anim.SetTrigger("Dodge");
         }
     }
@@ -160,35 +190,38 @@ public class Enemy_Melee : Enemy
     public void ThrowAxe()
     {
         GameObject newAxe = ObjectPool.instance.GetObject(axePrefab, axeStartPoint);
-        
+
         newAxe.GetComponent<Enemy_Axe_Obj>().AxeSetup(axeFlySpeed, player, animTimer);
     }
+
     public bool CanThrowAxe()
     {
         if (meleeType != EnemyMelee_Type.AxeThrow) return false;
-        
+
         if (Time.time > lastTimeAxeThrow + axeThrowCooldown)
         {
             lastTimeAxeThrow = Time.time;
             return true;
         }
+
         return false;
     }
 
     private float GetAnimationClipDuration(string clipName)
     {
         AnimationClip[] clips = anim.runtimeAnimatorController.animationClips;
-        
-        foreach(var t in clips)
-            if(clipName == t.name)
+
+        foreach (var t in clips)
+            if (clipName == t.name)
                 return t.length;
         Debug.Log(clipName + " animation not found!");
         return 0;
     }
-    
-    public bool PlayerInAttackRange() => Vector3.Distance(transform.position, player.position) < attackDataEnemyMelee.attackRange;
-    
-    
+
+    public bool PlayerInAttackRange() =>
+        Vector3.Distance(transform.position, player.position) < attackDataEnemyMelee.attackRange;
+
+
     protected override void OnDrawGizmos()
     {
         base.OnDrawGizmos();
