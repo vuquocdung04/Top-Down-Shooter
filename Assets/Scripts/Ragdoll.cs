@@ -1,11 +1,11 @@
 using System;
 using UnityEngine;
 
-public class Enemy_Ragdoll : MonoBehaviour
+public class Ragdoll : MonoBehaviour
 {
     [SerializeField] private Transform ragdollParent;
-    [SerializeField] private Collider[] ragdollColliders;
-    [SerializeField] private Rigidbody[] ragdollRigidbodies;
+    private Collider[] ragdollColliders;
+    private Rigidbody[] ragdollRigidbodies;
 
     private void Awake()
     {
@@ -29,5 +29,4 @@ public class Enemy_Ragdoll : MonoBehaviour
             col.enabled = active;
         }
     }
-    
 }
