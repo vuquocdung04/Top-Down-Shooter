@@ -78,10 +78,10 @@ public class Enemy_Boss : Enemy
         
     }
 
-    public override void GetHit()
+    public override void Die()
     {
-        base.GetHit();
-        if(heathPoints <= 0 && stateMachine.currentState != deadState)
+        base.Die();
+        if(stateMachine.currentState != deadState)
             stateMachine.ChangeState(deadState);
     }
 
