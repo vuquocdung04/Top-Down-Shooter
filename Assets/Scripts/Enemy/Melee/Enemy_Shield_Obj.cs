@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Enemy_Shield_Obj : MonoBehaviour
+public class Enemy_Shield_Obj : MonoBehaviour, IDamageable
 {
     private Enemy_Melee enemy;
     [SerializeField] private int durability = 10;
@@ -9,9 +9,11 @@ public class Enemy_Shield_Obj : MonoBehaviour
     private void Awake()
     {
         enemy = GetComponentInParent<Enemy_Melee>();
+
+        durability = enemy.shieldDurability;
     }
 
-    public void ReduceDurability()
+    private void ReduceDurability()
     {
         durability--;
         if (durability <= 0)
@@ -19,5 +21,10 @@ public class Enemy_Shield_Obj : MonoBehaviour
             enemy.anim.SetFloat("ChaseIndex", 0);
             gameObject.SetActive(false);
         }
+    }
+
+    public void TakeDamage()
+    {
+        ReduceDurability();
     }
 }

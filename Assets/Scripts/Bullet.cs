@@ -101,13 +101,6 @@ public class Bullet : MonoBehaviour
         
         IDamageable damageable = other.gameObject.GetComponent<IDamageable>();
         damageable?.TakeDamage();
-        
-        Enemy_Shield_Obj shieldObj = other.gameObject.GetComponent<Enemy_Shield_Obj>();
-        if (shieldObj)
-        {
-            shieldObj.ReduceDurability();
-            return;
-        }
 
         ApplyBulletImpactToEnemy(other);
     }

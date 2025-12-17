@@ -593,7 +593,6 @@ GameObject:
   - component: {fileID: 8228341878231455479}
   - component: {fileID: 441411013332037225}
   - component: {fileID: 3194765467994930775}
-  - component: {fileID: 4253046051574485366}
   - component: {fileID: 3531198875818205658}
   m_Layer: 11
   m_Name: Shield
@@ -700,19 +699,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 752b64aa6ddf4731bbfabe01ac358fd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  durability: 5
---- !u!114 &4253046051574485366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 834209611103623011}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bae6da1bff13490db854714dd427d018, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  durability: 10
 --- !u!54 &3531198875818205658
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1045,8 +1032,9 @@ MonoBehaviour:
   patrolPoints:
   - {fileID: 5843488220946812943}
   - {fileID: 2127816606232680697}
-  meleeType: 2
+  meleeType: 1
   weaponType: 0
+  shieldDurability: 10
   shieldTransform: {fileID: 734518075076821471}
   dodgeCooldown: 5
   axePrefab: {fileID: 7114639492633114268, guid: d0d959c709552494bbbede0576b4fb74, type: 3}
