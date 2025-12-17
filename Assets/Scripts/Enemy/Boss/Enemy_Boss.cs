@@ -40,6 +40,10 @@ public class Enemy_Boss : Enemy
     [SerializeField] private float upforceMultiplier = 10; // chi anh huong toi truc y
     
     [Space] [SerializeField] private LayerMask whatToIgnore;
+
+    [Header("Attack")] [SerializeField] private Transform[] damagePoints;
+    [SerializeField] private float attackCheckRadius;
+    [SerializeField] private GameObject meleeAttackFx;
     
     public IdleState_Boss idleState { get; private set; }
     public MoveState_Boss moveState { get; private set; }
@@ -76,6 +80,7 @@ public class Enemy_Boss : Enemy
         
         stateMachine.currentState.UpdateState();
         
+        MeleeAttackCheck(damagePoints, attackCheckRadius, meleeAttackFx);
     }
 
     public override void Die()
@@ -198,5 +203,11 @@ public class Enemy_Boss : Enemy
 
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, minAbilityDistance);
+        
+        if (damagePoints.Length > 0)
+        {
+            foreach(var damagePoint in damagePoints)
+                Gizmos.DrawWireSphere(damagePoint.position, attackCheckRadius);
+        }
     }
 }

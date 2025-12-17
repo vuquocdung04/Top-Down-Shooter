@@ -44,11 +44,9 @@ public class Enemy_Melee : Enemy
     [Header("Enemy Melee Type")] public EnemyMelee_Type meleeType;
     public Enemy_MeleeWeaponType weaponType;
 
-    [Header("Shield")]
-    public int shieldDurability;
+    [Header("Shield")] public int shieldDurability;
     public Transform shieldTransform;
-    [Header("Dodge")]
-    public float dodgeCooldown;
+    [Header("Dodge")] public float dodgeCooldown;
     private float lastTimeDodge = -10;
 
     [Header("Axe throw ability")] public GameObject axePrefab;
@@ -61,7 +59,7 @@ public class Enemy_Melee : Enemy
     [Header("Attack Data")] public AttackData_EnemyMelee attackDataEnemyMelee;
     public List<AttackData_EnemyMelee> attackList;
     public Enemy_WeaponModel currentWeapon;
-    private bool isAttackReady;
+    
     [Space] [SerializeField] private GameObject meleeAttackFx;
 
     protected override void Awake()
@@ -92,33 +90,8 @@ public class Enemy_Melee : Enemy
         base.Update();
         stateMachine.currentState.UpdateState();
 
-        if (isAttackReady)
-            AttackCheck();
+        MeleeAttackCheck(currentWeapon.damagePoints, currentWeapon.attackRadius, meleeAttackFx);
     }
-
-    public void AttackCheck()
-    {
-        if (isAttackReady == false) return;
-        foreach (var attackPoint in currentWeapon.damagePoints)
-        {
-            Collider[] detectedHits =
-                Physics.OverlapSphere(attackPoint.position, currentWeapon.attackRadius, whatIsPlayer);
-            
-            for (int i = 0; i < detectedHits.Length; i++)
-            {
-                IDamageable damageable = detectedHits[i].GetComponent<IDamageable>();
-                if (damageable != null)
-                {
-                    damageable.TakeDamage();
-                    isAttackReady = false;
-                    GameObject newAttackFx = ObjectPool.instance.GetObject(meleeAttackFx, attackPoint);
-                    ObjectPool.instance.ReturnObject(newAttackFx,1);
-                    return;
-                }
-            }
-        }
-    }
-    public void EnableAttackCheck(bool enable) => isAttackReady = enable;
     
     public override void EnterBattleMode()
     {
