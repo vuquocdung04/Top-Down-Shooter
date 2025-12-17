@@ -13,26 +13,29 @@ public class Enemy_Boss : Enemy
     public float actionCooldown = 10;
     public float attackRange;
 
-    [Header("Ability")] public float minAbilityDistance;
+    [Header("Ability - Flame and Hummer")]
+    [Tooltip("nhỏ hơn dùng ability")]
+    public float minAbilityDistance;
     public float abilityCooldown;
     private float lastTimeUsedAbility;
     
     [Header("Flamethrower")]
+    public float flameDamageCooldown;
     public ParticleSystem flameThrower;
     public float flameThrowDuration = 10;
     public bool flameThrowActive { get; private set; }
     
     [Header("Hummer")]
     public GameObject activationPrefab;
-
-    
+    [Space]
     
     [Header("Jump Attack")]
-    [Space]
+    [Tooltip("lớn hơn thì jump")]
+    public float minJumpDistanceRequired;
+    
     public float travelTimeToTarget = 1;
     public float jumpAttackCooldown = 10;
     private float lastTimeJumped = -10f;
-    public float minJumpDistanceRequired;
     [Space]
     public float impactRadius = 2.5f;
     public float impactPower = 5;
