@@ -6581,18 +6581,18 @@ MonoBehaviour:
   actionCooldown: 1
   attackRange: 2
   minAbilityDistance: 8
-  abilityCooldown: 5
+  abilityCooldown: 10
   flameDamageCooldown: 0.5
   flameThrower: {fileID: 1960714934351864940}
   flameThrowDuration: 4
   activationPrefab: {fileID: 0}
+  minJumpDistanceRequired: 8
   travelTimeToTarget: 1
   jumpAttackCooldown: 6
-  minJumpDistanceRequired: 8
   impactRadius: 2.5
   impactPower: 10
   impactPoint: {fileID: 0}
-  upforceMultiplier: 5
+  upforceMultiplier: 10
   whatToIgnore:
     serializedVersion: 2
     m_Bits: 2048
