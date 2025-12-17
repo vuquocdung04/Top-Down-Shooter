@@ -19629,16 +19629,18 @@ MonoBehaviour:
   - {fileID: 43352659651043453}
   - {fileID: 4237244767638158022}
   bossWeaponType: 1
-  actionCooldown: 1
+  actionCooldown: 0.5
   attackRange: 1.6
-  minAbilityDistance: 2.25
+  minAbilityDistance: 3
   abilityCooldown: 4
+  flameDamageCooldown: 0
   flameThrower: {fileID: 4880746857058180692}
   flameThrowDuration: 3
   activationPrefab: {fileID: 2965222256817593503, guid: a164e676dbbd6e54587237e619372c98, type: 3}
+  hummerCheckRadius: 3
+  minJumpDistanceRequired: 7
   travelTimeToTarget: 1
   jumpAttackCooldown: 8
-  minJumpDistanceRequired: 7
   impactRadius: 2.5
   impactPower: 15
   impactPoint: {fileID: 2057673515723140669}
@@ -19648,7 +19650,7 @@ MonoBehaviour:
     m_Bits: 2048
   damagePoints:
   - {fileID: 5813103551479228699}
-  attackCheckRadius: 0.6
+  attackCheckRadius: 0.5
   meleeAttackFx: {fileID: 8264137276333028771, guid: e6a6414d31993eb4fa23bf725df1333f, type: 3}
 --- !u!114 &4760024346395619915
 MonoBehaviour:

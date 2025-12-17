@@ -10,7 +10,9 @@ public enum BossWeaponType
 public class Enemy_Boss : Enemy
 {
     [Header("Boss Details")] public BossWeaponType bossWeaponType;
+    [Tooltip("actionCooldown để sử dụng cho jump và ability")]
     public float actionCooldown = 10;
+    [Tooltip("tầm tấn công")]
     public float attackRange;
 
     [Header("Ability - Flame and Hummer")] [Tooltip("nhỏ hơn dùng ability")]
@@ -25,6 +27,8 @@ public class Enemy_Boss : Enemy
     public bool flameThrowActive { get; private set; }
 
     [Header("Hummer")] public GameObject activationPrefab;
+    [SerializeField] private float hummerCheckRadius;
+
 
     [Space] [Header("Jump Attack")] [Tooltip("lớn hơn thì jump")]
     public float minJumpDistanceRequired;
@@ -119,6 +123,8 @@ public class Enemy_Boss : Enemy
     {
         GameObject newActivation = ObjectPool.instance.GetObject(activationPrefab, impactPoint);
         ObjectPool.instance.ReturnObject(newActivation, 1);
+        
+        MassDamage(damagePoints[0].position, hummerCheckRadius);
     }
 
     public bool CanDoAbility()
@@ -137,10 +143,11 @@ public class Enemy_Boss : Enemy
         Transform impPoint = impactPoint;
         if (impPoint == null)
             impPoint = transform;
-        
+
         MassDamage(impPoint.position, impactRadius);
     }
 
+    // mass damage = thiet hai hang loat
     private void MassDamage(Vector3 impPoint, float impRadius)
     {
         HashSet<GameObject> uniqueEntities = new();
@@ -158,6 +165,7 @@ public class Enemy_Boss : Enemy
 
                 damageable.TakeDamage();
             }
+
             ApplyPhysicalForceTo(impPoint, hit);
         }
     }
@@ -228,6 +236,8 @@ public class Enemy_Boss : Enemy
         {
             foreach (var damagePoint in damagePoints)
                 Gizmos.DrawWireSphere(damagePoint.position, attackCheckRadius);
+            // boss hummer is only one of the damagePoints. it is a hammer
+            Gizmos.DrawWireSphere(damagePoints[0].position, hummerCheckRadius);
         }
     }
 }
