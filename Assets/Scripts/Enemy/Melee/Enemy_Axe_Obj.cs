@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Enemy_Axe_Obj : MonoBehaviour
 {
-    [SerializeField]private GameObject impactFx;
+    [SerializeField] private GameObject impactFx;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private Transform axeVisual;
 
@@ -21,7 +21,7 @@ public class Enemy_Axe_Obj : MonoBehaviour
         this.player = player;
         this.timer = timer;
     }
-    
+
     private void Update()
     {
         axeVisual.Rotate(Vector3.right * rotationSpeed * Time.deltaTime);
@@ -31,21 +31,23 @@ public class Enemy_Axe_Obj : MonoBehaviour
         {
             direction = player.position + Vector3.up - transform.position;
         }
-        rb.velocity = direction.normalized * flySpeed;
+
         transform.forward = rb.velocity;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void FixedUpdate()
     {
-        Bullet bullet = other.GetComponent<Bullet>();
-        Player player = other.GetComponent<Player>();
-
-        if (bullet != null || player != null)
-        {
-            GameObject newFx = ObjectPool.instance.GetObject(impactFx, transform);
-            newFx.transform.position = transform.position;
-            ObjectPool.instance.ReturnObject(gameObject);
-            ObjectPool.instance.ReturnObject(newFx,1f);
-        }
+        rb.velocity = direction.normalized * flySpeed;
+        
     }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        IDamageable damageable = other.gameObject.GetComponent<IDamageable>();
+        damageable?.TakeDamage();
+        GameObject newFx = ObjectPool.instance.GetObject(impactFx, transform);
+        ObjectPool.instance.ReturnObject(gameObject);
+        ObjectPool.instance.ReturnObject(newFx, 1f);
+    }
+
 }

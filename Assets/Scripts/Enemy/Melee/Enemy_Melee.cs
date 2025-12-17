@@ -197,7 +197,6 @@ public class Enemy_Melee : Enemy
     public bool CanThrowAxe()
     {
         if (meleeType != EnemyMelee_Type.AxeThrow) return false;
-
         if (Time.time > lastTimeAxeThrow + axeThrowCooldown)
         {
             lastTimeAxeThrow = Time.time;
