@@ -25,7 +25,7 @@ public class Enemy_Visuals : MonoBehaviour
 {
     public GameObject currentWeaponModel { get; private set; }
     public GameObject grenadeModel;
-    
+
     [Header("Corruption visuals")] [SerializeField]
     private GameObject[] corruptionCrystals;
 
@@ -48,8 +48,11 @@ public class Enemy_Visuals : MonoBehaviour
 
     private void Update()
     {
-        leftHandIKConstraint.weight = AdjustIKWeight(leftHandIKConstraint.weight, leftHandTargetWeight);
-        weaponAimConstraint.weight = AdjustIKWeight(weaponAimConstraint.weight, weaponAimTargetWeight);
+        // leftHandIK and WeaponAim for enemy range, not for enemy melee
+        if (leftHandIKConstraint != null)
+            leftHandIKConstraint.weight = AdjustIKWeight(leftHandIKConstraint.weight, leftHandTargetWeight);
+        if (weaponAimConstraint != null)
+            weaponAimConstraint.weight = AdjustIKWeight(weaponAimConstraint.weight, weaponAimTargetWeight);
     }
 
     public void EnableGrenadeModel(bool active) => grenadeModel?.SetActive(active);
@@ -61,12 +64,14 @@ public class Enemy_Visuals : MonoBehaviour
         Enemy_WeaponModel currentWeaponScript = currentWeaponModel.GetComponent<Enemy_WeaponModel>();
         currentWeaponScript.EnableTrailEffect(enable);
     }
+
     public void SetupLook()
     {
         SetupRandomColor();
         SetupRandomWeapon();
         SetupRandomCorruption();
     }
+
     private void SetupRandomWeapon()
     {
         bool thisEnemyIsMelee = GetComponent<Enemy_Melee>() != null;
@@ -81,6 +86,7 @@ public class Enemy_Visuals : MonoBehaviour
 
         OverrideAnimatorControllerIfCan();
     }
+
     private GameObject FindRangeWeaponModel()
     {
         Enemy_RangeWeaponModel[] weaponModels = GetComponentsInChildren<Enemy_RangeWeaponModel>(true);
@@ -99,6 +105,7 @@ public class Enemy_Visuals : MonoBehaviour
         Debug.Log("No range weapon found");
         return null;
     }
+
     private GameObject FindMeleeWeaponModel()
     {
         Enemy_WeaponModel[] weaponModels = GetComponentsInChildren<Enemy_WeaponModel>(true);
@@ -113,6 +120,7 @@ public class Enemy_Visuals : MonoBehaviour
         int randomIndex = Random.Range(0, filteredWeaponModels.Count);
         return filteredWeaponModels[randomIndex].gameObject;
     }
+
     private void OverrideAnimatorControllerIfCan()
     {
         AnimatorOverrideController overrideController =
@@ -122,6 +130,7 @@ public class Enemy_Visuals : MonoBehaviour
             GetComponentInChildren<Animator>().runtimeAnimatorController = overrideController;
         }
     }
+
     private void SetupRandomColor()
     {
         int randomIndex = Random.Range(0, colorTextures.Length);
@@ -130,6 +139,7 @@ public class Enemy_Visuals : MonoBehaviour
         newMat.mainTexture = colorTextures[randomIndex];
         skinnedMeshRenderer.material = newMat;
     }
+
     private void SetupRandomCorruption()
     {
         List<int> availableIndexs = new();
@@ -151,6 +161,7 @@ public class Enemy_Visuals : MonoBehaviour
             availableIndexs.RemoveAt(randomIndex);
         }
     }
+
     private GameObject[] CollectCorruptionCrystals()
     {
         Enemy_CorruptionCrystal[] crystalsComponents = GetComponentsInChildren<Enemy_CorruptionCrystal>(true);
@@ -163,6 +174,7 @@ public class Enemy_Visuals : MonoBehaviour
 
         return corruptionCrystals;
     }
+
     private GameObject FindSecondaryWeaponModel()
     {
         Enemy_SecondaryRangeWeaponModel[] weaponModels = GetComponentsInChildren<Enemy_SecondaryRangeWeaponModel>(true);
@@ -172,10 +184,11 @@ public class Enemy_Visuals : MonoBehaviour
             if (weaponModel.weaponType == weaponType)
                 return weaponModel.gameObject;
         }
+
         return null;
     }
-    
-    
+
+
     private void SwitchAnimationLayer(int layerIndex)
     {
         Animator anim = transform.GetComponentInChildren<Animator>();
@@ -190,7 +203,7 @@ public class Enemy_Visuals : MonoBehaviour
 
     public void EnableIk(bool enableLeftHand, bool enableAim, float changeRate = 10)
     {
-        rigChangeRate =  changeRate;
+        rigChangeRate = changeRate;
         leftHandTargetWeight = enableLeftHand ? 1f : 0f;
         weaponAimTargetWeight = enableAim ? 1f : 0f;
     }

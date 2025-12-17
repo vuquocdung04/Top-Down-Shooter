@@ -131,14 +131,14 @@ public class Enemy_Melee : Enemy
             weaponType = Enemy_MeleeWeaponType.Unarmed;
         }
     }
-
-    public override void GetHit()
+    
+    public override void Die()
     {
-        base.GetHit();
-        if (heathPoints <= 0 && stateMachine.currentState != deadState)
+        base.Die();
+        if (stateMachine.currentState != deadState)
             stateMachine.ChangeState(deadState);
     }
-    
+
     public void ActivateDodgeRoll()
     {
         

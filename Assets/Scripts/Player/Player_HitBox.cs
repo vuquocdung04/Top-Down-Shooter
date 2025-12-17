@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class Player_HitBox : HitBox
 {
     private Player player;
@@ -10,6 +12,7 @@ public class Player_HitBox : HitBox
     public override void TakeDamage()
     {
         base.TakeDamage();
+        Debug.Log("Player got damaged");
         player.health.ReduceHealth(); 
     }
 }
