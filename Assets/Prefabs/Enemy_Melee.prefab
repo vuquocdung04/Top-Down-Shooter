@@ -1017,7 +1017,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c14c51bd154ccf90e0e23b14597867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 100
   currentHealth: 0
 --- !u!114 &8631725897831778118
 MonoBehaviour:
@@ -1046,14 +1046,14 @@ MonoBehaviour:
   patrolPoints:
   - {fileID: 5843488220946812943}
   - {fileID: 2127816606232680697}
-  meleeType: 1
+  meleeType: 0
   weaponType: 0
-  shieldDurability: 10
+  shieldDurability: 400
   shieldTransform: {fileID: 734518075076821471}
   dodgeCooldown: 5
-  axeDamage: 0
+  axeDamage: 70
   axePrefab: {fileID: 7114639492633114268, guid: d0d959c709552494bbbede0576b4fb74, type: 3}
-  axeFlySpeed: 5
+  axeFlySpeed: 6
   animTimer: 1
   axeThrowCooldown: 10
   axeStartPoint: {fileID: 2855850311935965799}
@@ -1067,18 +1067,18 @@ MonoBehaviour:
     attackType: 0
   attackList:
   - attackName: Spin
-    attackDamage: 21
+    attackDamage: 25
     attackRange: 2
-    moveSpeed: 2.5
+    moveSpeed: 3.5
     attackIndex: 0
     animationSpeed: 1
     attackType: 1
   - attackName: Slash
-    attackDamage: 25
+    attackDamage: 21
     attackRange: 1
     moveSpeed: 0
     attackIndex: 1
-    animationSpeed: 1.642
+    animationSpeed: 1.7
     attackType: 0
   currentWeapon: {fileID: 0}
   meleeAttackFx: {fileID: 8264137276333028771, guid: 930e9d2f8cfe707468ea2ab26bfecfdd, type: 3}
