@@ -33,7 +33,7 @@ public class Dummy : MonoBehaviour, IDamageable
         lastTimeDamaged = Time.time;
         currentHealth -= damage;
         
-        if(currentHealth < 0)
+        if(currentHealth <= 0)
             Die();
     }
 

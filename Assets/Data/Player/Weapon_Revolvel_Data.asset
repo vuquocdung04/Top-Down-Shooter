@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Weapon_Revolvel_Data
   m_EditorClassIdentifier: 
   weaponName: Both R-7
+  bulletDamage: 35
   bulletsInMagazine: 6
   magazineCapacity: 6
   totalReserveAmmo: 21312321
@@ -28,7 +29,7 @@ MonoBehaviour:
   maximumSpread: 2.5
   spreadIncreaseRate: 0.3
   weaponType: 2
-  reloadSpeed: 1
+  reloadSpeed: 1.78
   equipmentSpeed: 2
-  gunDistance: 6
+  gunDistance: 25
   cameraDistance: 6
