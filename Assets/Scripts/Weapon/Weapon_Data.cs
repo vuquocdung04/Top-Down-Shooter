@@ -4,6 +4,8 @@ using UnityEngine;
 public class Weapon_Data : ScriptableObject
 {
     public string weaponName;
+    [Header("Bullet")]
+    public int bulletDamage;
     
     [Header("Magazine Details")]
     public int bulletsInMagazine; // hien tai

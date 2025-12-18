@@ -759,6 +759,7 @@ MonoBehaviour:
   weaponData: {fileID: 11400000, guid: 1657c5d8ed51e4744a4587d0363594ef, type: 2}
   weapon:
     weaponType: 0
+    bulletDamage: 0
     shootType: 0
     fireRate: 0
     burstActive: 0
@@ -3307,6 +3308,67 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 11c0930e61baa7a43a6a917f26bcdf56, type: 2}
   m_BuildHeightMesh: 0
+--- !u!1001 &1890184550
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1322174419601115008, guid: 049b50e68c4d96242abc3dd5db2e1bd5, type: 3}
+      propertyPath: m_Name
+      value: Enemy_Melee
+      objectReference: {fileID: 0}
+    - target: {fileID: 2597291300889291420, guid: 049b50e68c4d96242abc3dd5db2e1bd5, type: 3}
+      propertyPath: maxHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4716394530167743480, guid: 049b50e68c4d96242abc3dd5db2e1bd5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.8834194
+      objectReference: {fileID: 0}
+    - target: {fileID: 4716394530167743480, guid: 049b50e68c4d96242abc3dd5db2e1bd5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4716394530167743480, guid: 049b50e68c4d96242abc3dd5db2e1bd5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6.148691
+      objectReference: {fileID: 0}
+    - target: {fileID: 4716394530167743480, guid: 049b50e68c4d96242abc3dd5db2e1bd5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4716394530167743480, guid: 049b50e68c4d96242abc3dd5db2e1bd5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4716394530167743480, guid: 049b50e68c4d96242abc3dd5db2e1bd5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4716394530167743480, guid: 049b50e68c4d96242abc3dd5db2e1bd5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4716394530167743480, guid: 049b50e68c4d96242abc3dd5db2e1bd5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4716394530167743480, guid: 049b50e68c4d96242abc3dd5db2e1bd5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4716394530167743480, guid: 049b50e68c4d96242abc3dd5db2e1bd5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 049b50e68c4d96242abc3dd5db2e1bd5, type: 3}
 --- !u!1 &1951946303
 GameObject:
   m_ObjectHideFlags: 0
@@ -3535,6 +3597,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2000135658}
+  - component: {fileID: 2000135666}
   - component: {fileID: 2000135662}
   - component: {fileID: 2000135664}
   - component: {fileID: 2000135659}
@@ -3542,7 +3605,6 @@ GameObject:
   - component: {fileID: 2000135663}
   - component: {fileID: 2000135665}
   - component: {fileID: 2000135660}
-  - component: {fileID: 2000135666}
   - component: {fileID: 2000135667}
   m_Layer: 8
   m_Name: Player
@@ -3627,6 +3689,7 @@ MonoBehaviour:
   defaultWeaponData: {fileID: 11400000, guid: 75358fd4d65ed334a8418bddc2d02391, type: 2}
   currentWeapon:
     weaponType: 1
+    bulletDamage: 0
     shootType: 0
     fireRate: 1
     burstActive: 0
@@ -3639,6 +3702,7 @@ MonoBehaviour:
   weaponHolder: {fileID: 8429653311762062427}
   weaponSlots:
   - weaponType: 3
+    bulletDamage: 0
     shootType: 1
     fireRate: 10
     burstActive: 0
@@ -3725,7 +3789,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b9da3a9f0b040db8f1a9e044869605b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 100
   currentHealth: 0
   isDead: 0
 --- !u!114 &2000135667
@@ -3776,6 +3840,7 @@ MonoBehaviour:
   weaponData: {fileID: 11400000, guid: 34057b814f2a6604aa2e2ccdd0e95bde, type: 2}
   weapon:
     weaponType: 0
+    bulletDamage: 0
     shootType: 0
     fireRate: 0
     burstActive: 0
@@ -25964,3 +26029,4 @@ SceneRoots:
   - {fileID: 1285950876}
   - {fileID: 1103645544}
   - {fileID: 1951946304}
+  - {fileID: 1890184550}

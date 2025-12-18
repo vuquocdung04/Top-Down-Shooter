@@ -14,12 +14,15 @@ public class Enemy_Axe_Obj : MonoBehaviour
     private float rotationSpeed;
     private float timer = 1;
 
-    public void AxeSetup(float flySpeed, Transform player, float timer)
+    private int axeDamage;
+
+    public void AxeSetup(float flySpeed, Transform player, float timer, int damage)
     {
         this.rotationSpeed = 1500;
         this.flySpeed = flySpeed;
         this.player = player;
         this.timer = timer;
+        axeDamage = damage;
     }
 
     private void Update()
@@ -44,7 +47,7 @@ public class Enemy_Axe_Obj : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         IDamageable damageable = other.gameObject.GetComponent<IDamageable>();
-        damageable?.TakeDamage();
+        damageable?.TakeDamage(axeDamage);
         GameObject newFx = ObjectPool.instance.GetObject(impactFx, transform);
         ObjectPool.instance.ReturnObject(gameObject);
         ObjectPool.instance.ReturnObject(newFx, 1f);

@@ -6,6 +6,7 @@ using UnityEngine;
 public struct AttackData_EnemyMelee
 {
     public string attackName;
+    public int attackDamage;
     public float attackRange;
     public float moveSpeed;
     public float attackIndex;
@@ -49,7 +50,8 @@ public class Enemy_Melee : Enemy
     [Header("Dodge")] public float dodgeCooldown;
     private float lastTimeDodge = -10;
 
-    [Header("Axe throw ability")] public GameObject axePrefab;
+    [Header("Axe throw ability")] public int axeDamage;
+    public GameObject axePrefab;
     public float axeFlySpeed;
     public float animTimer;
     public float axeThrowCooldown;
@@ -90,7 +92,7 @@ public class Enemy_Melee : Enemy
         base.Update();
         stateMachine.currentState.UpdateState();
 
-        MeleeAttackCheck(currentWeapon.damagePoints, currentWeapon.attackRadius, meleeAttackFx);
+        MeleeAttackCheck(currentWeapon.damagePoints, currentWeapon.attackRadius, meleeAttackFx,attackDataEnemyMelee.attackDamage);
     }
     
     public override void EnterBattleMode()
@@ -166,7 +168,7 @@ public class Enemy_Melee : Enemy
     {
         GameObject newAxe = ObjectPool.instance.GetObject(axePrefab, axeStartPoint);
 
-        newAxe.GetComponent<Enemy_Axe_Obj>().AxeSetup(axeFlySpeed, player, animTimer);
+        newAxe.GetComponent<Enemy_Axe_Obj>().AxeSetup(axeFlySpeed, player, animTimer,axeDamage);
     }
 
     public bool CanThrowAxe()

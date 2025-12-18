@@ -975,11 +975,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4716394530167743480}
+  - component: {fileID: 2597291300889291420}
   - component: {fileID: 8631725897831778118}
   - component: {fileID: 8979704345681714254}
   - component: {fileID: 534144358468872554}
   - component: {fileID: 5173654829418129084}
-  - component: {fileID: 2597291300889291420}
   m_Layer: 11
   m_Name: Enemy_Melee
   m_TagString: Untagged
@@ -1005,6 +1005,20 @@ Transform:
   - {fileID: 2855850311935965799}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2597291300889291420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322174419601115008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98c14c51bd154ccf90e0e23b14597867, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 10
+  currentHealth: 0
 --- !u!114 &8631725897831778118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1037,6 +1051,7 @@ MonoBehaviour:
   shieldDurability: 10
   shieldTransform: {fileID: 734518075076821471}
   dodgeCooldown: 5
+  axeDamage: 0
   axePrefab: {fileID: 7114639492633114268, guid: d0d959c709552494bbbede0576b4fb74, type: 3}
   axeFlySpeed: 5
   animTimer: 1
@@ -1044,6 +1059,7 @@ MonoBehaviour:
   axeStartPoint: {fileID: 2855850311935965799}
   attackDataEnemyMelee:
     attackName: 
+    attackDamage: 0
     attackRange: 0.8
     moveSpeed: 0
     attackIndex: 0
@@ -1051,12 +1067,14 @@ MonoBehaviour:
     attackType: 0
   attackList:
   - attackName: Spin
+    attackDamage: 21
     attackRange: 2
     moveSpeed: 2.5
     attackIndex: 0
     animationSpeed: 1
     attackType: 1
   - attackName: Slash
+    attackDamage: 25
     attackRange: 1
     moveSpeed: 0
     attackIndex: 1
@@ -1124,20 +1142,6 @@ MonoBehaviour:
   leftElbowIK: {fileID: 0}
   leftHandIKConstraint: {fileID: 0}
   weaponAimConstraint: {fileID: 0}
---- !u!114 &2597291300889291420
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1322174419601115008}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98c14c51bd154ccf90e0e23b14597867, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 10
-  currentHealth: 0
 --- !u!1 &1446505357537232810
 GameObject:
   m_ObjectHideFlags: 0

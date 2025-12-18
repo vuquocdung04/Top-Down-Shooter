@@ -26,7 +26,8 @@ public class Enemy_Range : Enemy
     public UnstoppablePerk unstoppablePerk;
     public GrenadePerk grenadePerk;
 
-    [Header("Grenade Perk")] public GameObject grenadePrefab;
+    [Header("Grenade Perk")] public int grenadeDamage;
+    public GameObject grenadePrefab;
     public float impactPower;
     public float explosionTimer = 1;
     public float timeToTarget = 1.2f;
@@ -136,11 +137,11 @@ public class Enemy_Range : Enemy
 
         if (stateMachine.currentState == deadState)
         {
-            newGrenadeScript.SetupGrenade(whatIsAlly,transform.position, 1, explosionTimer, impactPower);
+            newGrenadeScript.SetupGrenade(whatIsAlly,transform.position, 1, explosionTimer, impactPower, grenadeDamage);
             return;
         }
 
-        newGrenadeScript.SetupGrenade(whatIsAlly,player.transform.position, timeToTarget, explosionTimer, impactPower);
+        newGrenadeScript.SetupGrenade(whatIsAlly,player.transform.position, timeToTarget, explosionTimer, impactPower, grenadeDamage);
     }
 
     protected override void InitializePerk()
@@ -162,7 +163,7 @@ public class Enemy_Range : Enemy
         
         newBullet.transform.rotation = Quaternion.LookRotation(bulletsDirection);
 
-        newBullet.GetComponent<Bullet>().BulletSetup(whatIsAlly);
+        newBullet.GetComponent<Bullet>().BulletSetup(whatIsAlly, weaponData.bulletDamage);
 
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
 

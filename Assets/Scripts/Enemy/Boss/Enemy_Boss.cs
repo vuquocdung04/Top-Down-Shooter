@@ -21,16 +21,19 @@ public class Enemy_Boss : Enemy
     public float abilityCooldown;
     private float lastTimeUsedAbility;
 
-    [Header("Flamethrower")] public float flameDamageCooldown;
+    [Header("Flamethrower")] public int flameDamage;
+    public float flameDamageCooldown;
     public ParticleSystem flameThrower;
     public float flameThrowDuration = 10;
     public bool flameThrowActive { get; private set; }
 
-    [Header("Hummer")] public GameObject activationPrefab;
+    [Header("Hummer")] public int hummerActiveDamage;
+    public GameObject activationPrefab;
     [SerializeField] private float hummerCheckRadius;
 
 
-    [Space] [Header("Jump Attack")] [Tooltip("lớn hơn thì jump")]
+    [Space] [Header("Jump Attack")]
+    public int jumpAttackDamage;
     public float minJumpDistanceRequired;
 
     public float travelTimeToTarget = 1;
@@ -43,7 +46,8 @@ public class Enemy_Boss : Enemy
 
     [Space] [SerializeField] private LayerMask whatToIgnore;
 
-    [Header("Attack")] [SerializeField] private Transform[] damagePoints;
+    [Header("Attack")] [SerializeField] private int meleeAttackDamage; // normal attack
+    [SerializeField] private Transform[] damagePoints;
     [SerializeField] private float attackCheckRadius;
     [SerializeField] private GameObject meleeAttackFx;
 
@@ -81,7 +85,7 @@ public class Enemy_Boss : Enemy
 
         stateMachine.currentState.UpdateState();
 
-        MeleeAttackCheck(damagePoints, attackCheckRadius, meleeAttackFx);
+        MeleeAttackCheck(damagePoints, attackCheckRadius, meleeAttackFx,meleeAttackDamage);
     }
 
     public override void Die()
@@ -124,7 +128,7 @@ public class Enemy_Boss : Enemy
         GameObject newActivation = ObjectPool.instance.GetObject(activationPrefab, impactPoint);
         ObjectPool.instance.ReturnObject(newActivation, 1);
         
-        MassDamage(damagePoints[0].position, hummerCheckRadius);
+        MassDamage(damagePoints[0].position, hummerCheckRadius,hummerActiveDamage);
     }
 
     public bool CanDoAbility()
@@ -144,11 +148,11 @@ public class Enemy_Boss : Enemy
         if (impPoint == null)
             impPoint = transform;
 
-        MassDamage(impPoint.position, impactRadius);
+        MassDamage(impPoint.position, impactRadius, jumpAttackDamage);
     }
 
     // mass damage = thiet hai hang loat
-    private void MassDamage(Vector3 impPoint, float impRadius)
+    private void MassDamage(Vector3 impPoint, float impRadius, int damage)
     {
         HashSet<GameObject> uniqueEntities = new();
         Collider[] colliders = Physics.OverlapSphere(impPoint, impRadius, ~whatIsAlly);
@@ -163,7 +167,7 @@ public class Enemy_Boss : Enemy
                 if (uniqueEntities.Add(rootEntity) == false)
                     continue;
 
-                damageable.TakeDamage();
+                damageable.TakeDamage(damage);
             }
 
             ApplyPhysicalForceTo(impPoint, hit);

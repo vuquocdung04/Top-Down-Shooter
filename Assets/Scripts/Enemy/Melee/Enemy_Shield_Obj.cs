@@ -13,9 +13,9 @@ public class Enemy_Shield_Obj : MonoBehaviour, IDamageable
         durability = enemy.shieldDurability;
     }
 
-    private void ReduceDurability()
+    private void ReduceDurability(int damage)
     {
-        durability--;
+        durability -= damage;
         if (durability <= 0)
         {
             enemy.anim.SetFloat("ChaseIndex", 0);
@@ -23,8 +23,8 @@ public class Enemy_Shield_Obj : MonoBehaviour, IDamageable
         }
     }
 
-    public void TakeDamage()
+    public void TakeDamage(int damage)
     {
-        ReduceDurability();
+        ReduceDurability(damage);
     }
 }
