@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Auto Rifle Data
   m_EditorClassIdentifier: 
   weaponType: 3
-  fireRate: 10
-  minBulletsPerAttack: 7
-  maxBulletsPerAttack: 10
+  fireRate: 1.4
+  minBulletsPerAttack: 3
+  maxBulletsPerAttack: 5
   minWeaponCooldown: 2
   maxWeaponCooldown: 3
-  bulletSpeed: 20
+  bulletDamage: 4
+  bulletSpeed: 25
   weaponSpread: 1

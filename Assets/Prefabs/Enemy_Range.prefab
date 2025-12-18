@@ -4192,6 +4192,7 @@ MonoBehaviour:
   coverPerk: 0
   unstoppablePerk: 0
   grenadePerk: 1
+  grenadeDamage: 50
   grenadePrefab: {fileID: 7177780863817990936, guid: 72e4754a1bc84af45bdca303401d64b4, type: 3}
   impactPower: 5
   explosionTimer: 1
@@ -4233,7 +4234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c14c51bd154ccf90e0e23b14597867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 100
   currentHealth: 0
 --- !u!1 &4321751784352358989
 GameObject:

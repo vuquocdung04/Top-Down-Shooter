@@ -21,6 +21,10 @@ public class Player_Health : HealthController
 
     private void Die()
     {
+        if(isDead) return;
+        
+        Debug.Log("Player was killed at " + Time.time);
+        
         isDead = true;
         player.anim.enabled = false;
         player.ragdoll.RagdollActive(true);
