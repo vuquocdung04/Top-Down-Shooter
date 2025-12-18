@@ -5,7 +5,7 @@ public class MoveState_Boss : EnemyState
     private Enemy_Boss enemy;
     private Vector3 destination;
     private float actionTimer;
-    private float timeBeforeSpeedUp = 15;
+    private float timeBeforeSpeedUp = 5;
     private bool speedUpActivate;
 
     public MoveState_Boss(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName) : base(enemyBase,
@@ -64,6 +64,7 @@ public class MoveState_Boss : EnemyState
     {
         enemy.agent.speed = enemy.runSpeed;
         enemy.anim.SetFloat("MoveAnimIndex", 1); // 1 is run anim
+        enemy.anim.SetFloat("MoveAnimSpeedMultiplier", 1.5f);
         speedUpActivate = true;
     }
 
@@ -71,6 +72,7 @@ public class MoveState_Boss : EnemyState
     {
         speedUpActivate = false;
         enemy.anim.SetFloat("MoveAnimIndex", 0); // 0 is walk anim
+        enemy.anim.SetFloat("MoveAnimSpeedMultiplier", 1);
         enemy.agent.speed = enemy.walkSpeed;
     }
 

@@ -6569,9 +6569,9 @@ MonoBehaviour:
     m_Bits: 256
   heathPoints: 5
   idleTime: 2
-  aggressionRange: 10
-  walkSpeed: 2
-  runSpeed: 3
+  aggressionRange: 15
+  walkSpeed: 1.5
+  runSpeed: 4
   turnSpeed: 8
   patrolPoints:
   - {fileID: 4091253777656611408}
@@ -6579,16 +6579,20 @@ MonoBehaviour:
   - {fileID: 3283493628584096502}
   bossWeaponType: 0
   actionCooldown: 1
-  attackRange: 2
-  minAbilityDistance: 8
+  attackRange: 1.8
+  minAbilityDistance: 7
   abilityCooldown: 10
-  flameDamageCooldown: 0.5
+  flameDamage: 6
+  flameDamageCooldown: 0.25
   flameThrower: {fileID: 1960714934351864940}
-  flameThrowDuration: 4
+  flameThrowDuration: 3
+  hummerActiveDamage: 0
   activationPrefab: {fileID: 0}
+  hummerCheckRadius: 0
+  jumpAttackDamage: 25
   minJumpDistanceRequired: 8
-  travelTimeToTarget: 1
-  jumpAttackCooldown: 6
+  travelTimeToTarget: 0.6
+  jumpAttackCooldown: 5
   impactRadius: 2.5
   impactPower: 10
   impactPoint: {fileID: 0}
@@ -6596,6 +6600,7 @@ MonoBehaviour:
   whatToIgnore:
     serializedVersion: 2
     m_Bits: 2048
+  meleeAttackDamage: 25
   damagePoints:
   - {fileID: 8402818884071524629}
   - {fileID: 6495846574026424083}
@@ -6647,7 +6652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c14c51bd154ccf90e0e23b14597867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5
+  maxHealth: 2000
   currentHealth: 0
 --- !u!1 &2827870221063035417
 GameObject:
