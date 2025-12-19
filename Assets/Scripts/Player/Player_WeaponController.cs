@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerWeaponController : MonoBehaviour
+public class Player_WeaponController : MonoBehaviour
 {
     private const float REFERENCE_BULLET_SPEED = 20f;
 
@@ -166,10 +166,10 @@ public class PlayerWeaponController : MonoBehaviour
 
     public Vector3 BulletDirection()
     {
-        Transform aim = player.aim.Aim();
+        Transform aim = player.AimController.Aim();
         Vector3 direction = (aim.position - GunPoint().position).normalized;
 
-        if (!player.aim.CanAimPrecisely() && player.aim.Target() == null)
+        if (!player.AimController.CanAimPrecisely() && player.AimController.Target() == null)
             direction.y = 0;
 
         return direction;

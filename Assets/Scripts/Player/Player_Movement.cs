@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class Player_Movement : MonoBehaviour
 {
     private Player player;
     private PlayerControls controls;
@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
     
     private void ApplyRotation()
     {
-        lookingDirection = player.aim.GetMouseHitInfo().point - transform.position;
+        lookingDirection = player.AimController.GetMouseHitInfo().point - transform.position;
         lookingDirection.y = 0;
         lookingDirection.Normalize();
 

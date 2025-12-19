@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInteraction : MonoBehaviour
+public class Player_Interaction : MonoBehaviour
 {
     private List<Interactable> interactables = new ();
     

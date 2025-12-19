@@ -226,7 +226,7 @@ public class Enemy_Range : Enemy
         // ~ tuong ung ! 
         if (Physics.Raycast(myPosition, directionToPlayer, out RaycastHit hit, Mathf.Infinity, ~whatToIgnore))
         {
-            if (hit.transform == player)
+            if (hit.transform.root == player.root)
             {
                 UpdateAimPosition();
                 return true;
