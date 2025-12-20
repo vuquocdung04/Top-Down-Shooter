@@ -22,6 +22,8 @@ public class LevelGenerator : MonoBehaviour
 
     private void Update()
     {
+        if(generationOver) return;
+        
         coolDownTimer -= Time.deltaTime;
         if (coolDownTimer < 0)
         {
@@ -54,6 +56,11 @@ public class LevelGenerator : MonoBehaviour
         LevelPart levelPartScript = newPart.GetComponent<LevelPart>();
 
         levelPartScript.SnapAndAlignPartTo(nextSnapPoint);
+        if (levelPartScript.IntersectionDetected())
+        {
+            Debug.LogWarning("Intersection detected");
+        }
+        
         nextSnapPoint = levelPartScript.GetExitPoint();
     }
 
