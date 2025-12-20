@@ -1756,8 +1756,10 @@ MonoBehaviour:
   levelParts:
   - {fileID: 8159998492812574456, guid: 1f75e963c621f144d93c5a5608c92c20, type: 3}
   - {fileID: 1032553526970401728, guid: 07f9d52f69cb9914c8ed1405e7c85c7b, type: 3}
+  - {fileID: 1032553526970401728, guid: 07f9d52f69cb9914c8ed1405e7c85c7b, type: 3}
+  - {fileID: 1032553526970401728, guid: 07f9d52f69cb9914c8ed1405e7c85c7b, type: 3}
   nextSnapPoint: {fileID: 1194082274}
-  generationCooldown: 0
+  generationCooldown: 0.5
 --- !u!1 &929729430
 GameObject:
   m_ObjectHideFlags: 0
