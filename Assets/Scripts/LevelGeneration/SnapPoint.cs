@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public enum SnapPointType
@@ -9,6 +10,12 @@ public enum SnapPointType
 public class SnapPoint : MonoBehaviour
 {
     public SnapPointType pointType;
+
+    private void Start()
+    {
+        GetComponent<BoxCollider>().enabled = false;
+        GetComponent<MeshRenderer>().enabled = false;
+    }
 
     private void OnValidate()
     {

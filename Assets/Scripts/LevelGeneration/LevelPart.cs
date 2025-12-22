@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class LevelPart : MonoBehaviour
 {
@@ -7,6 +9,14 @@ public class LevelPart : MonoBehaviour
     [SerializeField] private LayerMask intersectionLayer;
     [SerializeField] private Collider[] intersectionCheckColliders;
     [SerializeField] private Transform intersectionCheckParent;
+
+    private void Start()
+    {
+        if (intersectionCheckColliders.Length <= 0)
+        {
+            intersectionCheckColliders = intersectionCheckParent.GetComponentsInChildren<Collider>();
+        }
+    }
 
     public bool IntersectionDetected()
     {
