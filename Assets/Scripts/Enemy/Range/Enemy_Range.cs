@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public enum CoverPerk
 {
@@ -147,11 +148,30 @@ public class Enemy_Range : Enemy
     protected override void InitializePerk()
     {
         base.InitializePerk();
+
+        if (weaponType == Enemy_RangeWeaponType.Random)
+        {
+            ChooseRandomWeaponType();
+        }
         if (IsUnstoppable())
         {
             advanceSpeed = 1;
             anim.SetFloat("AdvanceAnimIndex", 1); // 1 is a slow walk
         }
+    }
+
+    private void ChooseRandomWeaponType()
+    {
+        List<Enemy_RangeWeaponType> validTypes = new();
+
+        foreach (Enemy_RangeWeaponType value in System.Enum.GetValues(typeof(Enemy_RangeWeaponType)))
+        {
+            if (value != Enemy_RangeWeaponType.Random && value != Enemy_RangeWeaponType.Rifle)
+                validTypes.Add(value);
+        }
+            
+        int randomIndex = Random.Range(0,validTypes.Count);
+        weaponType = validTypes[randomIndex];
     }
 
     public void FireSingleBullet()
@@ -241,14 +261,8 @@ public class Enemy_Range : Enemy
     protected override void OnDrawGizmos()
     {
         base.OnDrawGizmos();
-        if (playersBody == null) return;
-
-        Vector3 myPosition = transform.position + Vector3.up;
-        Vector3 directionToPlayer = playersBody.position - myPosition;
-
         Gizmos.color = Color.magenta;
-
-        Gizmos.DrawRay(myPosition, directionToPlayer.normalized * 100f);
+        Gizmos.DrawWireSphere(aim.position, advanceStoppingDistance);
     }
 
     #region Cover System

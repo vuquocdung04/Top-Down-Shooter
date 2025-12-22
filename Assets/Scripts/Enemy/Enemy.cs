@@ -8,9 +8,6 @@ public abstract class Enemy : MonoBehaviour
 {
     public LayerMask whatIsAlly;
     public LayerMask whatIsPlayer;
-    [Space]
-    public int heathPoints = 20;
-
     [Header("Idle Data")] public float idleTime;
     public float aggressionRange;
 

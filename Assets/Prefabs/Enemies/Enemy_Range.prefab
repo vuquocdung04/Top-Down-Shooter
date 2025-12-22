@@ -4077,11 +4077,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1486555556360888869}
+  - component: {fileID: 2426891421883993935}
   - component: {fileID: 6118498980071287906}
   - component: {fileID: 2878256751626700437}
   - component: {fileID: 815398024415941402}
   - component: {fileID: 8106123752278424814}
-  - component: {fileID: 2426891421883993935}
   m_Layer: 11
   m_Name: Enemy_Range
   m_TagString: Untagged
@@ -4107,6 +4107,20 @@ Transform:
   - {fileID: 4112200721822634779}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2426891421883993935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4223721858051588561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98c14c51bd154ccf90e0e23b14597867, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
 --- !u!114 &6118498980071287906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4185,7 +4199,6 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 0
-  heathPoints: 3
   idleTime: 5
   aggressionRange: 10
   walkSpeed: 1.5
@@ -4227,20 +4240,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c3aead9d142ca674b89d96b99dae148d, type: 2}
   - {fileID: 11400000, guid: 1ca956e09e6144b4a9d5f9db186cc100, type: 2}
   - {fileID: 11400000, guid: 011e15b0b7c25094685a9d1e216d08e3, type: 2}
---- !u!114 &2426891421883993935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4223721858051588561}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98c14c51bd154ccf90e0e23b14597867, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  currentHealth: 0
 --- !u!1 &4321751784352358989
 GameObject:
   m_ObjectHideFlags: 0
