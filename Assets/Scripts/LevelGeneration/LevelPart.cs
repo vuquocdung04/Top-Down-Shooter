@@ -10,6 +10,18 @@ public class LevelPart : MonoBehaviour
     [SerializeField] private Collider[] intersectionCheckColliders;
     [SerializeField] private Transform intersectionCheckParent;
 
+    [ContextMenu("Set static to environment layer")]
+    private void AdjustLayerForStaticObjects()
+    {
+        foreach (Transform child in transform.GetComponentsInChildren<Transform>(true))
+        {
+            if (child.gameObject.isStatic)
+            {
+                child.gameObject.layer = LayerMask.NameToLayer("Environment");
+            }
+        }
+    }
+    
     private void Start()
     {
         if (intersectionCheckColliders.Length <= 0)
