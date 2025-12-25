@@ -18,7 +18,7 @@ public abstract class Enemy : MonoBehaviour
     private bool manualRotation;
 
     [SerializeField] private Transform[] patrolPoints;
-    private Vector3[] patrolPointPositions;
+     private Vector3[] patrolPointPositions;
     private int currentPatrolIndex;
     public bool inBattleMode { get; private set; }
     protected bool isMeleeAttackReady;

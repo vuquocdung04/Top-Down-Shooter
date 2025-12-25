@@ -1035,6 +1035,28 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e61b6b7d285a9f4bb8e7e798bcdc748, type: 3}
+--- !u!114 &628515708 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2565647318745322105, guid: 0e61b6b7d285a9f4bb8e7e798bcdc748, type: 3}
+  m_PrefabInstance: {fileID: 628515707}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 512bd5241d164b109d8ca49f82dd816e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &628515709 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1021647164917157218, guid: 0e61b6b7d285a9f4bb8e7e798bcdc748, type: 3}
+  m_PrefabInstance: {fileID: 628515707}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &651401332
 GameObject:
   m_ObjectHideFlags: 0
@@ -1660,19 +1682,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 857142202}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0414b2a827974bfc89acb69bd2fb9e43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastLevelPart: {fileID: 6280271720932883301, guid: 3367d8f6f1f5048418d880ddebf56cf5, type: 3}
+  navMeshSurface: {fileID: 628515709}
+  lastLevelPart: {fileID: 2961092432926518290, guid: a8fd711215e3e374b99bf670aa16d4ac, type: 3}
   levelParts:
-  - {fileID: 8159998492812574456, guid: 1f75e963c621f144d93c5a5608c92c20, type: 3}
-  - {fileID: 1032553526970401728, guid: 07f9d52f69cb9914c8ed1405e7c85c7b, type: 3}
-  - {fileID: 1032553526970401728, guid: 07f9d52f69cb9914c8ed1405e7c85c7b, type: 3}
-  - {fileID: 1032553526970401728, guid: 07f9d52f69cb9914c8ed1405e7c85c7b, type: 3}
-  nextSnapPoint: {fileID: 0}
-  generationCooldown: 0.5
+  - {fileID: 7543869285160702219, guid: 826bed76182e25d4aba233dd47efe942, type: 3}
+  nextSnapPoint: {fileID: 628515708}
+  generationCooldown: 0.25
 --- !u!1 &929729430
 GameObject:
   m_ObjectHideFlags: 0
@@ -14195,10 +14215,6 @@ PrefabInstance:
     - target: {fileID: 7671689676695818069, guid: 34262494f1b25a8469e10821f09bcfb8, type: 3}
       propertyPath: m_Name
       value: Zone Limit
-      objectReference: {fileID: 0}
-    - target: {fileID: 7671689676695818069, guid: 34262494f1b25a8469e10821f09bcfb8, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8391990007311294400, guid: 34262494f1b25a8469e10821f09bcfb8, type: 3}
       propertyPath: m_LocalPosition.x

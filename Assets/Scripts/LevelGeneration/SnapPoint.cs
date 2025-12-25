@@ -13,7 +13,8 @@ public class SnapPoint : MonoBehaviour
 
     private void Start()
     {
-        GetComponent<BoxCollider>().enabled = false;
+        if (GetComponent<BoxCollider>())
+            GetComponent<BoxCollider>().enabled = false;
         GetComponent<MeshRenderer>().enabled = false;
     }
 

@@ -51,7 +51,8 @@ public class MoveState_Boss : EnemyState
             else if (enemy.PlayerInAttackRange())
                 stateMachine.ChangeState(enemy.attackState);
         }
-        else if (Vector3.Distance(enemy.transform.position, destination) < 0.25f)
+        // else if (Vector3.Distance(enemy.transform.position, destination) < 0.25f)
+        else if (enemy.agent.remainingDistance <= enemy.agent.stoppingDistance + 0.25f)
             stateMachine.ChangeState(enemy.idleState);
     }
 
