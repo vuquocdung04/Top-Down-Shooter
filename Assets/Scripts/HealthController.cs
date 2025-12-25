@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class HealthController : MonoBehaviour
@@ -6,7 +5,7 @@ public class HealthController : MonoBehaviour
     public int maxHealth;
     public int currentHealth;
 
-    private bool isDead;
+    private bool _isDead;
     
     protected virtual void Awake()
     {
@@ -27,10 +26,10 @@ public class HealthController : MonoBehaviour
 
     public bool ShouldDie()
     {
-        if(isDead) return false;
+        if(_isDead) return false;
         if (currentHealth < 0)
         {
-            isDead = true;
+            _isDead = true;
             Debug.Log(gameObject.name + " is dead");
             return true;
         }

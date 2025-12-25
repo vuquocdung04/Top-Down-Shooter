@@ -6,6 +6,9 @@ using Random = UnityEngine.Random;
 
 public class LevelGenerator : MonoBehaviour
 {
+    public static LevelGenerator instance;
+    
+    
     private List<Enemy> enemyList;
     
     [SerializeField] private NavMeshSurface navMeshSurface;
@@ -23,6 +26,12 @@ public class LevelGenerator : MonoBehaviour
 
     private float coolDownTimer;
     private bool generationOver;
+
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
@@ -119,5 +128,11 @@ public class LevelGenerator : MonoBehaviour
         Transform choosePart = currentLevelParts[randomIndex];
         currentLevelParts.RemoveAt(randomIndex);
         return choosePart;
+    }
+
+    public Enemy GetRandomEnemy()
+    {
+        int randomIndex = Random.Range(0, enemyList.Count);
+        return enemyList[randomIndex];
     }
 }

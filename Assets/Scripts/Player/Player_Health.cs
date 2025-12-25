@@ -3,7 +3,7 @@ using UnityEngine;
 public class Player_Health : HealthController
 {
     private Player player;
-    public bool isDead;
+    public bool hasDead;
     
     protected override void Awake()
     {
@@ -21,11 +21,11 @@ public class Player_Health : HealthController
 
     private void Die()
     {
-        if(isDead) return;
+        if(hasDead) return;
         
         Debug.Log("Player was killed at " + Time.time);
         
-        isDead = true;
+        hasDead = true;
         player.anim.enabled = false;
         player.ragdoll.RagdollActive(true);
     }

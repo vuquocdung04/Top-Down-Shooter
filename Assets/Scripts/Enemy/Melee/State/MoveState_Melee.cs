@@ -30,11 +30,4 @@ public class MoveState_Melee : EnemyState
         }
     }
 
-    public override void ExitState()
-    {
-        base.ExitState();
-        Debug.Log("I exit move state");
-    }
-
-
 }
