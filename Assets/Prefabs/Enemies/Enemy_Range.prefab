@@ -4082,6 +4082,7 @@ GameObject:
   - component: {fileID: 2878256751626700437}
   - component: {fileID: 815398024415941402}
   - component: {fileID: 8106123752278424814}
+  - component: {fileID: -951168431193762005}
   m_Layer: 11
   m_Name: Enemy_Range
   m_TagString: Untagged
@@ -4240,6 +4241,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c3aead9d142ca674b89d96b99dae148d, type: 2}
   - {fileID: 11400000, guid: 1ca956e09e6144b4a9d5f9db186cc100, type: 2}
   - {fileID: 11400000, guid: 011e15b0b7c25094685a9d1e216d08e3, type: 2}
+--- !u!114 &-951168431193762005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4223721858051588561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4357b7cdcb2549318d0a125f18faae21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4321751784352358989
 GameObject:
   m_ObjectHideFlags: 0

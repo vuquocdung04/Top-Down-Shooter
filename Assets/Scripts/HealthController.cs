@@ -5,6 +5,8 @@ public class HealthController : MonoBehaviour
 {
     public int maxHealth;
     public int currentHealth;
+
+    private bool isDead;
     
     protected virtual void Awake()
     {
@@ -22,6 +24,16 @@ public class HealthController : MonoBehaviour
         if(currentHealth > maxHealth)
             currentHealth = maxHealth;
     }
-    
-    public bool ShouldDie() => currentHealth <= 0;
+
+    public bool ShouldDie()
+    {
+        if(isDead) return false;
+        if (currentHealth < 0)
+        {
+            isDead = true;
+            Debug.Log(gameObject.name + " is dead");
+            return true;
+        }
+        return false;
+    }
 }

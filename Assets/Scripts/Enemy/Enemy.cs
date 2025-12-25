@@ -34,6 +34,7 @@ public abstract class Enemy : MonoBehaviour
     public Ragdoll ragdoll { get; private set; }
 
     public Enemy_Health health { get; private set; }
+    public Enemy_DropController  dropController { get; private set; }
 
     protected virtual void Awake()
     {
@@ -45,6 +46,8 @@ public abstract class Enemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>();
         player = GameObject.Find("Player").GetComponent<Transform>();
+
+        dropController = GetComponent<Enemy_DropController>();
     }
 
     protected virtual void Start()
@@ -82,7 +85,10 @@ public abstract class Enemy : MonoBehaviour
     {
         health.ReduceHealth(damage);
         if (health.ShouldDie())
+        {
+            dropController.DropItems();
             Die();
+        }
 
         EnterBattleMode();
     }

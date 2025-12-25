@@ -19576,6 +19576,7 @@ GameObject:
   - component: {fileID: 4760024346395619915}
   - component: {fileID: 1100418498447554225}
   - component: {fileID: 8039914216959840034}
+  - component: {fileID: -5810553199328948744}
   m_Layer: 11
   m_Name: Enemy_Boss_Hummer
   m_TagString: Untagged
@@ -19642,7 +19643,6 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 256
-  heathPoints: 5
   idleTime: 3
   aggressionRange: 15
   walkSpeed: 1.5
@@ -19725,3 +19725,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 2000
   currentHealth: 0
+--- !u!114 &-5810553199328948744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9149964209699819142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4357b7cdcb2549318d0a125f18faae21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
