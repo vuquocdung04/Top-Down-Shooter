@@ -3,9 +3,19 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum EnemyType
+{
+    Melee = 0,
+    Range = 1,
+    Boss = 2,
+    Random = 3,
+}
+
+
 [RequireComponent(typeof(NavMeshAgent))]
 public abstract class Enemy : MonoBehaviour
 {
+    public EnemyType enemyType;
     public LayerMask whatIsAlly;
     public LayerMask whatIsPlayer;
     [Header("Idle Data")] public float idleTime;
@@ -93,16 +103,17 @@ public abstract class Enemy : MonoBehaviour
     {
         health.ReduceHealth(damage);
         if (health.ShouldDie())
-        {
-            dropController.DropItems();
             Die();
-        }
 
         EnterBattleMode();
     }
 
     public virtual void Die()
     {
+        dropController.DropItems();
+        
+        MissionObject_HuntTarget huntTarget = GetComponent<MissionObject_HuntTarget>();
+        huntTarget?.InvokeOnTargetKilled();
     }
 
     public virtual void MeleeAttackCheck(Transform[] damagePoints, float attackCheckRadius, GameObject fx, int damage)

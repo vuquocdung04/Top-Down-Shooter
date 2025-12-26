@@ -135,4 +135,6 @@ public class LevelGenerator : MonoBehaviour
         int randomIndex = Random.Range(0, enemyList.Count);
         return enemyList[randomIndex];
     }
+
+    public List<Enemy> GetEnemyList() => enemyList;
 }

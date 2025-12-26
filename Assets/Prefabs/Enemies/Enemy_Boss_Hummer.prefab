@@ -19637,6 +19637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3ea4568f0094480add0ca798623281c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 2
   whatIsAlly:
     serializedVersion: 2
     m_Bits: 2048
@@ -19737,3 +19738,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4357b7cdcb2549318d0a125f18faae21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  missionObjectKey: {fileID: 0}
