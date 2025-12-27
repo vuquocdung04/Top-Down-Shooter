@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eea797f5f6f142d1a3a17d486b05833f, type: 3}
+  m_Name: Defence - Mission
+  m_EditorClassIdentifier: 
+  missionName: Final Defence
+  missionDescription: Get to exit point and defence the airplane till it's ready
+    to take off.
+  defenceDuration: 120
+  waveCooldown: 15
+  amountOfRespawnPoints: 2
+  respawnPoints: []
+  enemiesPerWave: 4
+  possibleEnemies:
+  - {fileID: 1230943377705295707, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+  - {fileID: 7692182416807425872, guid: 5eb23085323cd2a4888e76e692eacebc, type: 3}
+  - {fileID: 5092497766769935741, guid: 4ad6ef9c25221884aa03420165fb0b8b, type: 3}
+  - {fileID: 4964714519060191840, guid: f0515b82e95986c4e8b6ed2cad9d5031, type: 3}
+  - {fileID: 1691417392117849053, guid: 67ad00e3c654b2248927a590a6401ca7, type: 3}
+  - {fileID: 3729378073079298556, guid: bfed16ed9aae826449b2ce724e194f38, type: 3}
+  - {fileID: 8668853438498182788, guid: 35f64b02a3e911f429fad2c81400a2e8, type: 3}
+  - {fileID: 6432204287277344663, guid: 80a8985d31d364547988de6c14b41302, type: 3}
+  - {fileID: 4181053130642228098, guid: ded0a4ed64c4879489c069ce9914bbc1, type: 3}
