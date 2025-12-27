@@ -18,6 +18,13 @@ public class Mission_Timer : Mission
         {
             Debug.Log("Game Over");
         }
+        
+        string timeText = System.TimeSpan.FromSeconds(currentTime).ToString("mm':'ss");
+        
+        string missionText = "Get to evacuation point before plane take off.";
+        string missionDetails = "Time left: " + timeText;
+        
+        UI.instance.inGameUI.UpdateMissionInfo(missionText, missionDetails);
     }
 
     public override bool MissionCompleted()

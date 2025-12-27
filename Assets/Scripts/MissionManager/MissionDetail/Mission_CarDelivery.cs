@@ -10,6 +10,11 @@ public class Mission_CarDelivery : Mission
     {
         // default is false
         FindObjectOfType<MissionObject_CarDeliveryZone>(true).gameObject.SetActive(true);
+
+        string missionText = "Find a functional vehicle.";
+        string missionDetails = "Deliver it to the evacuation point.";
+        
+        UI.instance.inGameUI.UpdateMissionInfo(missionText, missionDetails);
         
         carWasDelivered = false;
         MissionObject_CarToDeliver.OnCarDelivery += CarDeliveryCompleted;
@@ -32,5 +37,7 @@ public class Mission_CarDelivery : Mission
     {
         carWasDelivered = true;
         MissionObject_CarToDeliver.OnCarDelivery -= CarDeliveryCompleted;
+        
+        UI.instance.inGameUI.UpdateMissionInfo("Get to the evacuation point.");
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -8,13 +7,12 @@ using Random = UnityEngine.Random;
 public class Mission_LastDefence : Mission
 {
     public bool defenceBegun;
-    [Header("Cooldown and duration")]
-    public float defenceDuration = 120;
+    [Header("Cooldown and duration")] public float defenceDuration = 120;
     private float defenceTimer;
     public float waveCooldown = 15;
     private float waveTimer;
-    
-    
+
+
     [Header("Respawn details")] public int amountOfRespawnPoints = 2;
     public List<Transform> respawnPoints;
     private Vector3 defencePoint;
@@ -22,7 +20,7 @@ public class Mission_LastDefence : Mission
     public GameObject[] possibleEnemies;
 
     private string defenceTimerText;
-    
+
     // OnEnable in so is always called when the object is loaded or the unity engine is recompiled
     private void OnEnable() => defenceBegun = false;
 
@@ -30,20 +28,29 @@ public class Mission_LastDefence : Mission
     {
         defencePoint = FindObjectOfType<MissionEnd_Trigger>().transform.position;
         respawnPoints = new(ClosestPoints(amountOfRespawnPoints));
+
+        UI.instance.inGameUI.UpdateMissionInfo("Get to the evacuation point.");
     }
 
     public override void UpdateMission()
     {
         if (defenceBegun == false) return;
-        
-        defenceTimer -=  Time.deltaTime;
-        waveTimer -=  Time.deltaTime;
+
+        waveTimer -= Time.deltaTime;
+        if (defenceTimer > 0)
+            defenceTimer -= Time.deltaTime;
 
         if (waveTimer < 0)
         {
             CreateNewEnemies(enemiesPerWave);
             waveTimer = waveCooldown;
         }
+
+        defenceTimerText = System.TimeSpan.FromSeconds(defenceTimer).ToString("mm':'ss");
+
+        string missionText = "Defend yourself till plane is ready to take off.";
+        string missionDetails = "Time left: " + defenceTimerText;
+        UI.instance.inGameUI.UpdateMissionInfo(missionText, missionDetails);
     }
 
     public override bool MissionCompleted()
@@ -63,7 +70,7 @@ public class Mission_LastDefence : Mission
         defenceTimer = defenceDuration;
         defenceBegun = true;
     }
-    
+
     private void CreateNewEnemies(int amount)
     {
         // amount here means: the number of enemies in each attack wave (enemy count per wave)
@@ -72,7 +79,7 @@ public class Mission_LastDefence : Mission
             // get random Enemy + position respawn
             int randomEnemyIndex = Random.Range(0, possibleEnemies.Length);
             int randomRespawnIndex = Random.Range(0, respawnPoints.Count);
-            
+
             // choose enemy + respawn
             Transform randomRespawnPoint = respawnPoints[randomRespawnIndex];
             GameObject randomEnemy = possibleEnemies[randomEnemyIndex];
@@ -82,7 +89,7 @@ public class Mission_LastDefence : Mission
             ObjectPool.instance.GetObject(randomEnemy, randomRespawnPoint);
         }
     }
-    
+
     private List<Transform> ClosestPoints(int amount)
     {
         List<Transform> closetPoints = new();
@@ -109,6 +116,7 @@ public class Mission_LastDefence : Mission
                 allPoints.Remove(closetPoint);
             }
         }
+
         return closetPoints;
     }
 }
