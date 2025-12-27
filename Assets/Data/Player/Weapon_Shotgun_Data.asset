@@ -16,7 +16,7 @@ MonoBehaviour:
   bulletDamage: 21
   bulletsInMagazine: 20
   magazineCapacity: 20
-  totalReserveAmmo: 999999
+  totalReserveAmmo: 100
   shootType: 0
   bulletsPerShot: 7
   fireRate: 2
@@ -33,3 +33,4 @@ MonoBehaviour:
   equipmentSpeed: 1
   gunDistance: 4.5
   cameraDistance: 6
+  weaponIcon: {fileID: -396253338, guid: 5776eeb5e936c7d4aa4ffe82c4c73b9d, type: 3}

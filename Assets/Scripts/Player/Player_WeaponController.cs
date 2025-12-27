@@ -43,7 +43,11 @@ public class Player_WeaponController : MonoBehaviour
             Shoot();
     }
 
-
+    public void UpdateWeaponUI()
+    {
+        UI.instance.inGameUI.UpdateWeaponUI(weaponSlots,currentWeapon);
+    }
+    
     #region Slot management - Pick/Equip/Drop weapon
 
     private void EquipStartingWeapon()
@@ -60,7 +64,8 @@ public class Player_WeaponController : MonoBehaviour
         currentWeapon = weaponSlots[i];
         player.weaponVisuals.PlayWeaponEquipAnimation();
         
-        //CameraManager.instance.ChangeCameraDistance(CurrentWeapon().cameraDistance);
+        CameraManager.instance.ChangeCameraDistance(CurrentWeapon().cameraDistance);
+        UpdateWeaponUI();
     }
 
     public void PickupWeapon(Weapon newWeapon)
@@ -83,6 +88,8 @@ public class Player_WeaponController : MonoBehaviour
 
         weaponSlots.Add(newWeapon);
         player.weaponVisuals.SwitchOnBackupWeaponModel();
+        
+        UpdateWeaponUI();
     }
 
     private void DropWeapon()
@@ -142,6 +149,7 @@ public class Player_WeaponController : MonoBehaviour
     private void FireSingleBullet()
     {
         currentWeapon.bulletsInMagazine--;
+        UpdateWeaponUI();
         
         GameObject newBullet = ObjectPool.instance.GetObject(bulletPrefab, GunPoint());
         
@@ -162,6 +170,10 @@ public class Player_WeaponController : MonoBehaviour
     {
         SetWeaponReady(false);
         player.weaponVisuals.PlayReloadAnimation();
+        
+        // we do actually refill of bullets in Player_AnimationEvents
+        // we UpdateWeaponUI in Player_AnimationEvents
+        // we UpdateWeaponUI in Player_AnimationEvents
     }
 
     public Vector3 BulletDirection()
