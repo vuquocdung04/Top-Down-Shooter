@@ -5,6 +5,7 @@ public class UI : MonoBehaviour
 {
     public static UI instance;
     public UI_InGame inGameUI { get; private set; }
+    
     [SerializeField] private GameObject[] UIElements;
     
     private void Awake()
@@ -22,6 +23,11 @@ public class UI : MonoBehaviour
         }
         
         uiToSwitchOn.SetActive(true);
+    }
+
+    public void SwitchToInGameUI()
+    {
+        SwitchTo(inGameUI.gameObject);
     }
     
     public void QuitTheGame() => Application.Quit();

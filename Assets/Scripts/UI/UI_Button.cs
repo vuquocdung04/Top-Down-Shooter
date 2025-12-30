@@ -12,7 +12,7 @@ public class UI_Button : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     
     private Image buttonImage;
     private TextMeshProUGUI buttonText;
-    private void Start()
+    protected virtual void Start()
     {
         defaultScale = transform.localScale;
         targetScale = transform.localScale;
@@ -37,7 +37,7 @@ public class UI_Button : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         buttonImage.color = Color.yellow;
         buttonText.color = Color.yellow;
     }
-    public void OnPointerDown(PointerEventData eventData)
+    public virtual void OnPointerDown(PointerEventData eventData)
     {
         ReturnDefaultLook();
     }

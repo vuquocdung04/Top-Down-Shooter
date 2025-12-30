@@ -26,7 +26,6 @@ public class UI_InGame : MonoBehaviour
     {
         tooltipActive = !tooltipActive;
         missionToolTipParent.SetActive(tooltipActive);
-        missionHelpToolTip.SetActive(!tooltipActive);
     }
     
     
