@@ -19,7 +19,7 @@ public class UI_InGame : MonoBehaviour
     private bool tooltipActive = true;
     private void Awake()
     {
-        weaponSlots_UI = GetComponentsInChildren<UI_WeaponSlot>();
+        weaponSlots_UI = GetComponentsInChildren<UI_WeaponSlot>(true);
     }
 
     public void SwitchMissionToolTip()
