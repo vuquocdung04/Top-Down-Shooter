@@ -25,7 +25,7 @@ public class LevelGenerator : MonoBehaviour
     [Space] [SerializeField] private float generationCooldown;
 
     private float coolDownTimer;
-    private bool generationOver;
+    private bool generationOver = true;
 
 
     private void Awake()
@@ -37,7 +37,6 @@ public class LevelGenerator : MonoBehaviour
     {
         enemyList = new();
         defaultSnapPoint = nextSnapPoint;
-        InitializeGeneration();
     }
 
     private void Update()
@@ -58,9 +57,7 @@ public class LevelGenerator : MonoBehaviour
             }
         }
     }
-    
-    [ContextMenu("Restart Generation")]
-    private void InitializeGeneration()
+    public void InitializeGeneration()
     {
         nextSnapPoint = defaultSnapPoint;
         generationOver = false;
@@ -96,6 +93,8 @@ public class LevelGenerator : MonoBehaviour
             enemy.transform.parent = null;
             enemy.gameObject.SetActive(true);
         }
+        
+        MissionManager.instance.StartMission();
     }
 
     [ContextMenu("Create next level part")]
