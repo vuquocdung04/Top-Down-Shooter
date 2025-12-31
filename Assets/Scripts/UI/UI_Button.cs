@@ -9,14 +9,15 @@ public class UI_Button : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public float scaleRate = 1.2f;
     private Vector3 defaultScale;
     private Vector3 targetScale;
-    
+
     private Image buttonImage;
     private TextMeshProUGUI buttonText;
+
     protected virtual void Start()
     {
         defaultScale = transform.localScale;
         targetScale = transform.localScale;
-        
+
         buttonImage = GetComponent<Image>();
         buttonText = GetComponentInChildren<TextMeshProUGUI>();
     }
@@ -26,21 +27,25 @@ public class UI_Button : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         if (Mathf.Abs(transform.lossyScale.x - targetScale.x) > 0.01f)
         {
             float scaleValue = Mathf.Lerp(transform.localScale.x, targetScale.x, Time.deltaTime * scaleSpeed);
-            
-            transform.localScale = Vector3.one *  scaleValue;
+
+            transform.localScale = Vector3.one * scaleValue;
         }
     }
 
     public virtual void OnPointerEnter(PointerEventData eventData)
     {
         targetScale = defaultScale * scaleRate;
-        buttonImage.color = Color.yellow;
-        buttonText.color = Color.yellow;
+        if (buttonImage != null)
+            buttonImage.color = Color.yellow;
+        if (buttonText != null)
+            buttonText.color = Color.yellow;
     }
+
     public virtual void OnPointerDown(PointerEventData eventData)
     {
         ReturnDefaultLook();
     }
+
     public virtual void OnPointerExit(PointerEventData eventData)
     {
         ReturnDefaultLook();
@@ -49,9 +54,11 @@ public class UI_Button : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     private void ReturnDefaultLook()
     {
         targetScale = defaultScale;
-        
-        buttonImage.color = Color.white;
-        buttonText.color = Color.white;
-    }
 
+        if (buttonImage != null)
+            buttonImage.color = Color.white;
+
+        if (buttonText != null)
+            buttonText.color = Color.white;
+    }
 }

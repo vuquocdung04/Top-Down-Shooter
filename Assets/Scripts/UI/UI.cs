@@ -5,6 +5,8 @@ public class UI : MonoBehaviour
 {
     public static UI instance;
     public UI_InGame inGameUI { get; private set; }
+    public UI_WeaponSelection weaponSelection {get; private set;}
+    
     
     [SerializeField] private GameObject[] UIElements;
     
@@ -12,6 +14,7 @@ public class UI : MonoBehaviour
     {
         instance = this;
         inGameUI = GetComponentInChildren<UI_InGame>(true);
+        weaponSelection = GetComponentInChildren<UI_WeaponSelection>(true);
     } 
 
     // we need a switchTo method because we handle the UI on one canvas
