@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class GameManager : MonoBehaviour
         SetDefaultWeaponsForPlayer();
         LevelGenerator.instance.InitializeGeneration();
     }
+
+    public void RestartScene() => SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     
     private void SetDefaultWeaponsForPlayer()
     {

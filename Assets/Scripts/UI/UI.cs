@@ -6,8 +6,8 @@ public class UI : MonoBehaviour
     public static UI instance;
     public UI_InGame inGameUI { get; private set; }
     public UI_WeaponSelection weaponSelection {get; private set;}
-    
-    
+
+    public GameObject pauseUI;
     [SerializeField] private GameObject[] UIElements;
     
     private void Awake()
@@ -15,7 +15,12 @@ public class UI : MonoBehaviour
         instance = this;
         inGameUI = GetComponentInChildren<UI_InGame>(true);
         weaponSelection = GetComponentInChildren<UI_WeaponSelection>(true);
-    } 
+    }
+
+    private void Start()
+    {
+        AssignUIInputs();
+    }
 
     // we need a switchTo method because we handle the UI on one canvas
     public void SwitchTo(GameObject uiToSwitchOn)
@@ -34,4 +39,31 @@ public class UI : MonoBehaviour
         GameManager.instance.GameStart();
     }
     public void QuitTheGame() => Application.Quit();
+
+    // reason we used method because we have one scene.
+    public void RestartTheGame() => GameManager.instance.RestartScene();
+
+    public void PauseSwitch()
+    {
+        bool gamePaused = pauseUI.activeSelf;
+        if (gamePaused)
+        {
+            SwitchTo(inGameUI.gameObject);
+            ControlsManager.instance.SwitchToCharacterControls();
+            Time.timeScale = 1;
+        }
+        else
+        {
+            SwitchTo(pauseUI);
+            ControlsManager.instance.SwitchToUIControls();
+            Time.timeScale = 0;
+        }
+    }
+
+    private void AssignUIInputs()
+    {
+        PlayerControls controls = GameManager.instance.player.controls;
+        
+        controls.UI.UIPause.performed += ctx => PauseSwitch();
+    }
 }
