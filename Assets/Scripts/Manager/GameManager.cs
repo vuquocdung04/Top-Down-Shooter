@@ -28,6 +28,13 @@ public class GameManager : MonoBehaviour
     }
     
     public void RestartScene() => SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+    public void GameOver()
+    {
+        TimeManager.instance.SlowMotionFor(1.5f);
+        UI.instance.ShowGameOverUI();
+        CameraManager.instance.ChangeCameraDistance(6);
+    }
     
     private void SetDefaultWeaponsForPlayer()
     {
