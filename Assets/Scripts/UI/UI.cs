@@ -1,16 +1,20 @@
-using System;
 using System.Collections;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class UI : MonoBehaviour
 {
     public static UI instance;
     public UI_InGame inGameUI { get; private set; }
-    public UI_WeaponSelection weaponSelection {get; private set;}
+    public UI_WeaponSelection weaponSelection { get; private set; }
     public UI_GameOver gameOverUI { get; private set; }
     public GameObject pauseUI;
     [SerializeField] private GameObject[] UIElements;
-    
+
+    [Header("Fade Image")] [SerializeField]
+    private Image fadeImage;
+
+
     private void Awake()
     {
         instance = this;
@@ -22,6 +26,7 @@ public class UI : MonoBehaviour
     private void Start()
     {
         AssignUIInputs();
+        StartCoroutine(ChangeImageAlpha(0, 1.5f, null));
     }
 
     // we need a switchTo method because we handle the UI on one canvas
@@ -31,19 +36,19 @@ public class UI : MonoBehaviour
         {
             go.SetActive(false);
         }
-        
+
         uiToSwitchOn.SetActive(true);
     }
 
-    public void StartTheGame()
-    {
-        SwitchTo(inGameUI.gameObject);
-        GameManager.instance.GameStart();
-    }
+    public void StartTheGame() => StartCoroutine(StartGameSequence());
+
     public void QuitTheGame() => Application.Quit();
 
     // reason we used method because we have one scene.
-    public void RestartTheGame() => GameManager.instance.RestartScene();
+    public void RestartTheGame()
+    {
+        StartCoroutine(ChangeImageAlpha(1, 1f, delegate { GameManager.instance.RestartScene(); }));
+    }
 
     public void PauseSwitch()
     {
@@ -71,9 +76,37 @@ public class UI : MonoBehaviour
     private void AssignUIInputs()
     {
         PlayerControls controls = GameManager.instance.player.controls;
-        
+
         controls.UI.UIPause.performed += ctx => PauseSwitch();
     }
 
+    private IEnumerator StartGameSequence()
+    {
+        StartCoroutine(ChangeImageAlpha(1,1,null));
+        yield return new WaitForSeconds(1f);
+        SwitchTo(inGameUI.gameObject);
+        GameManager.instance.GameStart();
+        StartCoroutine(ChangeImageAlpha(0,1,null));
+    }
+    
+    private IEnumerator ChangeImageAlpha(float targetAlpha, float duration, System.Action callback)
+    {
+        float time = 0;
+        Color currentColor = fadeImage.color;
+        float startAlpha = currentColor.a;
 
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            float alpha = Mathf.Lerp(startAlpha, targetAlpha, time / duration);
+
+            fadeImage.color = new Color(currentColor.r, currentColor.g, currentColor.b, alpha);
+            yield return null;
+        }
+
+        fadeImage.color = new Color(currentColor.r, currentColor.g, currentColor.b, targetAlpha);
+
+        // call the completion method if it exists
+        callback?.Invoke();
+    }
 }
