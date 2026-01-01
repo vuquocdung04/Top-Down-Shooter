@@ -18,9 +18,15 @@ public class GameManager : MonoBehaviour
     public void GameStart()
     {
         SetDefaultWeaponsForPlayer();
-        LevelGenerator.instance.InitializeGeneration();
+        Invoke(nameof(Test),2f);
     }
 
+    private void Test()
+    {
+        LevelGenerator.instance.InitializeGeneration();
+        
+    }
+    
     public void RestartScene() => SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     
     private void SetDefaultWeaponsForPlayer()
