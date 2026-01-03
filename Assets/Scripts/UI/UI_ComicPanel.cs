@@ -8,7 +8,7 @@ public class UI_ComicPanel : MonoBehaviour, IPointerDownHandler
 {
     [SerializeField] private Image[] comicPanel;
     [SerializeField] private int imageIndex;
-    [SerializeField] private GameObject playButton;
+    [SerializeField] private GameObject buttonToEnable;
 
     private Image myImage;
     [SerializeField] private bool comicShowOver;
@@ -35,7 +35,7 @@ public class UI_ComicPanel : MonoBehaviour, IPointerDownHandler
         comicPanel[imageIndex].color = Color.white;
         imageIndex++;
         if(imageIndex >= comicPanel.Length)
-            EnablePlayButton();
+            FinishComicShow();
         
         if(comicShowOver) return;
         ShowNextImage();
@@ -61,18 +61,18 @@ public class UI_ComicPanel : MonoBehaviour, IPointerDownHandler
         imageIndex++;
         if (imageIndex >= comicPanel.Length)
         {
-            EnablePlayButton();
+            FinishComicShow();
         }
         
         // call the completion method if it exists
         callback?.Invoke();
     }
 
-    private void EnablePlayButton()
+    private void FinishComicShow()
     {
         StopAllCoroutines();
         comicShowOver = true;
-        playButton.SetActive(true);
+        buttonToEnable.SetActive(true);
         myImage.raycastTarget = false;
     }
 }

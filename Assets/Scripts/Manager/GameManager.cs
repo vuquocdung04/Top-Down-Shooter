@@ -22,6 +22,13 @@ public class GameManager : MonoBehaviour
     
     public void RestartScene() => SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
+    public void GameCompleted()
+    {
+        UI.instance.ShowVictoryScreenUI();
+        ControlsManager.instance.controls.Character.Disable();
+        player.health.currentHealth += 99999; // so player won't die in last second
+    }
+    
     public void GameOver()
     {
         TimeManager.instance.SlowMotionFor(1.5f);
