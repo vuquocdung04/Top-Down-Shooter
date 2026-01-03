@@ -44,6 +44,8 @@ public class UI : MonoBehaviour
 
     public void QuitTheGame() => Application.Quit();
 
+    public void StartLevelGeneration() => LevelGenerator.instance.InitializeGeneration();
+    
     // reason we used method because we have one scene.
     public void RestartTheGame()
     {
