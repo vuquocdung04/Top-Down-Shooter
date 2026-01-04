@@ -11258,6 +11258,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1227046197}
   m_CullTransparentMesh: 1
+--- !u!1 &1230967146
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1230967147}
+  m_Layer: 0
+  m_Name: CenterOfMass
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1230967147
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1230967146}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.182, z: 0.147}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2084553500}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1236599002
 GameObject:
   m_ObjectHideFlags: 0
@@ -19403,6 +19434,7 @@ Transform:
   - {fileID: 2625310422891025518}
   - {fileID: 6066516584039869208}
   - {fileID: 601958291323934476}
+  - {fileID: 1230967147}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &2084553501
@@ -19425,13 +19457,13 @@ Rigidbody:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_ImplicitCom: 1
+  m_ImplicitCom: 0
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &2084553502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19444,6 +19476,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dbdde2557ee48d8a6cad76ab0d39cdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turnSensitivity: 50
+  centerOfMass: {fileID: 1230967147}
+  currentSpeed: 0
+  maxSpeed: 10
+  accelerationSpeed: 4
+  motorForce: 2500
+  brakeSensitivity: 5
+  brakePower: 5000
 --- !u!1 &2084844744
 GameObject:
   m_ObjectHideFlags: 0
