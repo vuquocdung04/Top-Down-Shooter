@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class UI_WeaponSelection : MonoBehaviour
 {
+    [SerializeField] private GameObject nextUIToSwitchOn;
     public UI_SelectedWeaponWindow[] selectedWeapons;
 
     [Header("Warning Info")] [SerializeField]
@@ -29,6 +30,19 @@ public class UI_WeaponSelection : MonoBehaviour
         }
     }
 
+    public void ConfirmWeaponSelection()
+    {
+        if (AtLeastOneWeaponSelected())
+        {
+            UI.instance.SwitchTo(nextUIToSwitchOn);
+            UI.instance.StartLevelGeneration();
+        }
+        else
+            ShowWarningMessage("Select at least one weapon");
+    }
+    
+    private bool AtLeastOneWeaponSelected() => SelectedWeaponData().Count > 0;
+    
     // method is post data weapon ui selected to in game.
     public List<Weapon_Data> SelectedWeaponData()
     {

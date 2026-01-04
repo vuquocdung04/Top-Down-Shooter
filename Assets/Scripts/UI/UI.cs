@@ -28,6 +28,13 @@ public class UI : MonoBehaviour
     {
         AssignUIInputs();
         StartCoroutine(ChangeImageAlpha(0, 1.5f, null));
+        
+        //Remove this if statement before build, it is only for easier testing
+        if (GameManager.instance.quickStart)
+        {
+            LevelGenerator.instance.InitializeGeneration();
+            StartTheGame();
+        }
     }
 
     // we need a switchTo method because we handle the UI on one canvas
@@ -98,11 +105,13 @@ public class UI : MonoBehaviour
 
     private IEnumerator StartGameSequence()
     {
-        StartCoroutine(ChangeImageAlpha(1,1,null));
-        yield return new WaitForSeconds(1f);
+        //StartCoroutine(ChangeImageAlpha(1,1,null));
+        //yield return new WaitForSeconds(1f);
+        yield return null;
         SwitchTo(inGameUI.gameObject);
         GameManager.instance.GameStart();
-        StartCoroutine(ChangeImageAlpha(0,1,null));
+        StartCoroutine(ChangeImageAlpha(0,0.1f,null));
+        //StartCoroutine(ChangeImageAlpha(0,1f,null));
     }
     
     private IEnumerator ChangeImageAlpha(float targetAlpha, float duration, System.Action callback)

@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public Player player;
     
     [Header("Settings")] public bool friendlyFire;
+    [Space] public bool quickStart;
     private void Awake()
     {
         instance = this;

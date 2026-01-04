@@ -49,27 +49,42 @@ public class LevelPart : MonoBehaviour
     
     public void SnapAndAlignPartTo(SnapPoint targetSnapPoint)
     {
-        SnapPoint entrancePoint = GetEntrancePoint(); // Enter của LevelPart MỚI
-        AlignTo(entrancePoint, targetSnapPoint); // alignment should be before position snapping
-        SnapTo(entrancePoint, targetSnapPoint); // targetSnapPoint = Exit của LevelPart CŨ
+        if (targetSnapPoint == null)
+        {
+            Debug.LogError($"[LevelPart] targetSnapPoint is null for {gameObject.name}");
+            return;
+        }
+
+        SnapPoint entrancePoint = GetEntrancePoint();
+    
+        if (entrancePoint == null)
+        {
+            Debug.LogError($"[LevelPart] No entrance point found on {gameObject.name}");
+            return;
+        }
+
+        AlignTo(entrancePoint, targetSnapPoint);
+        SnapTo(entrancePoint, targetSnapPoint);
     }
 
     private void AlignTo(SnapPoint ownSnapPoint, SnapPoint targetSnapPoint)
     {
-        // LƯU Ý: Enter và Exit SnapPoint đều phải có trục Z hướng RA NGOÀI
-        // - Enter: trục Z hướng ra = hướng mà Exit sẽ snap vào
-        // - Exit: trục Z hướng ra = hướng mà Enter tiếp theo sẽ snap vào
-        
-        // Lưu góc lệch giữa SnapPoint và LevelPart
+        // Thêm null check
+        if (ownSnapPoint == null || targetSnapPoint == null)
+        {
+            Debug.LogError("[LevelPart] SnapPoint is null in AlignTo");
+            return;
+        }
+
+        if (ownSnapPoint.transform == null || targetSnapPoint.transform == null)
+        {
+            Debug.LogError("[LevelPart] SnapPoint.transform is null in AlignTo");
+            return;
+        }
+
         var rotationOffset = ownSnapPoint.transform.rotation.eulerAngles.y - transform.rotation.eulerAngles.y;
-    
-        // Copy rotation của target
         transform.rotation = targetSnapPoint.transform.rotation;
-    
-        // Xoay 180° để đối diện (Exit → gặp ← Enter)
         transform.Rotate(0, 180, 0);
-    
-        // Bù lại offset vì SnapPoint đã bị xoay theo
         transform.Rotate(0, -rotationOffset, 0);
     }
     

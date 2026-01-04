@@ -7,21 +7,20 @@ using Random = UnityEngine.Random;
 public class LevelGenerator : MonoBehaviour
 {
     public static LevelGenerator instance;
-    
-    
+
+
     private List<Enemy> enemyList;
-    
+
     [SerializeField] private NavMeshSurface navMeshSurface;
-    
-    [Space]
-    [SerializeField] private Transform lastLevelPart;
+
+    [Space] [SerializeField] private Transform lastLevelPart;
     [SerializeField] private List<Transform> levelParts;
     private List<Transform> currentLevelParts;
     private List<Transform> generatedLevelParts = new();
-    
+
     [SerializeField] private SnapPoint nextSnapPoint;
     private SnapPoint defaultSnapPoint;
-    
+
     [Space] [SerializeField] private float generationCooldown;
 
     private float coolDownTimer;
@@ -31,14 +30,10 @@ public class LevelGenerator : MonoBehaviour
     private void Awake()
     {
         instance = this;
-    }
-
-    private void Start()
-    {
         enemyList = new();
         defaultSnapPoint = nextSnapPoint;
+        
     }
-
     private void Update()
     {
         if (generationOver) return;
@@ -57,20 +52,28 @@ public class LevelGenerator : MonoBehaviour
             }
         }
     }
+
     public void InitializeGeneration()
     {
+        if (defaultSnapPoint == null)
+        {
+            Debug.LogError("[LevelGenerator] defaultSnapPoint is not assigned in Inspector!");
+            return;
+        }
         nextSnapPoint = defaultSnapPoint;
         generationOver = false;
-        currentLevelParts = new (levelParts);
+        currentLevelParts = new(levelParts);
 
         DestroyOldLevelPartAndEnemies();
     }
 
     private void DestroyOldLevelPartAndEnemies()
     {
-        foreach(var enemy in enemyList)
+        foreach (var enemy in enemyList)
+        {
             Destroy(enemy.gameObject);
-        
+        }
+
         foreach (Transform t in generatedLevelParts)
         {
             Destroy(t.gameObject);
@@ -84,7 +87,7 @@ public class LevelGenerator : MonoBehaviour
     {
         generationOver = true;
         GenerateNextLevelPart();
-        
+
         navMeshSurface.BuildNavMesh();
 
         foreach (var enemy in enemyList)
@@ -93,7 +96,7 @@ public class LevelGenerator : MonoBehaviour
             enemy.transform.parent = null;
             enemy.gameObject.SetActive(true);
         }
-        
+
         MissionManager.instance.StartMission();
     }
 
