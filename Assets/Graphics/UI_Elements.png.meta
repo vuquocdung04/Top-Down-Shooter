@@ -160,7 +160,7 @@ TextureImporter:
         width: 702
         height: 319
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 7, y: 4, z: 7, w: 5}
       outline: []
       physicsShape: []
@@ -181,7 +181,7 @@ TextureImporter:
         width: 686
         height: 312
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 7, y: 7, z: 7, w: 7}
       outline: []
       physicsShape: []
@@ -189,6 +189,69 @@ TextureImporter:
       bones: []
       spriteID: 9303f746b3e19434486a8929350ba1ff
       internalID: 1775938313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Elements_4
+      rect:
+        serializedVersion: 2
+        x: 1659
+        y: 27
+        width: 232
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 376e099de77d54d4aa1287245ababb73
+      internalID: 878492438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Elements_5
+      rect:
+        serializedVersion: 2
+        x: 1497
+        y: 738
+        width: 196
+        height: 196
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b818ca8fdf88135418b1f142b12691ed
+      internalID: -1376068268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Elements_6
+      rect:
+        serializedVersion: 2
+        x: 1714
+        y: 737
+        width: 196
+        height: 196
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ece406aabdc743b4ba1e31545a3fa3b1
+      internalID: 803376607
       vertices: []
       indices: 
       edges: []
@@ -208,6 +271,9 @@ TextureImporter:
       UI_Elements_1: -101117435
       UI_Elements_2: 1355817777
       UI_Elements_3: 1775938313
+      UI_Elements_4: 878492438
+      UI_Elements_5: -1376068268
+      UI_Elements_6: 803376607
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
