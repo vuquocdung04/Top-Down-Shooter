@@ -9,6 +9,7 @@ public enum DriveType
 
 public class Car_Controller : MonoBehaviour
 {
+    private bool carActive;
     private PlayerControls controls;
     private Rigidbody rb;
     private float moveInput;
@@ -80,6 +81,8 @@ public class Car_Controller : MonoBehaviour
 
     private void Update()
     {
+        if(!carActive) return;
+        
         speed = rb.velocity.magnitude;
 
         driftTimer -= Time.deltaTime;
@@ -91,6 +94,8 @@ public class Car_Controller : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(!carActive) return;
+        
         ApplyAnimationToWheels();
         ApplyDrive();
         ApplySteering();
@@ -204,6 +209,11 @@ public class Car_Controller : MonoBehaviour
         }
     }
 
+    public void ActivateCar(bool activate)
+    { 
+        carActive = activate;
+    }
+    
     private void AssignInputEvents()
     {
         controls.Car.Movement.performed += ctx =>
@@ -225,5 +235,12 @@ public class Car_Controller : MonoBehaviour
             driftTimer = driftDuration;
         };
         controls.Car.Brake.canceled += _ => isBraking = false;
+    }
+
+    [ContextMenu("Focus camera and enable")]
+    public void TestThisCar()
+    {
+        ActivateCar(true);
+        CameraManager.instance.ChangeCameraTarget(transform,12);
     }
 }
