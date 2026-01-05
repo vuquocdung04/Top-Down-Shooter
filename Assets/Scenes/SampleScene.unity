@@ -19481,19 +19481,19 @@ MonoBehaviour:
   driveType: 0
   centerOfMass: {fileID: 1230967147}
   carMass: 400
-  wheelsMass: 30
+  wheelsMass: 35
   frontWheelTraction: 1
   backWheelTraction: 1
   currentSpeed: 0
-  maxSpeed: 10
+  maxSpeed: 12
   accelerationSpeed: 5
   motorForce: 1800
   frontBrakeSensitivity: 5
-  backBrakeSensitivity: 8
+  backBrakeSensitivity: 0
   brakePower: 5000
-  frontDriftFactor: 0.586
-  backDriftFactor: 0.443
-  driftDuration: 3
+  frontDriftFactor: 0.5
+  backDriftFactor: 0.5
+  driftDuration: 0.8
 --- !u!1 &2084844744
 GameObject:
   m_ObjectHideFlags: 0

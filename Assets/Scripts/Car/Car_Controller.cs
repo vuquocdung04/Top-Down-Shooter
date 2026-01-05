@@ -46,7 +46,8 @@ public class Car_Controller : MonoBehaviour
     [Range(0, 1)] [SerializeField] private float backDriftFactor = 0.5f;
     [SerializeField] private float driftDuration = 1f;
     private float driftTimer;
-
+    private bool isDrifting;
+    
     private Car_Wheel[] wheels;
 
     private void Start()
@@ -84,7 +85,7 @@ public class Car_Controller : MonoBehaviour
         driftTimer -= Time.deltaTime;
         if (driftTimer < 0)
         {
-            isBraking = false;
+            isDrifting = false;
         }
     }
 
@@ -96,7 +97,7 @@ public class Car_Controller : MonoBehaviour
         ApplyBrakes();
         ApplySpeedLimit();
 
-        if (isBraking)
+        if (isDrifting)
         {
             ApplyDrift();
         }
@@ -220,6 +221,7 @@ public class Car_Controller : MonoBehaviour
         controls.Car.Brake.performed += _ =>
         {
             isBraking = true;
+            isDrifting = true;
             driftTimer = driftDuration;
         };
         controls.Car.Brake.canceled += _ => isBraking = false;
