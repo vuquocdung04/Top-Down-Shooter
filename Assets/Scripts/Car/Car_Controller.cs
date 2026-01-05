@@ -1,33 +1,49 @@
 using UnityEngine;
 
+public enum DriveType
+{
+    FrontWheelDrive = 0,
+    RearWheelDrive = 1, // sau
+    AllWheelDrive = 2,
+}
+
 public class Car_Controller : MonoBehaviour
 {
     private PlayerControls controls;
     private Rigidbody rb;
     private float moveInput;
     private float steerInput;
-    [SerializeField] private  float speed;
-    [SerializeField] private  float turnSensitivity;
+    [SerializeField] private float speed;
+    [Range(30,60)]
+    [SerializeField] private float turnSensitivity = 30;
 
     [Header("Car Settings")] [SerializeField]
-    private Transform centerOfMass;
+    private DriveType driveType;
+    [SerializeField] private Transform centerOfMass;
+    [Range(350, 1000)] [SerializeField] private float carMass = 400;
+    [Range(20,80)] [SerializeField] private float wheelsMass = 30;
 
-    [Header("Engine Settings")] [SerializeField] private  float currentSpeed;
-    [Range(7, 12)] [SerializeField] private float maxSpeed;
-    [Range(0.5f, 5f)] [SerializeField] private  float accelerationSpeed; // gia toc
-    [Range(1500, 3000)] [SerializeField] private  float motorForce = 1500f;
+    [Range(0.5f, 2)] [SerializeField] private float frontWheelTraction = 1;
+    [Range(0.5f, 2)] [SerializeField] private float backWheelTraction = 1;
+    
+    [Header("Engine Settings")] [SerializeField]
+    private float currentSpeed;
 
-    [Header("Brake Settings")] [Range(4, 10)]
-    [SerializeField] private  float brakeSensitivity = 5;
+    [Range(7, 12)] [SerializeField] private float maxSpeed = 7;
+    [Range(0.5f, 5f)] [SerializeField] private float accelerationSpeed = 2; // gia toc
+    [Range(1500, 3000)] [SerializeField] private float motorForce = 1500f;
 
-    [Range(4000, 6000)] [SerializeField] private  float brakePower = 5000;
+    [Header("Brake Settings")]
+    [Range(0, 10)] [SerializeField] private float frontBrakeSensitivity = 5;
+    [Range(0, 10)] [SerializeField] private float backBrakeSensitivity = 5;
+
+    [Range(4000, 6000)] [SerializeField] private float brakePower = 5000;
     private bool isBraking;
 
-    [Header("Drift Settings")]
-    [Range(0, 1)] 
-    [SerializeField] private float frontDriftFactor = 0.5f;
-    [Range(0, 1)] 
-    [SerializeField] private float backDriftFactor = 0.5f;
+    [Header("Drift Settings")] [Range(0, 1)] [SerializeField]
+    private float frontDriftFactor = 0.5f;
+
+    [Range(0, 1)] [SerializeField] private float backDriftFactor = 0.5f;
     [SerializeField] private float driftDuration = 1f;
     private float driftTimer;
 
@@ -35,12 +51,30 @@ public class Car_Controller : MonoBehaviour
 
     private void Start()
     {
-        controls = ControlsManager.instance.controls;
         rb = GetComponent<Rigidbody>();
-        rb.centerOfMass = centerOfMass.localPosition;
-        ControlsManager.instance.SwitchToCarControls();
         wheels = GetComponentsInChildren<Car_Wheel>();
+        
+        controls = ControlsManager.instance.controls;
+        ControlsManager.instance.SwitchToCarControls();
+        
         AssignInputEvents();
+        SetupDefaultValues();
+    }
+
+    private void SetupDefaultValues()
+    {
+        rb.centerOfMass = centerOfMass.localPosition;
+        rb.mass = carMass;
+
+        foreach (var wheel in wheels)
+        {
+            wheel.cd.mass = wheelsMass;
+            if(wheel.axelType == AxelType.Front)
+                wheel.SetDefaultStiffness(frontWheelTraction);
+
+            if (wheel.axelType == AxelType.Back)
+                wheel.SetDefaultStiffness(backWheelTraction);
+        }
     }
 
     private void Update()
@@ -74,15 +108,15 @@ public class Car_Controller : MonoBehaviour
 
     private void ApplyBrakes()
     {
-        float newBrakeTorque = brakePower * brakeSensitivity * Time.fixedDeltaTime;
-        float currentBrakeTorque = isBraking ? newBrakeTorque : 0f;
-
         foreach (var wheel in wheels)
         {
-            if (wheel.axelType == AxelType.Front)
-            {
-                wheel.cd.brakeTorque = currentBrakeTorque;
-            }
+            bool frontBakes = wheel.axelType == AxelType.Front;
+            float brakeSensetivity = frontBakes ? frontBrakeSensitivity : backBrakeSensitivity;
+            
+            float newBrakeTorque = brakePower * brakeSensetivity * Time.fixedDeltaTime;
+            float currentBrakeTorque = isBraking ? newBrakeTorque : 0f;
+            
+            wheel.cd.brakeTorque = currentBrakeTorque;
         }
     }
 
@@ -92,8 +126,8 @@ public class Car_Controller : MonoBehaviour
         {
             bool frontWheel = wheel.axelType == AxelType.Front;
             float driftFactor = frontWheel ? frontDriftFactor : backDriftFactor;
-            
-            
+
+
             WheelFrictionCurve slidewaysFriction = wheel.cd.sidewaysFriction;
 
             slidewaysFriction.stiffness *= (1 - driftFactor);
@@ -115,9 +149,23 @@ public class Car_Controller : MonoBehaviour
         float motorTorqueValue = motorForce * currentSpeed;
         foreach (var wheel in wheels)
         {
-            if (wheel.axelType == AxelType.Front)
+            switch (driveType)
             {
-                wheel.cd.motorTorque = motorTorqueValue;
+                case DriveType.FrontWheelDrive:
+                {
+                    if (wheel.axelType == AxelType.Front)
+                        wheel.cd.motorTorque = motorTorqueValue;
+                    break;
+                }
+                case DriveType.RearWheelDrive:
+                {
+                    if (wheel.axelType == AxelType.Back)
+                        wheel.cd.motorTorque = motorTorqueValue;
+                    break;
+                }
+                default:
+                    wheel.cd.motorTorque = motorTorqueValue;
+                    break;
             }
         }
     }
