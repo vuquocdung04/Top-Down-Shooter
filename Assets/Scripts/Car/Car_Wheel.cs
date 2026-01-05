@@ -14,9 +14,20 @@ public class Car_Wheel : MonoBehaviour
     public WheelCollider cd { get; private set; }
     public GameObject model { get; private set; }
 
+    private float defaultSlideStiffness;
+    
     private void Start()
     {
         cd =  GetComponent<WheelCollider>();
         model = GetComponentInChildren<MeshRenderer>().gameObject;
+
+        defaultSlideStiffness = cd.sidewaysFriction.stiffness;
+    }
+
+    public void RestoreDefaultStiffness()
+    {
+        WheelFrictionCurve sidewayFriction = cd.sidewaysFriction;
+        sidewayFriction.stiffness = defaultSlideStiffness;
+        cd.sidewaysFriction = sidewayFriction;
     }
 }

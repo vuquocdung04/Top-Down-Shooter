@@ -19476,14 +19476,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dbdde2557ee48d8a6cad76ab0d39cdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnSensitivity: 50
+  speed: 0
+  turnSensitivity: 30
   centerOfMass: {fileID: 1230967147}
   currentSpeed: 0
   maxSpeed: 10
-  accelerationSpeed: 4
-  motorForce: 2500
+  accelerationSpeed: 5
+  motorForce: 1800
   brakeSensitivity: 5
   brakePower: 5000
+  frontDriftFactor: 0.586
+  backDriftFactor: 0.443
+  driftDuration: 3
 --- !u!1 &2084844744
 GameObject:
   m_ObjectHideFlags: 0
@@ -42075,7 +42079,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 1
+    m_Stiffness: 0.95
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -48612,7 +48616,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 1
+    m_Stiffness: 0.95
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
