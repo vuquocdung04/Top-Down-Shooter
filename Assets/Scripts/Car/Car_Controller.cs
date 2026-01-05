@@ -6,7 +6,7 @@ public enum DriveType
     RearWheelDrive = 1, // sau
     AllWheelDrive = 2,
 }
-
+[RequireComponent(typeof(Rigidbody))]
 public class Car_Controller : MonoBehaviour
 {
     private bool carActive;
@@ -31,8 +31,8 @@ public class Car_Controller : MonoBehaviour
     private float currentSpeed;
 
     [Range(7, 12)] [SerializeField] private float maxSpeed = 7;
-    [Range(0.5f, 5f)] [SerializeField] private float accelerationSpeed = 2; // gia toc
-    [Range(1500, 3000)] [SerializeField] private float motorForce = 1500f;
+    [Range(0.5f, 10f)] [SerializeField] private float accelerationSpeed = 2; // gia toc
+    [Range(1500, 5000)] [SerializeField] private float motorForce = 1500f;
 
     [Header("Brake Settings")]
     [Range(0, 10)] [SerializeField] private float frontBrakeSensitivity = 5;
@@ -119,7 +119,7 @@ public class Car_Controller : MonoBehaviour
             bool frontBakes = wheel.axelType == AxelType.Front;
             float brakeSensetivity = frontBakes ? frontBrakeSensitivity : backBrakeSensitivity;
             
-            float newBrakeTorque = brakePower * brakeSensetivity * Time.fixedDeltaTime;
+            float newBrakeTorque = brakePower * brakeSensetivity;
             float currentBrakeTorque = isBraking ? newBrakeTorque : 0f;
             
             wheel.cd.brakeTorque = currentBrakeTorque;
@@ -151,8 +151,8 @@ public class Car_Controller : MonoBehaviour
 
     private void ApplyDrive()
     {
-        currentSpeed = moveInput * accelerationSpeed * Time.fixedDeltaTime;
-        float motorTorqueValue = motorForce * currentSpeed;
+        currentSpeed = moveInput * accelerationSpeed;
+        float motorTorqueValue = motorForce * currentSpeed * Time.fixedDeltaTime;
         foreach (var wheel in wheels)
         {
             switch (driveType)
