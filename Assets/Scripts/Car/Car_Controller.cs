@@ -57,8 +57,8 @@ public class Car_Controller : MonoBehaviour
         wheels = GetComponentsInChildren<Car_Wheel>();
         
         controls = ControlsManager.instance.controls;
-        //ControlsManager.instance.SwitchToCarControls();
         
+        ActivateCar(false);
         AssignInputEvents();
         SetupDefaultValues();
     }
@@ -212,6 +212,14 @@ public class Car_Controller : MonoBehaviour
     public void ActivateCar(bool activate)
     { 
         carActive = activate;
+        if (activate)
+        {
+            rb.constraints = RigidbodyConstraints.None;
+        }
+        else
+        {
+            rb.constraints = RigidbodyConstraints.FreezeAll;
+        }
     }
     
     private void AssignInputEvents()
