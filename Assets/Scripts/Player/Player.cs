@@ -49,5 +49,10 @@ public class Player : MonoBehaviour
         controls.Disable();
     }
     
-    public void SetControlsEnabledTo(bool enabled) => controlsEnable = enabled;
+    public void SetControlsEnabledTo(bool enabled)
+    {
+        controlsEnable = enabled;
+        ragdoll.CollidersActive(enabled);
+        AimController.EnableAimLaser(enabled);
+    }
 }
