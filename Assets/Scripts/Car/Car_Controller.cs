@@ -249,17 +249,12 @@ public class Car_Controller : MonoBehaviour
             driftTimer = driftDuration;
         };
         controls.Car.Brake.canceled += _ => isBraking = false;
-
-        controls.Car.CarExit.performed += ctx =>
-        {
-            GetComponent<Car_Interaction>().GetIntoTheCar();
-        };
     }
 
     [ContextMenu("Focus camera and enable")]
     public void TestThisCar()
     {
         ActivateCar(true);
-        CameraManager.instance.ChangeCameraTarget(transform,12);
+        CameraManager.instance.ChangeCameraTarget(transform,20);
     }
 }

@@ -21,7 +21,7 @@ public class Car_Interaction : Interactable
         player = GameManager.instance.player.transform;
         
         PlayerControls controls = ControlsManager.instance.controls;
-
+        
         controls.Car.CarExit.performed += ctx => GetOutOfTheCar();
     }
 
@@ -31,7 +31,7 @@ public class Car_Interaction : Interactable
         GetIntoTheCar();
     }
 
-    public void GetIntoTheCar()
+    private void GetIntoTheCar()
     {
         ControlsManager.instance.SwitchToCarControls();
         carHealthController.UpdateCarHealthUI(); 
@@ -41,10 +41,10 @@ public class Car_Interaction : Interactable
         player.parent = transform;
         player.localPosition = Vector3.up / 2;
         
-        CameraManager.instance.ChangeCameraTarget(transform, 12,0.5f);
+        CameraManager.instance.ChangeCameraTarget(transform, 20,0.5f);
     }
     
-    private void GetOutOfTheCar()
+    public void GetOutOfTheCar()
     {
         if(car.carActive == false) return;
         
@@ -52,7 +52,7 @@ public class Car_Interaction : Interactable
         player.parent = null;
         player.position = GetExitPoint();
         player.localScale = Vector3.one * defaultPlayerScale;
-        ControlsManager.instance.SwitchToCarControls();
+        ControlsManager.instance.SwitchToCharacterControls();
         Player_AimController aim = GameManager.instance.player.AimController;
         CameraManager.instance.ChangeCameraTarget(aim.GetAimCameraTarget(), 8.5f,0);
     }
