@@ -12,6 +12,11 @@ public class Ragdoll : MonoBehaviour
         ragdollRigidbodies = GetComponentsInChildren<Rigidbody>();
         ragdollColliders = GetComponentsInChildren<Collider>();
         RagdollActive(false);
+
+        foreach (var rb in ragdollRigidbodies)
+        {
+            rb.interpolation = RigidbodyInterpolation.Interpolate;
+        }
     }
 
     public void RagdollActive(bool active)

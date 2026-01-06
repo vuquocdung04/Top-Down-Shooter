@@ -9,9 +9,9 @@ public enum DriveType
 [RequireComponent(typeof(Rigidbody))]
 public class Car_Controller : MonoBehaviour
 {
+    public Rigidbody rb {get; private set;}
     public bool carActive { get; private set; }
     private PlayerControls controls;
-    private Rigidbody rb;
     private float moveInput;
     private float steerInput;
     [SerializeField] private float speed;

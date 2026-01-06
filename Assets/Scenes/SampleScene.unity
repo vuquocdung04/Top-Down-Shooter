@@ -3213,6 +3213,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 266304831}
   m_CullTransparentMesh: 1
+--- !u!1001 &269902012
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1230943377705295707, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: m_Name
+      value: Enemy_Melee AxeThrow Variant_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773676026677885731, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -165.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773676026677885731, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0000009536743
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773676026677885731, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -11.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773676026677885731, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773676026677885731, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773676026677885731, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773676026677885731, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773676026677885731, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773676026677885731, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773676026677885731, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8396524051792469917, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: aggressionRange
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
 --- !u!1 &277436584
 GameObject:
   m_ObjectHideFlags: 0
@@ -11239,6 +11300,67 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scaleSpeed: 10
   scaleRate: 1.2
+--- !u!1001 &1064017533
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1230943377705295707, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: m_Name
+      value: Enemy_Melee AxeThrow Variant_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773676026677885731, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -160.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773676026677885731, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0000009536743
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773676026677885731, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -11.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773676026677885731, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773676026677885731, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773676026677885731, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773676026677885731, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773676026677885731, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773676026677885731, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773676026677885731, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8396524051792469917, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: aggressionRange
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
 --- !u!1 &1075894184
 GameObject:
   m_ObjectHideFlags: 0
@@ -14417,6 +14539,67 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 15}
   m_Constraint: 1
   m_ConstraintCount: 1
+--- !u!1001 &1385634524
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1230943377705295707, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: m_Name
+      value: Enemy_Melee AxeThrow Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773676026677885731, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -165.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773676026677885731, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0000009536743
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773676026677885731, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -15.3873825
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773676026677885731, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773676026677885731, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773676026677885731, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773676026677885731, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773676026677885731, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773676026677885731, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4773676026677885731, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8396524051792469917, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: aggressionRange
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
 --- !u!1 &1402444290
 GameObject:
   m_ObjectHideFlags: 0
@@ -14685,6 +14868,76 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1403124725}
   m_CullTransparentMesh: 1
+--- !u!1 &1406964381
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1406964382}
+  - component: {fileID: 1406964384}
+  - component: {fileID: 1406964383}
+  m_Layer: 15
+  m_Name: Car_DamgeZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1406964382
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406964381}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.51, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2084553500}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1406964383
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406964381}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.4434967, y: 0.9682616, z: 3.6100998}
+  m_Center: {x: -0.0039901733, y: 0.01586914, z: 0.28941727}
+--- !u!114 &1406964384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406964381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f09ad3dbf17a474ea4151a2319fd47c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minSpeedToDamage: 1
+  carDamage: 200
+  impactForce: 150
+  upwardsMultiplier: 3
 --- !u!1 &1408215758
 GameObject:
   m_ObjectHideFlags: 0
@@ -21815,6 +22068,7 @@ GameObject:
   - component: {fileID: 2084553501}
   - component: {fileID: 2084553504}
   - component: {fileID: 2084553503}
+  - component: {fileID: 2084553505}
   m_Layer: 0
   m_Name: Car_Mustang
   m_TagString: Untagged
@@ -21842,6 +22096,7 @@ Transform:
   - {fileID: 601958291323934476}
   - {fileID: 1230967147}
   - {fileID: 644575435}
+  - {fileID: 1406964382}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &2084553501
@@ -21884,19 +22139,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  turnSensitivity: 30
+  turnSensitivity: 38.7
   driveType: 0
   centerOfMass: {fileID: 1230967147}
-  carMass: 400
-  wheelsMass: 35
-  frontWheelTraction: 1
-  backWheelTraction: 1
+  carMass: 438
+  wheelsMass: 42
+  frontWheelTraction: 1.156
+  backWheelTraction: 1.124
   currentSpeed: 0
-  maxSpeed: 10
-  accelerationSpeed: 7.15
-  motorForce: 1800
+  maxSpeed: 11.07
+  accelerationSpeed: 4.42
+  motorForce: 2313
   frontBrakeSensitivity: 5
-  backBrakeSensitivity: 0
+  backBrakeSensitivity: 4
   brakePower: 5000
   frontDriftFactor: 0.5
   backDriftFactor: 0.5
@@ -21946,6 +22201,22 @@ MonoBehaviour:
   whatToIgnoreForExit:
     serializedVersion: 2
     m_Bits: 3649
+--- !u!208 &2084553505
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2084553499}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.9, y: 0.5, z: 1.83}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
+  m_Center: {x: 0, y: 0.53, z: 0.33}
+  m_TimeToStationary: 0.5
 --- !u!1 &2084844744
 GameObject:
   m_ObjectHideFlags: 0
@@ -60250,3 +60521,6 @@ SceneRoots:
   - {fileID: 2084553500}
   - {fileID: 2128546998}
   - {fileID: 996356940}
+  - {fileID: 1385634524}
+  - {fileID: 269902012}
+  - {fileID: 1064017533}

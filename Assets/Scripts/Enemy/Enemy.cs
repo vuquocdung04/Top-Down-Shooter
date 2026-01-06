@@ -101,16 +101,21 @@ public abstract class Enemy : MonoBehaviour
 
     public virtual void GetHit(int damage)
     {
+        EnterBattleMode();
         health.ReduceHealth(damage);
         if (health.ShouldDie())
             Die();
-
-        EnterBattleMode();
     }
 
     public virtual void Die()
     {
         dropController.DropItems();
+        
+        anim.enabled = false;
+        agent.isStopped = true;
+        agent.enabled = false;
+        
+        ragdoll.RagdollActive(true);
         
         MissionObject_HuntTarget huntTarget = GetComponent<MissionObject_HuntTarget>();
         huntTarget?.InvokeOnTargetKilled();

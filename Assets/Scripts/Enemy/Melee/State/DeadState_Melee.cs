@@ -12,10 +12,6 @@ public class DeadState_Melee : EnemyState
     {
         base.EnterState();
         interactionDisabled = false;
-        enemy.anim.enabled = false;
-        enemy.agent.isStopped = true;
-        enemy.ragdoll.RagdollActive(true);
-
         stateTimer = 1.5f;
     }
 
