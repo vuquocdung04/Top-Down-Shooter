@@ -40,9 +40,10 @@ public class CameraManager : MonoBehaviour
 
     public void ChangeCameraDistance(float distance) => targetCameraDistance = distance;
     
-    public void ChangeCameraTarget(Transform target, float cameraDistance = 10)
+    public void ChangeCameraTarget(Transform target, float cameraDistance = 10, float newLookAHeadTime = 0)
     {
         virtualCamera.Follow = target;
+        transposer.m_LookaheadTime  = newLookAHeadTime;
         ChangeCameraDistance(cameraDistance);
     }
 }
