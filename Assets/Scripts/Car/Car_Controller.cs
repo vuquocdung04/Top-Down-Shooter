@@ -50,12 +50,12 @@ public class Car_Controller : MonoBehaviour
     private bool isDrifting;
     
     private Car_Wheel[] wheels;
-
+    private UI ui;
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         wheels = GetComponentsInChildren<Car_Wheel>();
-        
+        ui = UI.instance;
         controls = ControlsManager.instance.controls;
         
         ActivateCar(false);
@@ -82,6 +82,8 @@ public class Car_Controller : MonoBehaviour
     private void Update()
     {
         if(!carActive) return;
+        
+        ui.inGameUI.UpdateSpeedText(Mathf.RoundToInt(speed * 10) + " km/h");
         
         speed = rb.velocity.magnitude;
 

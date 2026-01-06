@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Car_Interaction : Interactable
 {
+    private Car_HealthController carHealthController;
     private Car_Controller car;
     private Transform player;
 
@@ -16,6 +17,7 @@ public class Car_Interaction : Interactable
     private void Start()
     {
         car = GetComponent<Car_Controller>();
+        carHealthController = GetComponent<Car_HealthController>();
         player = GameManager.instance.player.transform;
         
         PlayerControls controls = ControlsManager.instance.controls;
@@ -32,6 +34,7 @@ public class Car_Interaction : Interactable
     public void GetIntoTheCar()
     {
         ControlsManager.instance.SwitchToCarControls();
+        carHealthController.UpdateCarHealthUI(); 
         car.ActivateCar(true);
         defaultPlayerScale = player.localScale.x;
         player.localScale = new Vector3(0.01f,0.01f,0.01f);

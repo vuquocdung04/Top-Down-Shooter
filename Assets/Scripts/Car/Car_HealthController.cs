@@ -14,6 +14,11 @@ public class Car_HealthController : MonoBehaviour, IDamageable
         currentHealth = maxHealth;
     }
 
+    public void UpdateCarHealthUI()
+    {
+        UI.instance.inGameUI.UpdateCarHealthUI(currentHealth, maxHealth);
+    }
+    
     private void ReduceHealth(int damage)
     {
         if(carBroken) return;
@@ -34,5 +39,6 @@ public class Car_HealthController : MonoBehaviour, IDamageable
     public void TakeDamage(int damage)
     {
         ReduceHealth(damage);
+        UpdateCarHealthUI();
     }
 }
