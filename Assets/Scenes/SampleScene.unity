@@ -3267,6 +3267,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8396524051792469917, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
       propertyPath: aggressionRange
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8396524051792469917, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: axeThrowCooldown
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -11408,6 +11412,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8396524051792469917, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
       propertyPath: aggressionRange
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8396524051792469917, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: axeThrowCooldown
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -14647,6 +14655,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8396524051792469917, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
       propertyPath: aggressionRange
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8396524051792469917, guid: 51d29775467b498409597cadaf0c25d4, type: 3}
+      propertyPath: axeThrowCooldown
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -22123,6 +22135,7 @@ GameObject:
   - component: {fileID: 2084553504}
   - component: {fileID: 2084553503}
   - component: {fileID: 2084553505}
+  - component: {fileID: 2084553506}
   m_Layer: 0
   m_Name: Car_Mustang
   m_TagString: Untagged
@@ -22271,6 +22284,20 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 0
   m_Center: {x: 0, y: 0.53, z: 0.33}
   m_TimeToStationary: 0.5
+--- !u!114 &2084553506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2084553499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02bcc2093ad04dd5802a2ef4f9435ffd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 300
+  currentHealth: 0
 --- !u!1 &2084844744
 GameObject:
   m_ObjectHideFlags: 0

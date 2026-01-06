@@ -210,16 +210,17 @@ public class Car_Controller : MonoBehaviour
     }
 
     public void ActivateCar(bool activate)
-    { 
+    {
         carActive = activate;
-        if (activate)
-        {
-            rb.constraints = RigidbodyConstraints.None;
-        }
-        else
-        {
-            rb.constraints = RigidbodyConstraints.FreezeAll;
-        }
+        rb.constraints = activate ? RigidbodyConstraints.None : RigidbodyConstraints.FreezeAll;
+    }
+
+    public void BrakeTheCar()
+    {
+        motorForce = 0;
+        isDrifting = true;
+        frontDriftFactor = 0.9f;
+        backDriftFactor = 0.9f;
     }
     
     private void AssignInputEvents()
