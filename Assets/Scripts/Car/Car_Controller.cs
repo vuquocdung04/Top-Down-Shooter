@@ -2,9 +2,9 @@ using UnityEngine;
 
 public enum DriveType
 {
-    FrontWheelDrive = 0,
-    RearWheelDrive = 1, // sau
-    AllWheelDrive = 2,
+    FrontWheelDrive = 0, // Cầu trước (tiết kiệm nhiên liệu, dễ điều khiển)
+    RearWheelDrive = 1, // Cầu sau (drift dễ hơn, xe thể thao)
+    AllWheelDrive = 2,  // Cả 4 bánh (bám đường tốt, off-road)
 }
 [RequireComponent(typeof(Rigidbody))]
 public class Car_Controller : MonoBehaviour
@@ -24,14 +24,17 @@ public class Car_Controller : MonoBehaviour
     [Range(350, 1000)] [SerializeField] private float carMass = 400;
     [Range(20,80)] [SerializeField] private float wheelsMass = 30;
 
-    [Range(0.5f, 2)] [SerializeField] private float frontWheelTraction = 1;
+    // Độ bám đường
+    [Range(0.5f, 2)] [SerializeField] private float frontWheelTraction = 1; 
     [Range(0.5f, 2)] [SerializeField] private float backWheelTraction = 1;
     
     [Header("Engine Settings")] [SerializeField]
     private float currentSpeed;
 
     [Range(7, 12)] [SerializeField] private float maxSpeed = 7;
-    [Range(0.5f, 10f)] [SerializeField] private float accelerationSpeed = 2; // gia toc
+    //Tốc độ tăng tốc (gia tốc):
+    [Range(0.5f, 10f)] [SerializeField] private float accelerationSpeed = 2;
+    // Lực động cơ tác động lên bánh:
     [Range(1500, 5000)] [SerializeField] private float motorForce = 1500f;
 
     [Header("Brake Settings")]
