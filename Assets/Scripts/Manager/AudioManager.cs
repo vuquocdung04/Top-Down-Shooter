@@ -6,7 +6,7 @@ public class AudioManager : MonoBehaviour
 {
     [SerializeField] private AudioSource[] bgm;
     [SerializeField] private bool playBgm;
-    private int bgmIndex;
+    [SerializeField] private int bgmIndex;
 
     private void Start()
     {
@@ -17,7 +17,8 @@ public class AudioManager : MonoBehaviour
     {
         if(!playBgm && BgmIsPlaying())
             StopAllBGM();
-        else if (bgm[bgmIndex].isPlaying == false)
+
+        if (playBgm && bgm[bgmIndex].isPlaying == false)
         {
             PlayRandomBGM();
         }
@@ -43,6 +44,7 @@ public class AudioManager : MonoBehaviour
     [ContextMenu("Play random music")]
     public void PlayRandomBGM()
     {
+        StopAllBGM();
         bgmIndex = Random.Range(0, bgm.Length);
         PlayBGM(bgmIndex);
     }

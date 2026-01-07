@@ -17,22 +17,25 @@ public class Player_Movement : MonoBehaviour
     
     private Vector3 movementDirection;
     public Vector2 moveInput { get; private set; }
-    
     private bool isRunning;
-    
-    
     private Vector3 lookingDirection;
-
-
-
+    
+    private AudioSource walkSFX;
+    private AudioSource runSFX;
+    private bool canPlayFootsteps;
+    
     private void Start()
     {
         player = GetComponent<Player>();
         characterController = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
-
         speed = walkSpeed;
 
+        walkSFX = player.sound.walkSFX;
+        runSFX = player.sound.runSFX;
+        
+        Invoke(nameof(AllowFootstepsSFX),1f); // 1f is fix sound fx play too early
+        
         AssignInputEvents();
     }
 
@@ -75,10 +78,35 @@ public class Player_Movement : MonoBehaviour
         ApplyGravity();
         if (movementDirection.magnitude > 0)
         {
+            PlayFootstepsSFX();
             characterController.Move(movementDirection * (Time.deltaTime * speed));
+        }
+        
+    }
+
+    private void PlayFootstepsSFX()
+    {
+        if(canPlayFootsteps == false) return;
+        
+        if (isRunning)
+        {
+            if(runSFX.isPlaying == false)
+                runSFX.Play();
+        }
+        else
+        {
+            if(walkSFX.isPlaying == false)
+                walkSFX.Play();
         }
     }
 
+    private void StopFootstepsSFX()
+    {
+        walkSFX.Stop();
+        runSFX.Stop();
+    }
+    private void AllowFootstepsSFX() => canPlayFootsteps = true;
+    
     private void ApplyGravity()
     {
         if (!characterController.isGrounded)
@@ -95,14 +123,18 @@ public class Player_Movement : MonoBehaviour
     {
         controls = player.controls;
         controls.Character.Movement.performed += context => moveInput = context.ReadValue<Vector2>();
-        controls.Character.Movement.canceled += context => moveInput = Vector2.zero;
+        controls.Character.Movement.canceled += _ =>
+        {
+            StopFootstepsSFX();
+            moveInput = Vector2.zero;
+        };
 
-        controls.Character.Run.performed += context =>
+        controls.Character.Run.performed += _ =>
         {
             speed = runSpeed;
             isRunning = true;
         };
-        controls.Character.Run.canceled += context =>
+        controls.Character.Run.canceled += _ =>
         {
             speed = walkSpeed;
             isRunning = false;
