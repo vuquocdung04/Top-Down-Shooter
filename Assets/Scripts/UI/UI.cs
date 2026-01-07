@@ -134,4 +134,16 @@ public class UI : MonoBehaviour
         // call the completion method if it exists
         callback?.Invoke();
     }
+
+    [ContextMenu("Assign Audio To Buttons")]
+    public void AssignAudioListenersToButton()
+    {
+        UI_Button[] buttons = FindObjectsOfType<UI_Button>(true);
+
+        Debug.Log(buttons.Length);
+        foreach (var button in buttons)
+        {
+            button.AssignAudioSource();
+        }
+    }
 }

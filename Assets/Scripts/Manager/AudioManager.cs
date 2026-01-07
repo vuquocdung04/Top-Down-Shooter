@@ -8,6 +8,11 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private bool playBgm;
     private int bgmIndex;
 
+    private void Start()
+    {
+        PlayBGM(3);
+    }
+
     private void Update()
     {
         if(!playBgm && BgmIsPlaying())
