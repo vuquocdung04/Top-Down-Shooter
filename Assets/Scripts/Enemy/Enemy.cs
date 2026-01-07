@@ -45,6 +45,8 @@ public abstract class Enemy : MonoBehaviour
 
     public Enemy_Health health { get; private set; }
     public Enemy_DropController  dropController { get; private set; }
+    
+    public AudioManager audioManager { get; private set; }
 
     protected virtual void Awake()
     {
@@ -58,11 +60,14 @@ public abstract class Enemy : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<Transform>();
 
         dropController = GetComponent<Enemy_DropController>();
+        
     }
 
     protected virtual void Start()
     {
         InitializePatrolPoints();
+        audioManager = AudioManager.instance;
+        
     }
 
     protected virtual void Update()
