@@ -53,7 +53,6 @@ public class UI_WeaponSelection : MonoBehaviour
             if(weapon.weaponData != null)
                 selectedData.Add(weapon.weaponData);
         }
-
         return selectedData;
     }
 

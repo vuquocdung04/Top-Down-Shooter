@@ -28,7 +28,7 @@ public class UI : MonoBehaviour
     {
         AssignUIInputs();
         StartCoroutine(ChangeImageAlpha(0, 1.5f, null));
-        
+
         //Remove this if statement before build, it is only for easier testing
         if (GameManager.instance.quickStart)
         {
@@ -53,7 +53,7 @@ public class UI : MonoBehaviour
     public void QuitTheGame() => Application.Quit();
 
     public void StartLevelGeneration() => LevelGenerator.instance.InitializeGeneration();
-    
+
     // reason we used method because we have one scene.
     public void RestartTheGame()
     {
@@ -95,7 +95,7 @@ public class UI : MonoBehaviour
         color.a = 0;
         fadeImage.color = color;
     }
-    
+
     private void AssignUIInputs()
     {
         PlayerControls controls = GameManager.instance.player.controls;
@@ -105,15 +105,23 @@ public class UI : MonoBehaviour
 
     private IEnumerator StartGameSequence()
     {
-        //StartCoroutine(ChangeImageAlpha(1,1,null));
-        //yield return new WaitForSeconds(1f);
+        bool quickStart = GameManager.instance.quickStart;
+        if (!quickStart)
+        {
+            fadeImage.color = Color.black;
+            StartCoroutine(ChangeImageAlpha(1, 1, null));
+            yield return new WaitForSeconds(1f);
+        }
+
         yield return null;
         SwitchTo(inGameUI.gameObject);
         GameManager.instance.GameStart();
-        StartCoroutine(ChangeImageAlpha(0,0.1f,null));
-        //StartCoroutine(ChangeImageAlpha(0,1f,null));
+        if (quickStart)
+            StartCoroutine(ChangeImageAlpha(0, 0.1f, null));
+        else
+            StartCoroutine(ChangeImageAlpha(0, 1f, null));
     }
-    
+
     private IEnumerator ChangeImageAlpha(float targetAlpha, float duration, System.Action callback)
     {
         float time = 0;

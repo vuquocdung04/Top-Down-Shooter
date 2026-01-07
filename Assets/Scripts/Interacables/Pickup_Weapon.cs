@@ -19,7 +19,7 @@ public class Pickup_Weapon : Interactable
     {
         oldWeapon = true;
         weapon = wp;
-        weaponData = wp.weaponData;
+        weaponData = wp.Data;
         this.transform.position = transform.position + new Vector3(0, 0.75f, 0);
     }
 

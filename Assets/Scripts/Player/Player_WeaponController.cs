@@ -11,17 +11,18 @@ public class Player_WeaponController : MonoBehaviour
     private Player player;
 
     [SerializeField] private List<Weapon_Data> defaultWeaponData;
-    
+
     [SerializeField] private Weapon currentWeapon;
     private bool weaponReady;
     private bool isShooting;
 
 
-    [Header("Bullet Details")]
-    [SerializeField] private float bulletImpactForce = 100;
+    [Header("Bullet Details")] [SerializeField]
+    private float bulletImpactForce = 100;
+
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float bulletSpeed;
-    
+
     [SerializeField] private Transform weaponHolder;
 
     [Header("Inventory")] [SerializeField] private List<Weapon> weaponSlots;
@@ -43,33 +44,33 @@ public class Player_WeaponController : MonoBehaviour
 
     public void UpdateWeaponUI()
     {
-        UI.instance.inGameUI.UpdateWeaponUI(weaponSlots,currentWeapon);
+        UI.instance.inGameUI.UpdateWeaponUI(weaponSlots, currentWeapon);
     }
-    
+
     #region Slot management - Pick/Equip/Drop weapon
 
     public void SetDefaultWeapon(List<Weapon_Data> newWeaponData)
     {
         defaultWeaponData = new(newWeaponData);
+        Debug.Log("Default: " + defaultWeaponData.Count);
         weaponSlots.Clear();
 
         foreach (Weapon_Data weapon in defaultWeaponData)
         {
             PickupWeapon(new Weapon(weapon));
         }
-        
+
         EquipWeapon(0);
-        
     }
 
     private void EquipWeapon(int i)
     {
-        if(i >= weaponSlots.Count) return;
-        
+        if (i >= weaponSlots.Count) return;
+
         SetWeaponReady(false);
         currentWeapon = weaponSlots[i];
         player.weaponVisuals.PlayWeaponEquipAnimation();
-        
+
         //CameraManager.instance.ChangeCameraDistance(CurrentWeapon().cameraDistance);
         UpdateWeaponUI();
     }
@@ -94,7 +95,7 @@ public class Player_WeaponController : MonoBehaviour
 
         weaponSlots.Add(newWeapon);
         player.weaponVisuals.SwitchOnBackupWeaponModel();
-        
+
         UpdateWeaponUI();
     }
 
@@ -110,10 +111,15 @@ public class Player_WeaponController : MonoBehaviour
     private void CreateWeaponOnTheGround()
     {
         GameObject droppedWeapon = ObjectPool.instance.GetObject(weaponPickupPrefab, transform);
-        droppedWeapon.GetComponent<Pickup_Weapon>()?.SetupPickupWeapon(currentWeapon,transform);
+        droppedWeapon.GetComponent<Pickup_Weapon>()?.SetupPickupWeapon(currentWeapon, transform);
     }
 
-    public void SetWeaponReady(bool ready) => weaponReady = ready;
+    public void SetWeaponReady(bool ready)
+    {
+        weaponReady = ready;
+        if (ready)
+            player.sound.weaponReady.Play();
+    }
 
     public bool WeaponReady() => weaponReady;
 
@@ -125,9 +131,9 @@ public class Player_WeaponController : MonoBehaviour
         for (int i = 1; i <= currentWeapon.bulletsPerShot; i++)
         {
             FireSingleBullet();
-            
+
             yield return new WaitForSeconds(currentWeapon.burstFireDelay);
-            
+
             if (i >= currentWeapon.bulletsPerShot)
                 SetWeaponReady(true);
         }
@@ -137,7 +143,7 @@ public class Player_WeaponController : MonoBehaviour
     {
         if (!WeaponReady()) return;
         if (!CurrentWeapon().CanShoot()) return;
-        
+
         player.weaponVisuals.PlayFireAnimation();
 
         if (CurrentWeapon().shootType == ShootType.Single)
@@ -148,6 +154,7 @@ public class Player_WeaponController : MonoBehaviour
             StartCoroutine(BurstFire());
             return;
         }
+
         FireSingleBullet();
         TriggerEnemyDodge();
     }
@@ -156,15 +163,17 @@ public class Player_WeaponController : MonoBehaviour
     {
         currentWeapon.bulletsInMagazine--;
         UpdateWeaponUI();
-        
+
+        player.weaponVisuals.CurrentWeaponModel().fireSFX.Play();
+
         GameObject newBullet = ObjectPool.instance.GetObject(bulletPrefab, GunPoint());
-        
+
         newBullet.transform.rotation = Quaternion.LookRotation(GunPoint().forward);
 
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
-        
+
         Bullet bulletScript = newBullet.GetComponent<Bullet>();
-        bulletScript.BulletSetup(whatIsAlly,currentWeapon.bulletDamage,currentWeapon.gunDistance,bulletImpactForce);
+        bulletScript.BulletSetup(whatIsAlly, currentWeapon.bulletDamage, currentWeapon.gunDistance, bulletImpactForce);
 
         Vector3 bulletsDirection = currentWeapon.ApplySpread(BulletDirection());
 
@@ -176,7 +185,8 @@ public class Player_WeaponController : MonoBehaviour
     {
         SetWeaponReady(false);
         player.weaponVisuals.PlayReloadAnimation();
-        
+
+        player.weaponVisuals.CurrentWeaponModel().reloadSFX.Play();
         // we do actually refill of bullets in Player_AnimationEvents
         // we UpdateWeaponUI in Player_AnimationEvents
         // we UpdateWeaponUI in Player_AnimationEvents
@@ -199,9 +209,10 @@ public class Player_WeaponController : MonoBehaviour
     {
         foreach (var weapon in weaponSlots)
         {
-            if(weapon.weaponType == weaponType)
+            if (weapon.weaponType == weaponType)
                 return weapon;
         }
+
         return null;
     }
 
@@ -229,12 +240,12 @@ public class Player_WeaponController : MonoBehaviour
         if (Physics.Raycast(rayOrigin, rayDirection, out RaycastHit hit, Mathf.Infinity))
         {
             Enemy_Melee enemyMelee = hit.collider.transform.GetComponentInParent<Enemy_Melee>();
-            
-            if(enemyMelee)
+
+            if (enemyMelee)
                 enemyMelee.ActivateDodgeRoll();
         }
     }
-    
+
     #region Input Events
 
     private void AssignInputEvents()

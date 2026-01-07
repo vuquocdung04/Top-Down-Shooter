@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
     
     public Animator anim { get; private set; }
     
+    public Player_SoundFX sound {get; private set;}
+    
     public bool controlsEnable { get;private set; }
     
     private void Awake()
@@ -33,8 +35,10 @@ public class Player : MonoBehaviour
         weapon = GetComponent<Player_WeaponController>();
         weaponVisuals = GetComponent<Player_WeaponVisuals>();
         playerInteraction = GetComponent<Player_Interaction>();
+        sound = GetComponent<Player_SoundFX>();
         
         controls = ControlsManager.instance.controls;
+        
     }
     
     private void OnEnable()

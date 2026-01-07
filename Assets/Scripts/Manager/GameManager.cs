@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 
     public void GameStart()
     {
+        Debug.Log("GameStart");
         SetDefaultWeaponsForPlayer();
     }
     
@@ -40,6 +41,7 @@ public class GameManager : MonoBehaviour
     private void SetDefaultWeaponsForPlayer()
     {
         List<Weapon_Data> newList = UI.instance.weaponSelection.SelectedWeaponData();
+        Debug.Log(newList.Count);
         player.weapon.SetDefaultWeapon(newList);
     }
 }

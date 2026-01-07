@@ -58,39 +58,39 @@ public class Weapon
     private float spreadCooldown = 1;
     #endregion
     
-    public Weapon_Data weaponData { get; private set; }
+    public Weapon_Data Data { get; private set; }
     
 
-    public Weapon(Weapon_Data weaponData)
+    public Weapon(Weapon_Data data)
     {
-        bulletDamage = weaponData.bulletDamage;
-        weaponType = weaponData.weaponType;
-        shootType = weaponData.shootType;
-        bulletsPerShot = weaponData.bulletsPerShot;
-        fireRate = weaponData.fireRate;
+        bulletDamage = data.bulletDamage;
+        weaponType = data.weaponType;
+        shootType = data.shootType;
+        bulletsPerShot = data.bulletsPerShot;
+        fireRate = data.fireRate;
         
-        bulletsInMagazine = weaponData.bulletsInMagazine;
-        magazineCapacity = weaponData.magazineCapacity;
-        totalReserveAmmo = weaponData.totalReserveAmmo;
+        bulletsInMagazine = data.bulletsInMagazine;
+        magazineCapacity = data.magazineCapacity;
+        totalReserveAmmo = data.totalReserveAmmo;
 
-        baseSpread = weaponData.baseSpread;
-        maximumSpread = weaponData.maximumSpread;
-        spreadIncreaseRate = weaponData.spreadIncreaseRate;
+        baseSpread = data.baseSpread;
+        maximumSpread = data.maximumSpread;
+        spreadIncreaseRate = data.spreadIncreaseRate;
         
-        reloadSpeed = weaponData.reloadSpeed;
-        equipmentSpeed = weaponData.equipmentSpeed;
-        gunDistance = weaponData.gunDistance;
-        cameraDistance = weaponData.cameraDistance;
+        reloadSpeed = data.reloadSpeed;
+        equipmentSpeed = data.equipmentSpeed;
+        gunDistance = data.gunDistance;
+        cameraDistance = data.cameraDistance;
         
-        burstAvailable = weaponData.burstAvailable;
-        burstActive = weaponData.burstActive;
-        burstBulletsPerShot = weaponData.burstBulletsPerShot;
-        burstFireRate = weaponData.burstFireRate;
-        burstFireDelay = weaponData.burstFireDelay;
+        burstAvailable = data.burstAvailable;
+        burstActive = data.burstActive;
+        burstBulletsPerShot = data.burstBulletsPerShot;
+        burstFireRate = data.burstFireRate;
+        burstFireDelay = data.burstFireDelay;
         
         defaultFireRate = fireRate;
 
-        this.weaponData = weaponData;
+        this.Data = data;
     }
     
 

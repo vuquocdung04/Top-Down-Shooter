@@ -9,8 +9,8 @@ public class UI_WeaponSlot : MonoBehaviour
 
     private void Awake()
     {
-        weaponIcon = GetComponentInChildren<Image>();
-        ammoText = GetComponentInChildren<TextMeshProUGUI>();
+        weaponIcon = GetComponentInChildren<Image>(true);
+        ammoText = GetComponentInChildren<TextMeshProUGUI>(true);
     }
 
     public void UpdateWeaponSlot(Weapon myWeapon, bool activeWeapon)
@@ -25,7 +25,13 @@ public class UI_WeaponSlot : MonoBehaviour
         Color newColor = activeWeapon ? Color.white : new Color(1, 1, 1, 0.35f);
         
         weaponIcon.color = newColor;
-        weaponIcon.sprite = myWeapon.weaponData.weaponIcon;
+
+        if (myWeapon.Data == null)
+        {
+            Debug.Log("My Weapon data is null");
+        }
+        
+        weaponIcon.sprite = myWeapon.Data.weaponIcon;
 
         ammoText.text = myWeapon.bulletsInMagazine + "/" + myWeapon.totalReserveAmmo;
         ammoText.color = Color.white;
