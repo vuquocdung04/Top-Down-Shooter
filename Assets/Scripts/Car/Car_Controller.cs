@@ -9,12 +9,13 @@ public enum DriveType
 [RequireComponent(typeof(Rigidbody))]
 public class Car_Controller : MonoBehaviour
 {
+    public Car_Sounds carSounds {get; private set;}
     public Rigidbody rb {get; private set;}
     public bool carActive { get; private set; }
     private PlayerControls controls;
     private float moveInput;
     private float steerInput;
-    [SerializeField] private float speed;
+    public float speed;
     [Range(30,60)]
     [SerializeField] private float turnSensitivity = 30;
 
@@ -58,6 +59,7 @@ public class Car_Controller : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         wheels = GetComponentsInChildren<Car_Wheel>();
+        carSounds  = GetComponent<Car_Sounds>();
         ui = UI.instance;
         controls = ControlsManager.instance.controls;
         
@@ -217,7 +219,10 @@ public class Car_Controller : MonoBehaviour
     public void ActivateCar(bool activate)
     {
         carActive = activate;
-        rb.constraints = activate ? RigidbodyConstraints.None : RigidbodyConstraints.FreezeAll;
+        if(carSounds != null)
+            carSounds.ActivateCarSFX(activate);
+        // carActive = activate;
+        // rb.constraints = activate ? RigidbodyConstraints.None : RigidbodyConstraints.FreezeAll;
     }
 
     public void BrakeTheCar()
