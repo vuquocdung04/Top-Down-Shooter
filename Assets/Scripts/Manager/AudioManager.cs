@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -39,6 +40,12 @@ public class AudioManager : MonoBehaviour
         sfx.pitch = pitch;
         sfx.Play();
     }
+
+    public void SFXDelayAndFade(AudioSource source, bool play, float targetVolume,
+        float delay = 0, float fadeDuration = 1)
+    {
+        StartCoroutine(SFXDelayAndFadeCo(source, play, targetVolume, delay, fadeDuration));
+    }
     
     private void PlayBGM(int index)
     {
@@ -71,5 +78,33 @@ public class AudioManager : MonoBehaviour
                 return true;
         }
         return false;
+    }
+
+    private IEnumerator SFXDelayAndFadeCo(AudioSource source, bool play,float targetVolume, float delay = 0, float fadeDuration = 1)
+    {
+        yield return new WaitForSeconds(delay);
+        
+        float startVolume = play ? 0 : source.volume;
+        float endVolume = play ? targetVolume : 0;
+        float elapsed = 0;
+
+        if (play)
+        {
+            source.volume = 0;
+            source.Play();
+        }
+        
+        // Fade in/out over the duration
+        while (elapsed < fadeDuration)
+        {
+            elapsed += Time.deltaTime;
+            source.volume = Mathf.Lerp(startVolume, endVolume, elapsed / fadeDuration);
+            yield return null;
+        }
+        
+        source.volume = endVolume;
+        
+        if(play == false)
+            source.Stop();
     }
 }

@@ -4,6 +4,7 @@ public class Car_Sounds : MonoBehaviour
 {
     private Car_Controller car;
 
+    [SerializeField] private float engineVolume = 0.07f;
     [SerializeField] private AudioSource engineStart;
     [SerializeField] private AudioSource engineOff;
     [SerializeField] private AudioSource workingEngine;
@@ -42,11 +43,11 @@ public class Car_Sounds : MonoBehaviour
         if (activate)
         {
             engineStart.Play();
-            workingEngine.Play();
+            AudioManager.instance.SFXDelayAndFade(workingEngine, true,engineVolume, 1);
         }
         else
         {
-            engineStart.Stop();
+            AudioManager.instance.SFXDelayAndFade(workingEngine, false,engineVolume,0, 0.25f);
             engineOff.Play();
         }
     }
