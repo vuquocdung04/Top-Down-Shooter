@@ -197,7 +197,7 @@ public class Player_WeaponController : MonoBehaviour
         Transform aim = player.AimController.Aim();
         Vector3 direction = (aim.position - GunPoint().position).normalized;
 
-        if (!player.AimController.CanAimPrecisely() && player.AimController.Target() == null)
+        if (!player.AimController.CanAimPrecisely())
             direction.y = 0;
 
         return direction;

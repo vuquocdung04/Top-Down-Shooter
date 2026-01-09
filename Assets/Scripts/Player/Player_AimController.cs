@@ -1,8 +1,13 @@
+using System.Numerics;
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 
 public class Player_AimController : MonoBehaviour
 {
+    private CameraManager cameraManager;
     private Player player;
     private PlayerControls controls;
 
@@ -10,11 +15,20 @@ public class Player_AimController : MonoBehaviour
     [SerializeField] private LineRenderer aimLaser;
 
     [Header("Aim control")] [SerializeField]
-    private Transform aim;
-
+    private float preciseAimCameraDistance = 6;
+    [SerializeField] private float regularAimCameraDistance = 7;
+    [SerializeField] private float camChangeRate = 5;
+    
+    [Header("Aim Setup")]
+    [SerializeField] private Transform aim;
     [SerializeField] private bool isAimingPrecisely;
-    [SerializeField] private bool isLockingToTarget;
-
+    [SerializeField] private float offSetChangeRate = 6;
+    private float offSetY;
+    
+    [Header("Aim Layers")]
+    [SerializeField] private LayerMask preciseAim;
+    [SerializeField] private LayerMask regularAim;
+    
     [Header("Camera control")] [Range(1, 3f)] [SerializeField]
     private float maxCameraDistance = 4f;
 
@@ -22,16 +36,19 @@ public class Player_AimController : MonoBehaviour
     [Range(3f, 5f)] [SerializeField] private float cameraSensitivity = 5f;
 
     [SerializeField] private Transform cameraTarget;
-    [SerializeField] private LayerMask aimLayerMask;
 
     private Vector2 mouseInput;
     private RaycastHit lastKnownMouseHit;
+    private Camera mainCamera;
 
     private void Start()
     {
+        cameraManager = CameraManager.instance;
         player = GetComponent<Player>();
-
+        mainCamera = Camera.main;
         AssignInputEvents();
+
+        Cursor.visible = false;
     }
 
     private void Update()
@@ -40,21 +57,28 @@ public class Player_AimController : MonoBehaviour
         
         if(player.controlsEnable == false) return;
         
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            isAimingPrecisely = !isAimingPrecisely;
-        }
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            isLockingToTarget = !isLockingToTarget;
-        }
-
         UpdateAimVisuals();
         
         UpdateAimPosition();
         UpdateCameraPosition();
     }
+
+    private void EnablePreciseAim(bool enable)
+    {
+        isAimingPrecisely = !isAimingPrecisely;
+        Cursor.visible = false;
+        if (enable)
+        {
+            cameraManager.ChangeCameraDistance(preciseAimCameraDistance,camChangeRate);
+            Time.timeScale = 0.9f;
+        }
+        else
+        {
+            cameraManager.ChangeCameraDistance(regularAimCameraDistance,camChangeRate);
+            Time.timeScale = 1f;
+        }
+    }
+    
     public Transform GetAimCameraTarget()
     {
         cameraTarget.position = player.transform.position;
@@ -65,6 +89,8 @@ public class Player_AimController : MonoBehaviour
     
     private void UpdateAimVisuals()
     {
+        aim.transform.rotation = Quaternion.LookRotation(mainCamera.transform.forward);
+        
         aimLaser.enabled = player.weapon.WeaponReady();
         if(!aimLaser.enabled) return;
 
@@ -93,45 +119,31 @@ public class Player_AimController : MonoBehaviour
 
     private void UpdateAimPosition()
     {
-        Transform target = Target();
-
-        if (target != null && isLockingToTarget)
-        {
-            if (target.GetComponent<Renderer>() != null)
-                aim.position = target.GetComponent<Renderer>().bounds.center;
-            else
-                aim.position = target.position;
-            
-            return;
-        }
-        
         aim.position = GetMouseHitInfo().point;
-        
-        if (!isAimingPrecisely)
-            aim.position = new Vector3(aim.position.x, transform.position.y + 1f, aim.position.z);
-    } 
-    public Transform Target()
-    {
-        Transform target = null;
 
-        if (GetMouseHitInfo().transform.GetComponent<Target>() != null)
-        {
-            target = GetMouseHitInfo().transform;
-        }
-        return target;
+        Vector3 newAimPosition = isAimingPrecisely ? aim.position : transform.position;
+        
+        aim.position = new Vector3(aim.position.x, newAimPosition.y + AdjustedOffsetY(), aim.position.z);
+           
     }
-    public Transform Aim()
+
+    private float AdjustedOffsetY()
     {
-        return aim;
+        if(isAimingPrecisely)
+            offSetY = Mathf.Lerp(offSetY,0,Time.deltaTime * offSetChangeRate * 0.5f);
+        else
+            offSetY = Mathf.Lerp(offSetY, 1, Time.deltaTime * offSetChangeRate);
+
+        return offSetY;
     }
-    public bool CanAimPrecisely()
-    {
-        return isAimingPrecisely;
-    }
+    
+    public Transform Aim() => aim;
+    public bool CanAimPrecisely() => isAimingPrecisely;
+
     public RaycastHit GetMouseHitInfo()
     {
-        Ray ray = Camera.main.ScreenPointToRay(mouseInput);
-        if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, aimLayerMask))
+        Ray ray = mainCamera.ScreenPointToRay(mouseInput);
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, preciseAim))
         {
             lastKnownMouseHit = hitInfo;
             return hitInfo;
@@ -143,6 +155,9 @@ public class Player_AimController : MonoBehaviour
     #region Camera Region
     private void UpdateCameraPosition()
     {
+        bool canMoveCamera = Vector3.Distance(cameraTarget.position, DesiredCameraPosition()) > 1;
+        if(canMoveCamera == false) return;
+        
         cameraTarget.position = Vector3.Lerp(cameraTarget.position, DesiredCameraPosition(),
             cameraSensitivity * Time.deltaTime);
     }
@@ -171,7 +186,10 @@ public class Player_AimController : MonoBehaviour
         controls = player.controls;
 
         controls.Character.Aim.performed += ctx => mouseInput = ctx.ReadValue<Vector2>();
-        controls.Character.Aim.canceled += ctx => mouseInput = Vector2.zero;
+        controls.Character.Aim.canceled += _ => mouseInput = Vector2.zero;
+
+        controls.Character.PreciseAim.performed += _ => EnablePreciseAim(true);
+        controls.Character.PreciseAim.canceled += _ => EnablePreciseAim(false);
     }
 
 

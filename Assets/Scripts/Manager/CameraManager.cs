@@ -38,8 +38,12 @@ public class CameraManager : MonoBehaviour
             Time.deltaTime * distanceChangeRate);
     }
 
-    public void ChangeCameraDistance(float distance) => targetCameraDistance = distance;
-    
+    public void ChangeCameraDistance(float distance, float newChangeRate = 0.25f)
+    {
+        distanceChangeRate = newChangeRate;
+        targetCameraDistance = distance;
+    }
+
     public void ChangeCameraTarget(Transform target, float cameraDistance = 10, float newLookAHeadTime = 0)
     {
         virtualCamera.Follow = target;
