@@ -16,6 +16,9 @@ public class Car_Controller : MonoBehaviour
     private float moveInput;
     private float steerInput;
     public float speed;
+    
+    [SerializeField] private LayerMask whatIsGround;
+    
     [Range(30,60)]
     [SerializeField] private float turnSensitivity = 30;
 
@@ -102,6 +105,8 @@ public class Car_Controller : MonoBehaviour
     private void FixedUpdate()
     {
         if(!carActive) return;
+
+        ApplyTrailsOnGround();
         
         ApplyAnimationToWheels();
         ApplyDrive();
@@ -118,6 +123,8 @@ public class Car_Controller : MonoBehaviour
             StopDrift();
         }
     }
+
+    
 
     private void ApplyBrakes()
     {
@@ -213,6 +220,23 @@ public class Car_Controller : MonoBehaviour
                 wheel.model.transform.position = position;
                 wheel.model.transform.rotation = rotation;
             }
+        }
+    }
+    
+    private void ApplyTrailsOnGround()
+    {
+        foreach (var wheel in wheels)
+        {
+            WheelHit hit;
+            if (wheel.cd.GetGroundHit(out hit))
+            {
+                if (whatIsGround == (whatIsGround | (1 << hit.collider.gameObject.layer)))
+                    wheel.trail.emitting = true;
+                else
+                    wheel.trail.emitting = false;
+            }
+            else
+                wheel.trail.emitting = false;
         }
     }
 
