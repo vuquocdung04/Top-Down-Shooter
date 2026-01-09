@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 public class Car_Sounds : MonoBehaviour
 {
@@ -8,8 +7,6 @@ public class Car_Sounds : MonoBehaviour
     [SerializeField] private AudioSource engineStart;
     [SerializeField] private AudioSource engineOff;
     [SerializeField] private AudioSource workingEngine;
-
-    private float minSpeed = 0;
     private float maxSpeed = 10;
 
     [SerializeField] private float minPitch = 0.75f;

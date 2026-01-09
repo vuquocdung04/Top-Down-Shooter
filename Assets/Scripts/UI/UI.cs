@@ -8,6 +8,9 @@ public class UI : MonoBehaviour
     public UI_InGame inGameUI { get; private set; }
     public UI_WeaponSelection weaponSelection { get; private set; }
     public UI_GameOver gameOverUI { get; private set; }
+    
+    public UI_Settings settingsUI { get; private set; }
+    
     public GameObject victoryScreenUI;
     public GameObject pauseUI;
     [SerializeField] private GameObject[] UIElements;
@@ -22,6 +25,7 @@ public class UI : MonoBehaviour
         inGameUI = GetComponentInChildren<UI_InGame>(true);
         weaponSelection = GetComponentInChildren<UI_WeaponSelection>(true);
         gameOverUI = GetComponentInChildren<UI_GameOver>(true);
+        settingsUI = GetComponentInChildren<UI_Settings>(true);
     }
 
     private void Start()
@@ -46,6 +50,9 @@ public class UI : MonoBehaviour
         }
 
         uiToSwitchOn.SetActive(true);
+        
+        if(uiToSwitchOn ==  settingsUI.gameObject)
+            settingsUI.LoadSettings();
     }
 
     public void StartTheGame() => StartCoroutine(StartGameSequence());

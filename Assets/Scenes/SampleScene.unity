@@ -2361,7 +2361,7 @@ AudioSource:
   m_GameObject: {fileID: 151948318}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 7257148811664777985, guid: 0cee66e317320f4479cc24fe35537345, type: 2}
   m_audioClip: {fileID: 8300000, guid: 83f4981445979cd4c8d5d7fbce293aed, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -4439,7 +4439,7 @@ AudioSource:
   m_GameObject: {fileID: 374779593}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 7257148811664777985, guid: 0cee66e317320f4479cc24fe35537345, type: 2}
   m_audioClip: {fileID: 8300000, guid: f42ceba115091e646bc8ee7994bafdcf, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -7569,6 +7569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e62d8db125340439cebc22c35ede68a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  engineVolume: 0.07
   engineStart: {fileID: 2032935000}
   engineOff: {fileID: 1637960953}
   workingEngine: {fileID: 824906696}
@@ -9987,10 +9988,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 773549756}
   m_HandleRect: {fileID: 1999697796}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.001
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -11020,7 +11021,7 @@ AudioSource:
   m_GameObject: {fileID: 996600777}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 7257148811664777985, guid: 0cee66e317320f4479cc24fe35537345, type: 2}
   m_audioClip: {fileID: 8300000, guid: b1821b396f2d893438f7e7c6d2441ec8, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -12811,7 +12812,7 @@ AudioSource:
   m_GameObject: {fileID: 1248910403}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 412797569808650070, guid: 0cee66e317320f4479cc24fe35537345, type: 2}
   m_audioClip: {fileID: 8300000, guid: e5c0b5435124eee4a9bab0e4dc5c16b7, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.501
@@ -15438,7 +15439,7 @@ AudioSource:
   m_GameObject: {fileID: 1486866332}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 7257148811664777985, guid: 0cee66e317320f4479cc24fe35537345, type: 2}
   m_audioClip: {fileID: 8300000, guid: 23500858cae8e4842b4c6d466fb0017f, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -19320,7 +19321,7 @@ AudioSource:
   m_GameObject: {fileID: 1865994204}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 412797569808650070, guid: 0cee66e317320f4479cc24fe35537345, type: 2}
   m_audioClip: {fileID: 8300000, guid: 44a5d716536c11248a09ee1a54d5d168, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.501
@@ -19819,10 +19820,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 2027761630}
   m_HandleRect: {fileID: 1799345586}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.001
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -21002,7 +21003,7 @@ AudioSource:
   m_GameObject: {fileID: 2007539385}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 7257148811664777985, guid: 0cee66e317320f4479cc24fe35537345, type: 2}
   m_audioClip: {fileID: 8300000, guid: 2f2f3504a2e8ab74c9081a2b30c1ce23, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -21623,7 +21624,7 @@ AudioSource:
   m_GameObject: {fileID: 2073823904}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 7257148811664777985, guid: 0cee66e317320f4479cc24fe35537345, type: 2}
   m_audioClip: {fileID: 8300000, guid: 9cba937fb29393449be0daec1601971e, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -21801,10 +21802,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72282947fb0e427f8a62ac5235187ce8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 0cee66e317320f4479cc24fe35537345, type: 2}
+  sliderMultiplier: 25
   sfxSlider: {fileID: 909883371}
   sfxSliderText: {fileID: 1146014250}
+  sfxParameter: sfx
   bgmSlider: {fileID: 1899578724}
   bgmSliderText: {fileID: 886841939}
+  bgmParameter: bgm
 --- !u!1 &2095425948
 GameObject:
   m_ObjectHideFlags: 3
