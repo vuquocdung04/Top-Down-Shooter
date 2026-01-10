@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using Unity.AI.Navigation;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -10,9 +8,7 @@ public class LevelGenerator : MonoBehaviour
 
 
     private List<Enemy> enemyList;
-
-    [SerializeField] private NavMeshSurface navMeshSurface;
-
+    
     [Space] [SerializeField] private Transform lastLevelPart;
     [SerializeField] private List<Transform> levelParts;
     private List<Transform> currentLevelParts;
@@ -87,8 +83,7 @@ public class LevelGenerator : MonoBehaviour
     {
         generationOver = true;
         GenerateNextLevelPart();
-
-        navMeshSurface.BuildNavMesh();
+        
 
         foreach (var enemy in enemyList)
         {
@@ -103,7 +98,7 @@ public class LevelGenerator : MonoBehaviour
     [ContextMenu("Create next level part")]
     private void GenerateNextLevelPart()
     {
-        Transform newPart = null;
+        Transform newPart;
 
         if (generationOver)
             newPart = Instantiate(lastLevelPart);

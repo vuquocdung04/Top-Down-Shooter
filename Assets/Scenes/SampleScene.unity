@@ -6560,12 +6560,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1021647164917157218, guid: 0e61b6b7d285a9f4bb8e7e798bcdc748, type: 3}
-      propertyPath: m_NavMeshData
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1193319385323905981, guid: 0e61b6b7d285a9f4bb8e7e798bcdc748, type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      propertyPath: m_GenerateLinks
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2761732783408733036, guid: 0e61b6b7d285a9f4bb8e7e798bcdc748, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6625,17 +6621,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 512bd5241d164b109d8ca49f82dd816e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &628515709 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1021647164917157218, guid: 0e61b6b7d285a9f4bb8e7e798bcdc748, type: 3}
-  m_PrefabInstance: {fileID: 628515707}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &631236863
@@ -8970,7 +8955,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0414b2a827974bfc89acb69bd2fb9e43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  navMeshSurface: {fileID: 628515709}
   lastLevelPart: {fileID: 2961092432926518290, guid: a8fd711215e3e374b99bf670aa16d4ac, type: 3}
   levelParts:
   - {fileID: 1990789868430406224, guid: 1d7d46429e009bb4585eb449a59464bc, type: 3}
